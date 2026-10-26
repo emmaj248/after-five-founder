@@ -1,29 +1,34 @@
 # After Five Founder
 
-Static website for After Five Founder, the sister brand of Minnow Byte IT. Every page is a self-contained HTML file (styles and scripts inline), so there is no build step.
+Source for [afterfivefounder.com](https://afterfivefounder.com). It runs as a Cloudflare Worker named `after-five-founder`, with static files and a D1 database.
 
-## Pages
+This repo was rebuilt from what was live on 25 October 2026: the deployed Worker code and every file the site serves.
 
-| File | Page |
+## Layout
+
+| Path | What it is |
 | --- | --- |
-| `index.html` | Home: Can a side hustle become the real thing? |
-| `small-business-project.html` | The Small Business Project |
-| `journal.html` | The Journal |
-| `costing-suite.html` | Costing Suite |
-| `cost-calculator.html` | Cost Calculator |
-| `social-kit.html` | Social Kit |
-| `archive/after-five-founder-v1.html` | Earlier version of the site (August 2026), kept for reference |
+| `worker.js` | The Worker. It renders the blog, series pages, About and the `/admin` editor, handles `/api/*` (subscribe, login, articles), and serves everything else from `public/` |
+| `public/` | Static pages and images: home, Costing Suite, Shop, The Small Business Project, `robots.txt`, `assets/` |
+| `wrangler.jsonc` | Cloudflare config: static assets binding `ASSETS`, D1 database `afterfive-journal` as `DB` |
+| `archive/` | Earlier artifact versions of pages, kept for reference only. Not deployed |
 
-Links between pages point at the local files, so the site works when served from any static host.
+## What's not in this repo
 
-## Preview locally
-
-Open `index.html` in a browser, or run a local server:
-
-```sh
-python3 -m http.server 8000
-```
+- **Blog posts, series and subscribers.** These live in the `afterfive-journal` D1 database, not in files.
+- **Secrets.** `ADMIN_PASSWORD` and `SESSION_SECRET` are set on the Worker in Cloudflare. To set them again: `npx wrangler secret put ADMIN_PASSWORD`.
+- **Custom domains.** These are managed in the Cloudflare dashboard.
 
 ## Deploy
 
-Any static host works. On Cloudflare Pages, connect this repo with no build command and `/` as the output directory.
+```sh
+npx wrangler deploy
+```
+
+Or connect this repo under Workers & Pages → after-five-founder → Settings → Builds, so every push to `main` deploys.
+
+## Run locally
+
+```sh
+npx wrangler dev
+```

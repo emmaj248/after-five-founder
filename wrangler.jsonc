@@ -1,0 +1,20 @@
+{
+  // Cloudflare Worker for afterfivefounder.com
+  "name": "after-five-founder",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "afterfive-journal",
+      "database_id": "909a024e-cbe9-4964-8c01-b7f23ca92478"
+    }
+  ],
+  "observability": { "enabled": false }
+  // Custom domains (afterfivefounder.com) are managed in the Cloudflare dashboard.
+  // Secrets (set with `npx wrangler secret put`, never committed): ADMIN_PASSWORD, SESSION_SECRET
+}
