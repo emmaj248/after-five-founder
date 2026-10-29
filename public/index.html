@@ -81,13 +81,14 @@ section{position:relative}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
 .card{border-radius:var(--r);padding:1.6rem 1.4rem;display:flex;flex-direction:column;gap:1.4rem;color:#fff;box-shadow:0 10px 30px rgba(20,18,16,.06)}
 .card .num{font-family:'Jost',system-ui,sans-serif;font-size:.72rem;letter-spacing:.14em;opacity:.75}
-.card.deep .num,.card.orange .num,.card.taupe .num{color:var(--gold-ink);opacity:1}
+.card.orange .num{color:var(--gold-ink);opacity:1}
+.card.deep .num{color:#F0DDB4;opacity:1}
 .card h3{font-family:'Jost',system-ui,sans-serif;font-weight:500;font-size:1.6rem;line-height:1.1;margin:0}
 .card p{font-size:.92rem;margin:.6rem 0 0;opacity:.9}
 .card.pink{background:var(--ink);color:#fff}
-.card.deep{background:var(--cream);color:var(--ink);border:1px solid #ece2d5}
+.card.deep{background:var(--gold-ink);color:#fff}
 .card.orange{background:#fff;color:var(--ink);border:1px solid #ece2d5}
-.card.taupe{background:var(--cream);color:var(--ink);border:1px solid #efe3d8}
+.card.taupe{background:#DCC9A8;color:var(--ink)}
 .card:hover{transform:translateY(-4px)}
 .card{transition:transform .18s}
 /* ---------- JOURNAL ---------- */
