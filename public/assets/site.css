@@ -1,0 +1,73 @@
+/* After Five Founder: shared tokens, header, signup strip and footer.
+   Every page loads this first. Markup comes from chrome.js. */
+:root{
+  --sx-ink:#1A1512;--sx-warm:#FAF8F4;--sx-cream:#F2ECE1;--sx-blush:#EDE6D9;--sx-line:#E6DCCD;
+  /* Gold for shapes and large display text; gold-ink for small text and buttons (WCAG AA on cream). */
+  --sx-gold:#B0894E;--sx-gold-ink:#7A5C2E;--sx-muted:#6B625A;
+  --sx-sans:'Jost',system-ui,sans-serif;--sx-serif:'Bodoni Moda',Georgia,serif;
+  --sx-wrap:min(1120px,calc(100% - 40px));
+}
+[id]{scroll-margin-top:84px}
+.sx-wrap{width:var(--sx-wrap);margin-inline:auto}
+
+/* header */
+.sx-nav{position:sticky;top:0;z-index:60;background:var(--sx-warm);border-bottom:1px solid var(--sx-line);font-family:var(--sx-sans)}
+.sx-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+.sx-logo img{display:block;height:36px;width:auto}
+.sx-links{display:flex;align-items:center;gap:1.6rem;font-size:.95rem;font-weight:500}
+.sx-links a{color:var(--sx-ink);text-decoration:none}
+.sx-links>a:not(.sx-btn),.sx-drop>a{opacity:.82;transition:opacity .15s,color .15s}
+.sx-links>a:not(.sx-btn):hover,.sx-drop>a:hover,.sx-links a[aria-current]{opacity:1;color:var(--sx-gold-ink)}
+.sx-drop{position:relative;display:flex;align-items:center;padding:1.3rem 0;margin:-1.3rem 0}
+.sx-drop span{font-size:.7em}
+.sx-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%);display:none;flex-direction:column;min-width:224px;padding:.55rem;background:var(--sx-warm);border:1px solid var(--sx-line);border-radius:16px;box-shadow:0 20px 44px rgba(20,18,16,.14)}
+.sx-drop:hover .sx-menu,.sx-drop:focus-within .sx-menu{display:flex}
+.sx-menu-head{padding:.4em .9em .55em;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sx-muted)}
+.sx-menu a{padding:.55em .9em;border-radius:9px;white-space:nowrap;font-size:.9rem}
+.sx-menu a:hover{background:var(--sx-cream);color:var(--sx-gold-ink)}
+.sx-btn{display:inline-flex;align-items:center;gap:.4em;padding:.6em 1.2em;border-radius:100px;background:var(--sx-ink);color:#fff!important;font-weight:600;transition:transform .12s}
+.sx-btn:hover{transform:translateY(-1px)}
+.sx-toggle{display:none;flex-direction:column;gap:5px;padding:8px;margin-right:-8px;background:none;border:0;cursor:pointer}
+.sx-toggle span{width:24px;height:2px;border-radius:2px;background:var(--sx-ink);transition:transform .25s,opacity .2s}
+.sx-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.sx-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.sx-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.sx-mobile{display:none;flex-direction:column;padding:.3rem 20px 1.1rem;border-top:1px solid var(--sx-line);background:var(--sx-warm)}
+.sx-mobile.open{display:flex}
+.sx-mobile a{padding:.9rem 0;border-bottom:1px solid rgba(20,18,16,.07);font-size:1.05rem;font-weight:500;color:var(--sx-ink);text-decoration:none}
+.sx-mobile a[aria-current]{color:var(--sx-gold-ink)}
+.sx-mobile .sx-mobile-follow{border-bottom:0;font-weight:700;color:var(--sx-gold-ink)}
+@media(max-width:760px){.sx-links{display:none}.sx-toggle{display:flex}}
+
+/* signup strip */
+.sx-follow{padding:5rem 0;background:var(--sx-ink);color:#fff;text-align:center;font-family:var(--sx-sans)}
+.sx-eyebrow{display:inline-block;margin:0;padding:.5em 1.1em;border:1.5px solid var(--sx-gold);border-radius:100px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D9BF8F}
+.sx-follow h2{margin:1rem 0 0;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:400;line-height:1.05;letter-spacing:-.01em;color:#fff}
+.sx-follow h2 em{font-family:var(--sx-serif);font-style:italic;font-weight:600;color:#D9BF8F;font-optical-sizing:none;font-variation-settings:'opsz' 22}
+.sx-follow-text{max-width:44ch;margin:1.1rem auto 0;font-size:1.05rem;opacity:.92}
+.sx-form{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:480px;margin:2rem auto 0}
+.sx-form input{flex:1 1 240px;min-width:0;padding:1em 1.4em;border:0;border-radius:100px;font:inherit;font-size:1rem}
+.sx-form button{padding:1em 1.6em;border:0;border-radius:100px;background:var(--sx-cream);color:var(--sx-ink);font:inherit;font-weight:700;cursor:pointer;transition:transform .12s,background .15s}
+.sx-form button:hover{background:#fff;transform:translateY(-1px)}
+.sx-form button:disabled{opacity:.6;cursor:default;transform:none}
+.sx-status{min-height:1.3em;margin:.8rem 0 0;font-size:.92rem;font-weight:600}
+.sx-status.ok{color:#E5CF9F}.sx-status.err{color:#FFB0B0}
+.sx-fine{margin:.4rem 0 0;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.sx-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+
+/* footer */
+.sx-foot{padding:4rem 0 2.5rem;background:var(--sx-cream);color:var(--sx-ink);font-family:var(--sx-sans)}
+.sx-foot-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start}
+.sx-brand img{display:block;height:60px;width:auto}
+.sx-tagline{max-width:26ch;margin:1rem 0 0;font-family:var(--sx-serif);font-style:italic;font-size:1.1rem;color:var(--sx-muted)}
+.sx-foot-head{margin:0 0 1rem;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sx-muted)}
+.sx-foot-links{display:flex;flex-direction:column;gap:.6rem;margin:0;padding:0;list-style:none;font-size:.95rem}
+.sx-foot-links a{color:var(--sx-ink);text-decoration:none}
+.sx-foot-links a:hover{color:var(--sx-gold-ink)}
+.sx-socs{display:flex;flex-wrap:wrap;gap:.55rem}
+.sx-socs a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--sx-gold-ink);color:#fff;transition:background .15s,transform .12s}
+.sx-socs a:hover{background:var(--sx-ink);transform:translateY(-2px)}
+.sx-socs svg{width:18px;height:18px}
+.sx-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(20,18,16,.14);font-size:.82rem;color:var(--sx-muted)}
+.sx-tm{max-width:76ch;margin:1rem 0 0;font-size:.74rem;line-height:1.45;color:var(--sx-muted)}
+@media(max-width:760px){.sx-foot-grid{grid-template-columns:1fr 1fr}.sx-brand{grid-column:1/-1}}
