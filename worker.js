@@ -34,15 +34,20 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .body p{margin:1.3rem 0}.body h3{font-family:'Jost',system-ui,sans-serif;font-size:1.6rem;margin:2.2rem 0 .6rem}
 .body ul{padding-left:1.2rem}.body li{margin:.4rem 0}
 .body blockquote,.body .pull{border-left:4px solid var(--gold);margin:2rem 0;padding:.4rem 0 .4rem 1.4rem;font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.5rem;line-height:1.3;color:var(--ink)}
-.body a{color:var(--gold-ink);text-decoration:underline}
+.body a:not(.btn){color:var(--gold-ink);text-decoration:underline}
 .body .gg{font-weight:700}
 .body>p:first-child::first-letter{font-family:'Bodoni Moda',serif;font-weight:600;font-size:3.4rem;float:left;line-height:.8;padding:.05em .12em 0 0;color:var(--gold)}
 .empty{max-width:600px;margin:3rem auto;text-align:center;color:var(--muted)}
-.about-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:3rem;align-items:start;padding-bottom:2rem}
-.about-grid img{width:100%;border-radius:var(--r);box-shadow:0 24px 60px rgba(20,18,16,.14)}
-.about-grid .body{margin-top:0}
-@media(min-width:821px){.about-grid img{position:sticky;top:96px}}
-@media(max-width:820px){.about-grid{grid-template-columns:1fr}}
+.empty-left{margin:1rem 0 4rem;text-align:left;font-size:1.05rem}
+.about-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,5vw,4.5rem);align-items:center;padding:4rem 0 3.5rem}
+.about-hero .eyebrow{color:var(--gold-ink)}
+.about-hero h1{font-size:clamp(2.4rem,5vw,4rem);margin:.8rem 0 0}
+.about-hero p{color:#4a433b;max-width:44ch;margin:1.1rem 0 0;font-size:1.15rem}
+.about-hero img{width:100%;aspect-ratio:6/5;object-fit:cover;border-radius:var(--r);box-shadow:0 24px 60px rgba(20,18,16,.14)}
+.about-story{border-top:1px solid var(--line);padding-bottom:3rem}
+.about-story .body>p:first-child{font-size:1.3rem;line-height:1.55;color:var(--ink)}
+.about-story .body>p:first-child::first-letter{all:unset}
+@media(max-width:820px){.about-hero{grid-template-columns:1fr;padding:2.5rem 0 2.5rem}.about-hero img{order:-1;aspect-ratio:4/3}}
 `;
 function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -144,7 +149,7 @@ async function journalIndex(env) {
   const body = `<header class="jhead"><div class="wrap">
       <span class="mono eyebrow">The Blog</span><h1 class="serif">The honest <em>version.</em></h1>
       <p>No gatekeeping, no jargon &mdash; just what I'm learning as I build, in real time.</p></div></header>
-    <div class="wrap">${cards ? `<div class="posts">${cards}</div>` : '<p class="empty">The first post is on its way. Follow along below to hear when it lands.</p>'}</div>`;
+    <div class="wrap">${cards ? `<div class="posts">${cards}</div>` : '<p class="empty empty-left">The first post is on its way. Follow along below to hear when it lands.</p>'}</div>`;
   return htmlResp(layout({ title: "The Blog \u2014 After Five Founder", desc: "Building a software company after five, in the open.", body, active: "blog" }));
 }
 __name(journalIndex, "journalIndex");
@@ -162,12 +167,15 @@ async function articlePage(env, slug) {
 }
 __name(articlePage, "articlePage");
 function aboutPage() {
-  const body = `<header class="jhead"><div class="wrap">
-      <span class="mono eyebrow">About \xB7 After Five</span>
-      <h1 class="serif">Hi, I\u2019m Emma.</h1>
-      <p>I grew up in New Zealand and moved to the US more than a decade ago. Since then, I\u2019ve built a career working at the intersection of business and technology.</p></div></header>
-    <div class="wrap about-grid">
-      <img src="/assets/emma-about.jpg" alt="Emma, founder of After Five">
+  const body = `<header class="wrap about-hero">
+      <div>
+        <span class="mono eyebrow">About \xB7 After Five</span>
+        <h1 class="serif">Hi, I\u2019m Emma.</h1>
+        <p>I grew up in New Zealand and moved to the US more than a decade ago. Since then, I\u2019ve built a career working at the intersection of business and technology.</p>
+      </div>
+      <img src="/assets/emma-about.jpg" alt="Emma, founder of After Five" width="615" height="512">
+    </header>
+    <div class="about-story"><div class="wrap">
       <div class="body">
         <p>I\u2019ve worked with businesses as they\u2019ve grown from small operations into companies with hundreds of employees. I\u2019ve seen businesses succeed, businesses fail, and plenty just trying to keep everything moving.</p>
         <p>And I\u2019ve seen the same problems come up again and again.</p>
@@ -181,9 +189,9 @@ function aboutPage() {
         <p>And sometimes the spreadsheet is perfectly fine.</p>
         <p>After Five is where I\u2019m giving things a go, figuring out what works, learning from what doesn\u2019t, and sharing it all along the way.</p>
         <blockquote class="pull">Because this isn\u2019t about having all the answers. It\u2019s about being willing to figure them out.</blockquote>
-        <p style="margin-top:1.6rem"><a class="btn btn-dark" href="/#join">Follow the journey</a></p>
+        <p style="margin-top:1.6rem"><a class="btn btn-dark" href="#join">Follow the journey</a></p>
       </div>
-    </div>`;
+    </div></div>`;
   return htmlResp(layout({ active: "about", title: "About \u2014 After Five Founder", desc: "The story behind After Five \u2014 an honest experiment in what actually helps a small business, from AI to automation to getting more out of the tools you already pay for.", body }));
 }
 __name(aboutPage, "aboutPage");

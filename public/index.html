@@ -45,7 +45,7 @@ section{position:relative}
 .hero{background:radial-gradient(120% 95% at 88% 8%,#EFE7D6 0%,transparent 52%),linear-gradient(170deg,#FFFFFF 0%,var(--warm) 100%);color:var(--ink);overflow:hidden;position:relative}
 .hero .eyebrow{color:var(--gold-ink)}
 .hero h1{font-size:clamp(2.8rem,5.7vw,5.3rem);margin:0;color:var(--ink);font-weight:400;line-height:1.04;letter-spacing:-.025em}
-.hero h1 em{color:var(--gold);font-weight:600}
+.hero h1 em{color:var(--gold);font-weight:600;letter-spacing:0}
 .hero .sub{font-size:clamp(1.05rem,1.4vw,1.24rem);max-width:46ch;margin:1.5rem 0 0;color:#4a433b;font-weight:500}
 .hero .cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2.2rem}
 /* ---------- INTRO ---------- */
@@ -119,7 +119,8 @@ section{position:relative}
 /* ===== redesigned hero (scoped) ===== */
 .hero .hero-in{width:var(--sx-wrap);margin:0 auto;padding:2.4rem 0 3.3rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);gap:2.2rem;align-items:center}
 .hero .hc h1{font-size:clamp(2.5rem,4.4vw,4.2rem);line-height:1.02;letter-spacing:-.02em;font-weight:400;margin:0;color:var(--ink)}
-.hero .hc h1 em{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;color:var(--gold);font-variation-settings:'opsz' 40}
+.hero .hc h1 em{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;color:var(--gold);font-optical-sizing:none;font-variation-settings:'opsz' 22}
+.hero h1 .kw{margin-right:-.09em}
 .hero .hc .sub{font-size:clamp(1.02rem,1.3vw,1.16rem);color:#4a433b;line-height:1.5;margin:1.5rem 0 0;max-width:44ch;font-weight:500}
 .hero .hc .markwrap{margin:1.1rem 0 0;max-width:46ch}
 .hero .hc .mark{background:#EAD9AE;color:var(--ink);font-weight:600;padding:.05em .18em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone;line-height:1.85}
@@ -225,7 +226,7 @@ section{position:relative}
 <section class="hero" id="top">
   <div class="hero-in">
     <div class="hc">
-      <h1>Small business.<br>Big tech.<br><em>Without</em> the big budget.</h1>
+      <h1>Small business.<br>Big tech.<br><em><span class="kw">W</span>ithout</em> the big budget.</h1>
       <p class="sub">AI. Apps. Automation. Better workflows. Big businesses have teams to figure this stuff out. Small businesses usually don’t.</p>
       <p class="markwrap"><span class="mark">After Five is about finding what actually works — without wasting your time or your money.</span></p>
       <div class="cta">
