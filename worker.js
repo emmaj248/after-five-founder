@@ -193,17 +193,23 @@ async function hmac(secret, data) {
   return btoa(String.fromCharCode(...new Uint8Array(sig))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 __name(hmac, "hmac");
+// Sessions are signed with SESSION_SECRET (or the admin password if that isn't set).
+// With neither set, as on Preview URLs, nobody can sign in.
+function sessionKey(env) {
+  return env.SESSION_SECRET || env.ADMIN_PASSWORD || "";
+}
+__name(sessionKey, "sessionKey");
 async function makeToken(env) {
   const p = "admin." + Date.now();
-  return p + "." + await hmac(env.SESSION_SECRET || "dev", p);
+  return p + "." + await hmac(sessionKey(env), p);
 }
 __name(makeToken, "makeToken");
 async function validToken(env, tok) {
-  if (!tok) return false;
+  if (!tok || !sessionKey(env)) return false;
   const i = tok.lastIndexOf(".");
   if (i < 0) return false;
   const p = tok.slice(0, i), sig = tok.slice(i + 1);
-  if (await hmac(env.SESSION_SECRET || "dev", p) !== sig) return false;
+  if (await hmac(sessionKey(env), p) !== sig) return false;
   const ts = parseInt(p.split(".")[1] || "0");
   return Date.now() - ts < 30 * 864e5;
 }

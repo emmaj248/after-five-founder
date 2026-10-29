@@ -14,7 +14,19 @@
       "database_id": "909a024e-cbe9-4964-8c01-b7f23ca92478"
     }
   ],
-  "observability": { "enabled": false }
+  "observability": { "enabled": false },
+  // Settings for pull request Preview URLs (`npx wrangler preview`).
+  // Previews read the live blog database so you can check new designs against real posts.
+  // They have no secrets, so the /admin editor can't be signed into there and can't change posts.
+  "previews": {
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "afterfive-journal",
+        "database_id": "909a024e-cbe9-4964-8c01-b7f23ca92478"
+      }
+    ]
+  }
   // Custom domains (afterfivefounder.com) are managed in the Cloudflare dashboard.
   // Secrets (set with `npx wrangler secret put`, never committed): ADMIN_PASSWORD, SESSION_SECRET
 }
