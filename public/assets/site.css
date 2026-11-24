@@ -57,7 +57,7 @@
 
 /* footer */
 .sx-foot{padding:4rem 0 2.5rem;background:var(--sx-cream);color:var(--sx-ink);font-family:var(--sx-sans)}
-.sx-foot-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr) minmax(0,1fr) minmax(0,.9fr);gap:2rem;align-items:start}
+.sx-foot-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.8fr) minmax(0,1fr) minmax(0,1.15fr);gap:2rem;align-items:start}
 .sx-brand img{display:block;height:60px;width:auto}
 .sx-tagline{max-width:26ch;margin:1rem 0 0;font-family:var(--sx-serif);font-style:italic;font-size:1.1rem;color:var(--sx-muted)}
 .sx-foot-head{margin:0 0 1rem;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sx-muted)}

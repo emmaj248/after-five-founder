@@ -16,38 +16,8 @@
     return isNaN(d) ? iso : d.toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
   }
 
-  // Same rules as mdToHtml in worker.js, so the preview matches the live post.
-  function inline(s) {
-    return esc(s)
-      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*([^*]+)\*/g, "<em>$1</em>")
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-  }
-  function mdToHtml(md) {
-    var lines = String(md || "").replace(/\r/g, "").split("\n"), out = [], i = 0, buf;
-    var isList = function (l) { return /^[-*]\s+/.test(l); };
-    while (i < lines.length) {
-      var ln = lines[i];
-      if (!ln.trim()) { i++; continue; }
-      if (ln.indexOf("## ") === 0) { out.push("<h3>" + inline(ln.slice(3).trim()) + "</h3>"); i++; continue; }
-      if (ln.indexOf("> ") === 0) {
-        buf = [];
-        while (i < lines.length && lines[i].indexOf("> ") === 0) { buf.push(lines[i].slice(2).trim()); i++; }
-        out.push('<blockquote class="pull">' + inline(buf.join(" ")) + "</blockquote>");
-        continue;
-      }
-      if (isList(ln)) {
-        buf = [];
-        while (i < lines.length && isList(lines[i])) { buf.push("<li>" + inline(lines[i].replace(/^[-*]\s+/, "").trim()) + "</li>"); i++; }
-        out.push("<ul>" + buf.join("") + "</ul>");
-        continue;
-      }
-      buf = [];
-      while (i < lines.length && lines[i].trim() && lines[i].indexOf("## ") !== 0 && lines[i].indexOf("> ") !== 0 && !isList(lines[i])) { buf.push(lines[i].trim()); i++; }
-      out.push("<p>" + inline(buf.join(" ")) + "</p>");
-    }
-    return out.join("\n");
-  }
+  // Shared with the Worker (public/assets/md.js), so the preview matches the live post.
+  var mdToHtml = function (md) { return window.AFMD.mdToHtml(md, { verified: $("f_verified").value ? fmtDate($("f_verified").value) : "" }); };
 
   function flash(text, ok) {
     var m = $("msg");
@@ -100,6 +70,9 @@
     $("f_tag").value = a.tag || "Journal";
     $("f_excerpt").value = a.excerpt || "";
     $("f_body").value = a.body_md || "";
+    $("f_kind").value = a.kind || "";
+    $("f_verified").value = a.verified_at || "";
+    $("f_cover").value = a.cover_url || "";
     setStatus(a.status || "");
     renderPreview();
     dirty = false;
@@ -137,7 +110,8 @@
     var id = $("f_id").value;
     var body = {
       title: $("f_title").value, slug: $("f_slug").value, tag: $("f_tag").value,
-      excerpt: $("f_excerpt").value, body_md: $("f_body").value, status: status
+      excerpt: $("f_excerpt").value, body_md: $("f_body").value, status: status,
+      kind: $("f_kind").value, verified_at: $("f_verified").value, cover_url: $("f_cover").value
     };
     if (!body.title.trim()) { flash("Add a title first.", false); $("f_title").focus(); return; }
     api("/api/articles" + (id ? "/" + id : ""), { method: id ? "PUT" : "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) })
@@ -148,6 +122,7 @@
         $("f_slug").value = d.slug;
         dirty = false;
         setStatus(d.status);
+        if (d.warn) { flash(d.warn, false); return; }
         flash(d.status === "published" ? "Saved. It’s live on the blog." : "Saved as a draft. It’s not on the blog.", true);
       });
   }
@@ -176,7 +151,7 @@
   $("btnDelete").addEventListener("click", del);
   $("btnLogout").addEventListener("click", function () { fetch("/api/logout").then(function () { location.reload(); }); });
   $("list").addEventListener("click", function (e) { var b = e.target.closest("[data-edit]"); if (b) edit(b.getAttribute("data-edit")); });
-  ["f_title", "f_slug", "f_tag", "f_excerpt", "f_body"].forEach(function (id) {
+  ["f_title", "f_slug", "f_tag", "f_excerpt", "f_body", "f_kind", "f_verified", "f_cover"].forEach(function (id) {
     $(id).addEventListener("input", function () { dirty = true; renderPreview(); });
   });
   window.addEventListener("beforeunload", function (e) { if (dirty) { e.preventDefault(); e.returnValue = ""; } });

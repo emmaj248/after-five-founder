@@ -1,6 +1,6 @@
 # After Five Founder: website evolution plan
 
-Status: Release 1 implemented on branch `claude/project-thread-gfvxf0` (not deployed). Releases 2 to 4 are proposals.
+Status: Releases 1 and 2 implemented on branch `claude/project-thread-gfvxf0` (not deployed). Releases 3 and 4 are proposals.
 
 Guiding rule: **Human first. Technology second.** About 70% preservation, 30% evolution.
 
@@ -138,3 +138,24 @@ Checked locally by running `worker.js` against a mock D1 with clearly labelled t
 Not checked: the live D1 data (the container can't reach afterfivefounder.com), real Google Fonts delivery (local copies of the same fonts were used), Lighthouse/Core Web Vitals scores.
 
 Outstanding: privacy page; real build-in-public screenshots; cover image field in the editor; between 760 and 1120px the hero still stacks the collage under the copy, as before.
+
+---
+
+## Release 2: changed files and checks
+
+| File | Change |
+| --- | --- |
+| `public/assets/md.js` (new) | One shared renderer for live posts and the editor preview. `## Heading` now renders as `<h2>` (correct heading order; same look). Adds optional blocks: `::: summary`, `costs`, `for`, `skip`, `before`, `verdict`, `sources`, `disclosure`, closed with `:::`. Links only allow `http(s)`, `/`, `#` and `mailto:`. |
+| `worker.js` | Blog index: featured latest post, topic chips with counts (`/blog?topic=…`, shown once there are two or more topics). Article: standfirst, byline with photo, published and updated dates, optional label, optional cover, share links (no third-party scripts), author box, related posts (same topic first), calculator links. About: "How posts are labelled". SEO: canonical URLs, `og:url`, article Open Graph tags, `BlogPosting`/`Blog`/`AboutPage` JSON-LD with Emma as author, `/sitemap.xml`, `noindex` on the 404. Homepage: latest posts are now in the HTML (server-rendered), so they show without JavaScript. Editor: Label, Prices checked on and Cover image fields, plus a block cheat sheet. |
+| `public/assets/admin.js` | Uses the shared renderer; sends and loads the three new fields; shows a warning if the database update hasn't been run. |
+| `migrations/0001_editorial_fields.sql` (new) | Adds `kind` and `verified_at` to `articles`. Additive only. |
+| `public/index.html`, `costing-suite.html`, `shop.html` | Canonical links; homepage skips its post fetch when the server already filled it in. |
+| `public/robots.txt` | `Sitemap:` line. |
+
+**One manual step before the labels work:** run `npx wrangler d1 migrations apply afterfive-journal --remote` (it changes the live database, so it's yours to run). Until then everything else works and posts save normally; only the label and checked date are skipped, and the editor says so.
+
+Labels are never set automatically. Existing posts stay unlabelled until you choose one; Scout research should be labelled Researched, never Hands-on tested.
+
+Checked locally with the mock D1 and labelled test posts: blog index, topic filter, article (every block), About and editor at 375 and 1440px with no horizontal scroll or script errors; JSON-LD, canonical and sitemap output; 404 is `noindex`; old `/journal` and `/post-…html` routes still work; homepage renders posts server-side and doesn't refetch; Release 1 checks (calculators, export, signup, menu) re-run and still pass.
+
+Moved to later: RSS and search (Release 4), per-post generated OG images (needs an image pipeline; posts with a cover image already use it), category landing pages (the topic filter covers this until each topic has several posts).

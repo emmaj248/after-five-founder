@@ -3,6 +3,7 @@ var __name = (target, value) => __defProp(target, "name", { value, configurable:
 
 // worker.js
 import { siteHeader, siteFollow, siteFooter } from "./chrome.js";
+import "./public/assets/md.js";
 var FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,500;1,6..96,600;1,6..96,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/site.css">`;
 var CSS = `
 :root{--gold:#B0894E;--gold-ink:#7A5C2E;--muted:#6B625A;--ink:#1A1512;--warm:#FAF8F4;--blush:#EDE6D9;--cream:#F2ECE1;--line:#EADFD2;--r:22px}
@@ -48,6 +49,65 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .about-story .body>p:first-child{font-size:1.3rem;line-height:1.55;color:var(--ink)}
 .about-story .body>p:first-child::first-letter{all:unset}
 @media(max-width:820px){.about-hero{grid-template-columns:1fr;padding:2.5rem 0 2.5rem}.about-hero img{order:-1;aspect-ratio:4/3}}
+/* release 2: blog listing */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.6rem 0 0}
+.chip{display:inline-flex;align-items:center;gap:.4em;padding:.5em 1em;border-radius:100px;border:1.5px solid #DCD0BE;font-size:.86rem;font-weight:600;color:var(--ink);background:#fff}
+.chip span{color:var(--muted);font-weight:500}
+.chip:hover{border-color:var(--gold-ink)}
+.chip[aria-current]{background:var(--ink);border-color:var(--ink);color:#fff}.chip[aria-current] span{color:#D9BF8F}
+.featured{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(1.4rem,4vw,3rem);align-items:center;margin:0 0 2.6rem;padding-bottom:2.6rem;border-bottom:1px solid var(--line)}
+.featured:hover h2{color:var(--gold-ink)}
+.featured h2{font-family:'Jost',system-ui,sans-serif;font-weight:500;font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.1;letter-spacing:-.01em;margin:.7rem 0 0}
+.featured p{color:#4a433b;font-size:1.08rem;margin:.9rem 0 0;max-width:52ch}
+.featured .meta{display:block;margin-top:1rem;font-size:.85rem;color:var(--muted)}
+@media(max-width:820px){.featured{grid-template-columns:1fr}}
+.tile{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:radial-gradient(110% 120% at 85% 10%,#4A3E33 0%,transparent 55%),#2A231E}
+.tile img{width:100%;height:100%;object-fit:cover}
+.tile .tt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(1.1rem,3vw,1.8rem);color:#F2ECE1}
+.tile .tt .s{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+.tile .tt .k{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1;color:#D9BF8F;font-optical-sizing:none;font-variation-settings:'opsz' 22}
+.kind{display:inline-block;font-family:'Jost',system-ui,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.42em .85em;border-radius:100px;border:1.5px solid var(--gold-ink);color:var(--gold-ink)}
+.kind-tested,.kind-practice{background:var(--gold-ink);color:#fff}
+.post .pill-row{gap:.45rem}
+/* release 2: article */
+.a-dek{font-size:1.22rem;line-height:1.5;color:#4a433b;margin:1rem 0 0}
+.byline{display:flex;align-items:center;gap:.8rem;margin-top:1.4rem;font-size:.88rem;color:var(--muted)}
+.byline img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.byline a{color:var(--ink);font-weight:600}
+.byline .dot{opacity:.5}
+.a-cover{max-width:880px;margin:2.2rem auto 0}.a-cover img{width:100%;border-radius:var(--r)}
+.body h2{font-family:'Jost',system-ui,sans-serif;font-size:1.6rem;font-weight:600;line-height:1.2;margin:2.4rem 0 .6rem}
+.body h3{font-weight:600;font-size:1.25rem!important;margin:1.8rem 0 .4rem!important}
+.blk{margin:2rem 0;padding:1.3rem 1.5rem;border-radius:16px;background:#fff;border:1px solid var(--line);font-size:1.02rem}
+.blk>:last-child{margin-bottom:0}.blk p{margin:.7rem 0}
+.blk-h{margin:0 0 .4rem!important;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}
+.blk-summary{background:var(--cream);border-color:transparent}
+.blk-verdict{background:var(--ink);color:#F2ECE1;border-color:var(--ink)}.blk-verdict .blk-h{color:#D9BF8F}.blk-verdict a:not(.btn){color:#E5CF9F!important}
+.blk-skip{border-left:4px solid #88796C}.blk-for{border-left:4px solid var(--gold)}
+.blk-sources,.blk-disclosure{font-size:.9rem;color:#4a433b;background:transparent}
+.blk-note{font-size:.84rem;color:var(--muted)}
+.body .blk ul{margin:.4rem 0}
+.share{max-width:680px;margin:2.6rem auto 0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.share b{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:.4rem}
+.share a,.share button{display:inline-flex;align-items:center;padding:.5em 1em;border-radius:100px;border:1.5px solid #DCD0BE;background:#fff;font:inherit;font-size:.84rem;font-weight:600;color:var(--ink);cursor:pointer}
+.share a:hover,.share button:hover{border-color:var(--gold-ink);color:var(--gold-ink)}
+.author{max-width:680px;margin:2rem auto 0;display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center;padding:1.4rem;border-radius:var(--r);background:var(--cream)}
+.author img{width:76px;height:76px;border-radius:50%;object-fit:cover}
+.author p{margin:.25rem 0 0;color:#4a433b;font-size:.95rem}
+.author .n{margin:0;font-weight:700;color:var(--ink)}
+.author a{color:var(--gold-ink);font-weight:600}
+.more-wrap{border-top:1px solid var(--line);margin-top:3.5rem;padding:3rem 0 4rem}
+.more-wrap h2{font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 1.4rem}
+.tools-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2.4rem}
+.tools-strip a{display:block;padding:1.1rem 1.2rem;border-radius:16px;background:#EAE2D7;color:var(--ink);font-weight:600;transition:transform .15s}
+.tools-strip a:hover{transform:translateY(-3px)}
+.tools-strip a span{display:block;margin-top:.3rem;font-size:.66rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-ink)}
+@media(max-width:820px){.tools-strip{grid-template-columns:1fr}}
+@media(max-width:520px){.author{grid-template-columns:1fr}.author img{width:60px;height:60px}}
+.labels{max-width:680px;margin:3rem auto 0;padding:2.5rem 0 3rem;border-top:1px solid var(--line)}
+.labels dl{display:grid;grid-template-columns:max-content 1fr;gap:.7rem 1.2rem;margin:1.2rem 0 0}
+.labels dt{margin:0}.labels dd{margin:0;color:#4a433b}
+@media(max-width:560px){.labels dl{grid-template-columns:1fr}.labels dd{margin-bottom:.6rem}}
 `;
 function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -69,63 +129,18 @@ function fmtDate(iso) {
 }
 __name(fmtDate, "fmtDate");
 function readMins(md) {
-  const w = String(md || "").split(/\s+/).filter(Boolean).length;
+  const w = globalThis.AFMD.plain(md).split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(w / 200));
 }
 __name(readMins, "readMins");
-function inline(s) {
-  return esc(s).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, u) => `<a href="${escAttr(u)}">${t}</a>`);
-}
-__name(inline, "inline");
-function mdToHtml(md) {
-  const lines = String(md || "").replace(/\r/g, "").split("\n");
-  let out = [], i = 0;
-  while (i < lines.length) {
-    let ln = lines[i];
-    if (!ln.trim()) {
-      i++;
-      continue;
-    }
-    if (ln.startsWith("## ")) {
-      out.push("<h3>" + inline(ln.slice(3).trim()) + "</h3>");
-      i++;
-      continue;
-    }
-    if (ln.startsWith("> ")) {
-      let buf2 = [];
-      while (i < lines.length && lines[i].startsWith("> ")) {
-        buf2.push(lines[i].slice(2).trim());
-        i++;
-      }
-      out.push('<blockquote class="pull">' + inline(buf2.join(" ")) + "</blockquote>");
-      continue;
-    }
-    if (/^[-*]\s+/.test(ln)) {
-      let buf2 = [];
-      while (i < lines.length && /^[-*]\s+/.test(lines[i])) {
-        buf2.push("<li>" + inline(lines[i].replace(/^[-*]\s+/, "").trim()) + "</li>");
-        i++;
-      }
-      out.push("<ul>" + buf2.join("") + "</ul>");
-      continue;
-    }
-    let buf = [];
-    while (i < lines.length && lines[i].trim() && !lines[i].startsWith("## ") && !lines[i].startsWith("> ") && !/^[-*]\s+/.test(lines[i])) {
-      buf.push(lines[i].trim());
-      i++;
-    }
-    out.push("<p>" + inline(buf.join(" ")) + "</p>");
-  }
-  return out.join("\n");
-}
-__name(mdToHtml, "mdToHtml");
-function layout({ title, desc, body, active = "" }) {
+var mdToHtml = (md) => globalThis.AFMD.mdToHtml(md);
+function layout({ title, desc, body, active = "", canonical = "", ogType = "website", ogImage = "https://afterfivefounder.com/assets/og.jpg", head = "", noindex = false }) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${esc(title)}</title><meta name="description" content="${escAttr(desc || "")}">
-  <link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <meta property="og:type" content="website"><meta property="og:site_name" content="After Five Founder"><meta property="og:title" content="${escAttr(title)}"><meta property="og:description" content="${escAttr(desc || "")}"><meta property="og:image" content="https://afterfivefounder.com/assets/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escAttr(title)}"><meta name="twitter:description" content="${escAttr(desc || "")}"><meta name="twitter:image" content="https://afterfivefounder.com/assets/og.jpg">
-  ${FONTS}<style>${CSS}</style></head>
+  <link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">${canonical ? `<link rel="canonical" href="${escAttr(canonical)}"><meta property="og:url" content="${escAttr(canonical)}">` : ""}${noindex ? '<meta name="robots" content="noindex">' : ""}
+  <meta property="og:type" content="${ogType}"><meta property="og:site_name" content="After Five Founder"><meta property="og:title" content="${escAttr(title)}"><meta property="og:description" content="${escAttr(desc || "")}"><meta property="og:image" content="${escAttr(ogImage)}">${ogImage.endsWith("/assets/og.jpg") ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ""}
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escAttr(title)}"><meta name="twitter:description" content="${escAttr(desc || "")}"><meta name="twitter:image" content="${escAttr(ogImage)}">
+  ${FONTS}<style>${CSS}</style>${head}</head>
   <body>${siteHeader(active)}${body}${siteFollow({ source: "blog" })}${siteFooter()}<script src="/assets/site.js" defer><\/script><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd631d4caee3489ca4fb0bec69f6f42e"}'><\/script></body></html>`;
 }
 __name(layout, "layout");
@@ -139,33 +154,166 @@ function json(obj, status = 200, extra = {}) {
   return new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", ...SEC, ...extra } });
 }
 __name(json, "json");
-async function journalIndex(env) {
-  const { results: arts } = await env.DB.prepare(`SELECT slug,title,excerpt,tag,read_minutes,published_at FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC`).all();
-  const cards = (arts || []).map((a) => `<a class="post" href="/blog/${esc(a.slug)}">
-    <span class="tag">${esc(a.tag || "Journal")}</span>
+var SITE = "https://afterfivefounder.com";
+var KINDS = globalThis.AFMD.KINDS;
+var DEFAULT_OG = SITE + "/assets/og.jpg";
+// Site-hosted images only (the CSP blocks other hosts).
+function localImg(u) {
+  return u && /^\/[^\/]/.test(u) ? u : "";
+}
+__name(localImg, "localImg");
+function kindPill(k, tag) {
+  return k && KINDS[k] && KINDS[k].toLowerCase() !== String(tag || "").toLowerCase() ? `<span class="kind kind-${esc(k)}" title="How this post is labelled: see About">${esc(KINDS[k])}</span>` : "";
+}
+__name(kindPill, "kindPill");
+function tileHtml(a) {
+  const img = localImg(a.cover_url);
+  return `<div class="tile">${img ? `<img src="${escAttr(img)}" alt="" loading="lazy">` : `<div class="tt" aria-hidden="true"><span class="s">After Five &middot; The honest version</span><span class="k">${esc(a.tag || "Journal")}</span></div>`}</div>`;
+}
+__name(tileHtml, "tileHtml");
+function postCard(a) {
+  return `<a class="post" href="/blog/${esc(a.slug)}">
+    <span class="pill-row"><span class="tag">${esc(a.tag || "Journal")}</span>${kindPill(a.kind, a.tag)}</span>
     <h3>${esc(a.title)}</h3>
     <p class="ex">${esc(a.excerpt || "")}</p>
-    <span class="meta">${fmtDate(a.published_at)} &middot; ${a.read_minutes || 2} min read</span></a>`).join("");
+    <span class="meta">${fmtDate(a.published_at)} &middot; ${a.read_minutes || 2} min read</span></a>`;
+}
+__name(postCard, "postCard");
+function jsonLd(obj) {
+  return `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, "\\u003c")}<\/script>`;
+}
+__name(jsonLd, "jsonLd");
+var PUBLISHER = { "@type": "Organization", name: "After Five Founder", url: SITE + "/", logo: { "@type": "ImageObject", url: SITE + "/assets/logo-full.png" } };
+var AUTHOR = { "@type": "Person", name: "Emma", url: SITE + "/about", jobTitle: "Founder, After Five Founder" };
+async function publishedPosts(env) {
+  const { results } = await env.DB.prepare(`SELECT * FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC`).all();
+  return results || [];
+}
+__name(publishedPosts, "publishedPosts");
+async function journalIndex(env, url) {
+  const all = await publishedPosts(env);
+  const topic = (url.searchParams.get("topic") || "").trim();
+  const counts = {};
+  all.forEach((a) => { const t = a.tag || "Journal"; counts[t] = (counts[t] || 0) + 1; });
+  const topics = Object.keys(counts).sort((x, y) => counts[y] - counts[x] || x.localeCompare(y));
+  const match = topics.find((t) => t.toLowerCase() === topic.toLowerCase());
+  const arts = match ? all.filter((a) => (a.tag || "Journal") === match) : all;
+  const chips = topics.length > 1 ? `<nav class="chips" aria-label="Topics"><a class="chip" href="/blog"${match ? "" : ' aria-current="page"'}>All <span>${all.length}</span></a>${topics.map((t) => `<a class="chip" href="/blog?topic=${encodeURIComponent(t)}"${t === match ? ' aria-current="page"' : ""}>${esc(t)} <span>${counts[t]}</span></a>`).join("")}</nav>` : "";
+  let list = "";
+  if (arts.length) {
+    const showFeat = !match && arts.length > 1;
+    const feat = showFeat ? arts[0] : null;
+    const rest = showFeat ? arts.slice(1) : arts;
+    list = (feat ? `<a class="featured" href="/blog/${esc(feat.slug)}">${tileHtml(feat)}<div>
+        <span class="pill-row"><span class="tag">Latest &middot; ${esc(feat.tag || "Journal")}</span>${kindPill(feat.kind, feat.tag)}</span>
+        <h2>${esc(feat.title)}</h2>${feat.excerpt ? `<p>${esc(feat.excerpt)}</p>` : ""}
+        <span class="meta">${fmtDate(feat.published_at)} &middot; ${feat.read_minutes || 2} min read</span></div></a>` : "") + `<div class="posts">${rest.map(postCard).join("")}</div>`;
+  }
+  const title = match ? `${match} \u2014 The Blog \u2014 After Five Founder` : "The Blog \u2014 After Five Founder";
   const body = `<header class="jhead"><div class="wrap">
-      <span class="mono eyebrow">The Blog</span><h1 class="serif">The honest <em>version.</em></h1>
-      <p>No gatekeeping, no jargon &mdash; just what I'm learning as I build, in real time.</p></div></header>
-    <div class="wrap">${cards ? `<div class="posts">${cards}</div>` : '<p class="empty empty-left">The first post is on its way. Follow along below to hear when it lands.</p>'}</div>`;
-  return htmlResp(layout({ title: "The Blog \u2014 After Five Founder", desc: "Building a software company after five, in the open.", body, active: "blog" }));
+      <span class="mono eyebrow">The Blog${match ? " &middot; " + esc(match) : ""}</span><h1 class="serif">The honest <em>version.</em></h1>
+      <p>No gatekeeping, no jargon &mdash; just what I'm learning as I build, in real time.</p>${chips}</div></header>
+    <div class="wrap">${list || '<p class="empty empty-left">The first post is on its way. Follow along below to hear when it lands.</p>'}</div>`;
+  const canonical = SITE + "/blog" + (match ? "?topic=" + encodeURIComponent(match) : "");
+  const ld = jsonLd({ "@context": "https://schema.org", "@type": "Blog", name: "After Five Founder \u2014 The Blog", url: SITE + "/blog", publisher: PUBLISHER, author: AUTHOR });
+  return htmlResp(layout({ title, desc: "What I'm learning about small business technology, practical AI, software costs and better workflows \u2014 written by Emma, the founder of After Five.", body, active: "blog", canonical, head: ld }));
 }
 __name(journalIndex, "journalIndex");
+var TOOL_LINKS = [
+  ["startup", "What will it cost to start?", "Start-up costs"],
+  ["opex", "What does it cost to run?", "Monthly operating"],
+  ["digital", "What will going digital cost?", "Going digital"]
+];
 async function articlePage(env, slug) {
   const a = await env.DB.prepare(`SELECT * FROM articles WHERE slug=? AND status='published'`).bind(slug).first();
-  if (!a) return htmlResp(layout({ title: "Not found \u2014 After Five Founder", body: `<div class="empty" style="padding:5rem 0"><h1 class="serif">Post not found</h1><p><a class="btn btn-dark" href="/blog">&larr; Back to the blog</a></p></div>`, active: "blog" }), 404);
+  if (!a) return htmlResp(layout({ title: "Not found \u2014 After Five Founder", body: `<div class="empty" style="padding:5rem 0"><h1 class="serif">Post not found</h1><p><a class="btn btn-dark" href="/blog">&larr; Back to the blog</a></p></div>`, active: "blog", noindex: true }), 404);
+  const all = await publishedPosts(env);
+  const others = all.filter((x) => x.slug !== a.slug);
+  const related = others.filter((x) => (x.tag || "Journal") === (a.tag || "Journal")).concat(others.filter((x) => (x.tag || "Journal") !== (a.tag || "Journal"))).slice(0, 3);
+  const pubDay = (a.published_at || "").slice(0, 10);
+  const updDay = (a.updated_at || "").slice(0, 10);
+  const updated = updDay && pubDay && updDay > pubDay ? updDay : "";
+  const verified = a.verified_at ? fmtDate(a.verified_at) : "";
+  const url = SITE + "/blog/" + a.slug;
+  const cover = localImg(a.cover_url);
+  const enc = encodeURIComponent;
   const body = `<article class="article"><div class="wrap">
       <div class="a-head"><a class="back" href="/blog">&larr; The Blog</a>
-        <span class="tag-pill">${esc(a.tag || "Journal")}</span>
+        <span class="pill-row"><a class="tag-pill" href="/blog?topic=${enc(a.tag || "Journal")}">${esc(a.tag || "Journal")}</a>${kindPill(a.kind, a.tag)}</span>
         <h1 class="serif">${esc(a.title)}</h1>
-        <div class="meta">${fmtDate(a.published_at)} &middot; ${a.read_minutes || 2} min read &middot; Emma</div></div>
-      <div class="body">${mdToHtml(a.body_md)}</div>
-    </div></article>`;
-  return htmlResp(layout({ title: a.title + " \u2014 After Five Founder", desc: a.excerpt, body, active: "blog" }));
+        ${a.excerpt ? `<p class="a-dek">${esc(a.excerpt)}</p>` : ""}
+        <div class="byline"><img src="/assets/emma-about.jpg" alt="" width="40" height="40"><span>By <a href="/about">Emma</a> <span class="dot">&middot;</span> <time datetime="${escAttr(pubDay)}">${fmtDate(pubDay)}</time>${updated ? ` <span class="dot">&middot;</span> Updated <time datetime="${escAttr(updated)}">${fmtDate(updated)}</time>` : ""} <span class="dot">&middot;</span> ${a.read_minutes || 2} min read</span></div></div>
+      ${cover ? `<figure class="a-cover"><img src="${escAttr(cover)}" alt=""></figure>` : ""}
+      <div class="body">${globalThis.AFMD.mdToHtml(a.body_md, { verified })}</div>
+      <div class="share"><b>Share</b>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/intent/post?url=${enc(url)}&amp;text=${enc(a.title)}" target="_blank" rel="noopener">X</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${enc(url)}" target="_blank" rel="noopener">Facebook</a>
+        <a href="mailto:?subject=${enc(a.title)}&amp;body=${enc(url)}">Email</a>
+        <button type="button" data-copy="${escAttr(url)}">Copy link</button></div>
+      <aside class="author"><img src="/assets/emma-about.jpg" alt="" width="76" height="76"><div><p class="n">Written by Emma</p><p>Founder of After Five. I grew up in New Zealand, moved to the US more than a decade ago, and have built a career at the intersection of business and technology. <a href="/about">More about me &rarr;</a></p></div></aside>
+    </div></article>
+    <section class="more-wrap"><div class="wrap">
+      ${related.length ? `<h2 class="serif">Keep <em>reading.</em></h2><div class="posts" style="padding-bottom:0">${related.map(postCard).join("")}</div>` : ""}
+      <div class="tools-strip">${TOOL_LINKS.map(([id, q, n]) => `<a href="/costing-suite.html#${id}">${q}<span>${n} calculator &rarr;</span></a>`).join("")}</div>
+    </div></section>
+    <script>document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var t=b.textContent;(navigator.clipboard?navigator.clipboard.writeText(b.getAttribute("data-copy")):Promise.reject()).then(function(){b.textContent="Copied";},function(){b.textContent="Copy failed";}).finally(function(){setTimeout(function(){b.textContent=t;},1800);});});});<\/script>`;
+  const ld = jsonLd({
+    "@context": "https://schema.org", "@type": "BlogPosting", headline: a.title, description: a.excerpt || undefined,
+    datePublished: pubDay || undefined, dateModified: updated || pubDay || undefined, url, mainEntityOfPage: url,
+    image: cover ? SITE + cover : DEFAULT_OG, author: AUTHOR, publisher: PUBLISHER, articleSection: a.tag || "Journal",
+    wordCount: String(a.body_md || "").split(/\s+/).filter(Boolean).length
+  });
+  const meta = `<meta property="article:published_time" content="${escAttr(pubDay)}">${updated ? `<meta property="article:modified_time" content="${escAttr(updated)}">` : ""}<meta property="article:section" content="${escAttr(a.tag || "Journal")}">`;
+  return htmlResp(layout({ title: a.title + " \u2014 After Five Founder", desc: a.excerpt, body, active: "blog", canonical: url, ogType: "article", ogImage: cover ? SITE + cover : DEFAULT_OG, head: meta + ld }));
 }
 __name(articlePage, "articlePage");
+async function sitemap(env) {
+  let posts = [];
+  try { posts = await publishedPosts(env); } catch (e) {}
+  const stat = ["/", "/about", "/blog", "/costing-suite.html", "/shop.html"];
+  const urls = stat.map((p) => `<url><loc>${SITE}${p}</loc></url>`).concat(posts.map((a) => `<url><loc>${SITE}/blog/${esc(a.slug)}</loc>${(a.updated_at || a.published_at) ? `<lastmod>${esc((a.updated_at || a.published_at).slice(0, 10))}</lastmod>` : ""}</url>`));
+  return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`, { headers: { "content-type": "application/xml;charset=utf-8", "cache-control": "max-age=3600", ...SEC } });
+}
+__name(sitemap, "sitemap");
+// Homepage: put the latest posts into the HTML so readers and crawlers see them without JavaScript.
+// Markup matches the browser renderer in public/index.html.
+function homeLatestHtml(posts) {
+  const meta = (p) => `<span class="lt-meta">${fmtDate(p.published_at).replace(/^(\w+) (\d+), (\d+)$/, (m, mo, d, y) => mo.slice(0, 3) + " " + d + ", " + y)} &middot; ${p.read_minutes || 2} min read</span>`;
+  const item = (p, i) => `<li><a class="lt-item" href="/blog/${esc(p.slug)}"><span class="n" aria-hidden="true">${i < 9 ? "0" : ""}${i + 1}</span><span class="lt-kicker">${esc(p.tag || "Journal")}</span><h3>${esc(p.title)}</h3>${meta(p)}</a></li>`;
+  const acts = `<div class="acts"><a class="btn btn-dark" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div>`;
+  if (!posts.length) return `<div class="lt-aside lt-empty"><h3>The first post is on its way.</h3><p>Follow along to hear when it lands. In the meantime, the calculators are ready to use.</p>${acts}</div>`;
+  const p = posts[0], img = localImg(p.cover_url);
+  const feat = `<a class="lt-feat" href="/blog/${esc(p.slug)}"><div class="lt-media">${img ? `<img src="${escAttr(img)}" alt="" loading="lazy">` : `<div class="lt-tile" aria-hidden="true"><span class="s">After Five &middot; The honest version</span><span><span class="k">${esc(p.tag || "Journal")}</span><span class="rule"></span></span></div>`}</div><span class="lt-kicker"><span class="new">Latest</span>${esc(p.tag || "Journal")}</span><h3>${esc(p.title)}</h3>${p.excerpt ? `<p>${esc(p.excerpt)}</p>` : ""}${meta(p)}</a>`;
+  const rest = posts.slice(1);
+  return feat + (rest.length ? `<ol class="lt-list" start="2">${rest.map((x, i) => item(x, i + 1)).join("")}</ol>` : `<div class="lt-aside"><h3>More posts are on their way.</h3><p>Follow along to hear when the next one lands. In the meantime, the calculators are ready to use.</p>${acts}</div>`);
+}
+__name(homeLatestHtml, "homeLatestHtml");
+async function homePage(request, env) {
+  const asset = await env.ASSETS.fetch(request);
+  if (!asset.ok || !(asset.headers.get("content-type") || "").includes("text/html")) return asset;
+  const html = await asset.text();
+  const marker = '<div class="lt-grid" id="latestGrid" aria-live="polite"><p class="lt-note">Loading the latest&hellip;</p></div>';
+  let out = html;
+  try {
+    const { results } = await env.DB.prepare(`SELECT slug,title,excerpt,tag,cover_url,read_minutes,published_at FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC LIMIT 4`).all();
+    out = html.replace(marker, `<div class="lt-grid" id="latestGrid" aria-live="polite" data-ssr="1">${homeLatestHtml(results || [])}</div>`);
+  } catch (e) {}
+  const h = new Headers(asset.headers);
+  h.delete("content-length");
+  for (const [k, v] of Object.entries(SEC)) h.set(k, v);
+  return new Response(out, { status: asset.status, headers: h });
+}
+__name(homePage, "homePage");
+var KIND_HELP = {
+  tested: "I&rsquo;ve personally used or evaluated the product.",
+  researched: "Based on checked external sources, not my own use.",
+  "first-look": "Early coverage of a new product or feature.",
+  practice: "A real business putting it to work.",
+  journal: "My own observations and experiences.",
+  comparison: "A structured look at the alternatives.",
+  building: "Progress and lessons from something I&rsquo;m actually building."
+};
 function aboutPage() {
   const body = `<header class="wrap about-hero">
       <div>
@@ -191,8 +339,13 @@ function aboutPage() {
         <blockquote class="pull">Because this isn\u2019t about having all the answers. It\u2019s about being willing to figure them out.</blockquote>
         <p style="margin-top:1.6rem"><a class="btn btn-dark" href="#join">Follow the journey</a></p>
       </div>
+      <section class="labels" id="labels" aria-labelledby="labels-h">
+        <h2 class="serif" id="labels-h" style="font-size:clamp(1.6rem,3vw,2.2rem);margin:0">How posts are <em>labelled.</em></h2>
+        <p style="color:#4a433b;margin:.8rem 0 0">Some posts carry a label so you can tell what I&rsquo;ve used myself from what I&rsquo;ve researched. Personal posts often don&rsquo;t need one.</p>
+        <dl>${Object.entries(KINDS).map(([k, n]) => `<dt><span class="kind kind-${k}">${n}</span></dt><dd>${KIND_HELP[k]}</dd>`).join("")}</dl>
+      </section>
     </div></div>`;
-  return htmlResp(layout({ active: "about", title: "About \u2014 After Five Founder", desc: "The story behind After Five \u2014 an honest experiment in what actually helps a small business, from AI to automation to getting more out of the tools you already pay for.", body }));
+  return htmlResp(layout({ active: "about", canonical: SITE + "/about", head: jsonLd({ "@context": "https://schema.org", "@type": "AboutPage", url: SITE + "/about", mainEntity: AUTHOR }), title: "About \u2014 After Five Founder", desc: "The story behind After Five \u2014 an honest experiment in what actually helps a small business, from AI to automation to getting more out of the tools you already pay for.", body }));
 }
 __name(aboutPage, "aboutPage");
 async function hmac(secret, data) {
@@ -317,6 +470,17 @@ async function api(request, env, url) {
   return json({ error: "not found" }, 404);
 }
 __name(api, "api");
+// Classification and checked date live in columns added by migrations/0001_editorial_fields.sql.
+// Until that migration runs, posts still save; only these two fields are skipped.
+async function saveEditorial(env, id, kind, verified) {
+  try {
+    await env.DB.prepare(`UPDATE articles SET kind=?,verified_at=? WHERE id=?`).bind(kind, verified, id).run();
+    return "";
+  } catch (e) {
+    return /no such column/i.test(String(e && e.message)) ? "Saved, but the label and checked date need the database update in migrations/0001_editorial_fields.sql first." : "";
+  }
+}
+__name(saveEditorial, "saveEditorial");
 async function saveArticle(env, b, id) {
   const title = (b.title || "").trim();
   if (!title) return json({ error: "Add a title first." }, 400);
@@ -328,7 +492,9 @@ async function saveArticle(env, b, id) {
   const html = mdToHtml(md);
   const tag = (b.tag || "Journal").trim().slice(0, 30) || "Journal";
   const excerpt = (b.excerpt || "").trim();
-  const cover = b.cover_url || null;
+  const cover = localImg((b.cover_url || "").trim()) || null;
+  const kind = KINDS[b.kind] ? b.kind : null;
+  const verified = /^\d{4}-\d{2}-\d{2}$/.test(b.verified_at || "") ? b.verified_at : null;
   const status = b.status === "published" ? "published" : "draft";
   const read = readMins(md);
   if (id) {
@@ -337,11 +503,13 @@ async function saveArticle(env, b, id) {
     let pub = cur.published_at;
     if (status === "published" && !pub) pub = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
     await env.DB.prepare(`UPDATE articles SET slug=?,title=?,excerpt=?,body_md=?,body_html=?,tag=?,cover_url=?,series_id=NULL,series_order=0,status=?,read_minutes=?,published_at=?,updated_at=datetime('now') WHERE id=?`).bind(slug, title, excerpt, md, html, tag, cover, status, read, pub, id).run();
-    return json({ ok: true, id, slug, status });
+    const warn = await saveEditorial(env, id, kind, verified);
+    return json({ ok: true, id, slug, status, warn });
   }
   const pub = status === "published" ? (/* @__PURE__ */ new Date()).toISOString().slice(0, 10) : null;
   const r = await env.DB.prepare(`INSERT INTO articles (slug,title,excerpt,body_md,body_html,tag,cover_url,series_id,series_order,status,read_minutes,published_at) VALUES (?,?,?,?,?,?,?,NULL,0,?,?,?)`).bind(slug, title, excerpt, md, html, tag, cover, status, read, pub).run();
-  return json({ ok: true, id: r.meta.last_row_id, slug, status });
+  const warn = await saveEditorial(env, r.meta.last_row_id, kind, verified);
+  return json({ ok: true, id: r.meta.last_row_id, slug, status, warn });
 }
 __name(saveArticle, "saveArticle");
 function adminHtml() {
@@ -359,9 +527,10 @@ function adminHtml() {
   input:focus,textarea:focus{outline:none;border-color:var(--gold-ink);box-shadow:0 0 0 3px rgba(122,92,46,.15)}
   #f_title{font-size:1.4rem;font-weight:500}
   textarea{min-height:420px;line-height:1.65;resize:vertical}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+  select{width:100%;font:inherit;font-size:1rem;color:var(--ink);border:1.5px solid #DCD0BE;border-radius:12px;padding:.7em .9em;background:#fff}
   .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.4rem;align-items:start}
-  @media(max-width:860px){.split,.row2{grid-template-columns:1fr}}
+  @media(max-width:860px){.split,.row2,.row3{grid-template-columns:1fr}}
   .toolbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
   .toolbar h1{font-size:2rem;margin:0}.toolbar .right{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
   .list{display:flex;flex-direction:column;gap:.6rem}
@@ -418,9 +587,15 @@ function adminHtml() {
           <div class="field"><label for="f_tag">Topic</label><input id="f_tag" list="tags" placeholder="Journal"><datalist id="tags"><option>Journal</option><option>AI</option><option>Tools</option><option>Systems</option><option>Strategy</option><option>Mindset</option><option>Building in public</option></datalist></div>
           <div class="field"><label for="f_slug">Web address</label><input id="f_slug" placeholder="Leave blank to use the title"><p class="help" id="slugHint"></p></div>
         </div>
+        <div class="row3">
+          <div class="field"><label for="f_kind">Label <span style="text-transform:none;letter-spacing:0;font-weight:500">(optional)</span></label><select id="f_kind"><option value="">No label</option>${Object.entries(KINDS).map(([k, n]) => `<option value="${k}">${n}</option>`).join("")}</select><p class="help">Only pick Hands-on tested if you&rsquo;ve used it yourself.</p></div>
+          <div class="field"><label for="f_verified">Prices checked on <span style="text-transform:none;letter-spacing:0;font-weight:500">(optional)</span></label><input id="f_verified" type="date"><p class="help">Shown in a &ldquo;What it costs&rdquo; block.</p></div>
+          <div class="field"><label for="f_cover">Cover image <span style="text-transform:none;letter-spacing:0;font-weight:500">(optional)</span></label><input id="f_cover" placeholder="/assets/your-screenshot.jpg"><p class="help">A real screenshot or photo saved in the site&rsquo;s assets folder.</p></div>
+        </div>
         <div class="split">
           <div class="field"><label for="f_body">Post</label><textarea id="f_body" placeholder="Start writing. Leave a blank line between paragraphs."></textarea>
-            <div class="cheats"><span><code>**bold**</code></span><span><code>*italic*</code></span><span><code>## Heading</code></span><span><code>&gt; Quote</code></span><span><code>- List item</code></span><span><code>[link](https://...)</code></span></div></div>
+            <div class="cheats"><span><code>**bold**</code></span><span><code>*italic*</code></span><span><code>## Heading</code></span><span><code>&gt; Quote</code></span><span><code>- List item</code></span><span><code>[link](https://...)</code></span></div>
+            <div class="cheats"><span>Optional blocks:</span><span><code>::: summary</code></span><span><code>::: costs</code></span><span><code>::: for</code></span><span><code>::: skip</code></span><span><code>::: before</code></span><span><code>::: verdict</code></span><span><code>::: sources</code></span><span><code>::: disclosure</code></span><span>then your text, then <code>:::</code></span></div></div>
           <div class="field"><label>Preview</label><div class="preview body" id="prev"></div></div>
         </div>
         <div class="bar">
@@ -433,7 +608,7 @@ function adminHtml() {
       </section>
     </div>
   </main>
-  <script src="/assets/admin.js" defer><\/script></body></html>`;
+  <script src="/assets/md.js" defer><\/script><script src="/assets/admin.js" defer><\/script></body></html>`;
 }
 __name(adminHtml, "adminHtml");
 async function adminPage(request, env) {
@@ -449,7 +624,9 @@ var worker_default = {
       if (p.startsWith("/api/")) return await api(request, env, url);
       if (p === "/admin" || p === "/admin/") return await adminPage(request, env);
       if (p === "/about" || p === "/about/") return aboutPage();
-      if (p === "/journal" || p === "/journal/" || p === "/journal.html") return await journalIndex(env);
+      if (p === "/") return await homePage(request, env);
+      if (p === "/sitemap.xml") return await sitemap(env);
+      if (p === "/journal" || p === "/journal/" || p === "/journal.html") return await journalIndex(env, url);
       let m;
       if (m = p.match(/^\/journal\/([a-z0-9-]+)\/?$/)) return await articlePage(env, m[1]);
       if (m = p.match(/^\/post-([a-z0-9-]+)\.html$/)) return await articlePage(env, m[1]);

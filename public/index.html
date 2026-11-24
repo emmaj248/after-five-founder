@@ -10,6 +10,7 @@
 <meta property="og:site_name" content="After Five Founder">
 <meta property="og:title" content="After Five Founder — Beyond the hype. Real businesses, real results.">
 <meta property="og:description" content="A build-in-public experiment: what actually grows a small business — AI, or the fundamentals? Real businesses, real results, no hype.">
+<link rel="canonical" href="https://afterfivefounder.com/">
 <meta property="og:url" content="https://afterfivefounder.com/">
 <meta property="og:image" content="https://afterfivefounder.com/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -619,7 +620,7 @@ section{position:relative}
   }
   var grid=document.getElementById('latestGrid');
   var aside='<div class="lt-aside"><h3>More posts are on their way.</h3><p>Follow along to hear when the next one lands. In the meantime, the calculators are ready to use.</p><div class="acts"><a class="btn btn-dark" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div></div>';
-  fetch('/api/latest?n=4').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+  if(!grid.hasAttribute('data-ssr'))fetch('/api/latest?n=4').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
     var posts=(d&&d.posts)||[];
     if(!posts.length){grid.innerHTML='<div class="lt-aside lt-empty"><h3>The first post is on its way.</h3><p>Follow along to hear when it lands. In the meantime, the calculators are ready to use.</p><div class="acts"><a class="btn btn-dark" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div></div>';return;}
     var rest=posts.slice(1);
