@@ -24,7 +24,7 @@ Go to [afterfivefounder.com/admin](https://afterfivefounder.com/admin) and sign 
 
 Optional blocks for reviews and explainers: start a line with `::: summary`, `::: costs`, `::: for`, `::: skip`, `::: before`, `::: verdict`, `::: sources` or `::: disclosure`, write the content, then close with a line containing just `:::`. The renderer lives in `public/assets/md.js` and is shared by the live site and the editor preview.
 
-The editor's **Label** and **Prices checked on** fields need the columns in `migrations/0001_editorial_fields.sql`. Apply once with `npx wrangler d1 migrations apply afterfive-journal --remote`.
+The editor's **Label** and **Prices checked on** fields use the columns in `migrations/0001_editorial_fields.sql`. That change was applied to the live database on 24 Nov 2026; don't run it again.
 
 If you've forgotten the password, set a new one with `npx wrangler secret put ADMIN_PASSWORD`, or in the Cloudflare dashboard under Workers & Pages → after-five-founder → Settings → Variables and Secrets.
 

@@ -152,7 +152,7 @@ Outstanding: privacy page; real build-in-public screenshots; cover image field i
 | `public/index.html`, `costing-suite.html`, `shop.html` | Canonical links; homepage skips its post fetch when the server already filled it in. |
 | `public/robots.txt` | `Sitemap:` line. |
 
-**One manual step before the labels work:** run `npx wrangler d1 migrations apply afterfive-journal --remote` (it changes the live database, so it's yours to run). Until then everything else works and posts save normally; only the label and checked date are skipped, and the editor says so.
+**Database update:** the two columns were added to the live database on 24 Nov 2026 with `wrangler d1 execute`. Don't run the migration file again. The code still saves posts normally if the columns are ever missing.
 
 Labels are never set automatically. Existing posts stay unlabelled until you choose one; Scout research should be labelled Researched, never Hands-on tested.
 
