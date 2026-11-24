@@ -69,11 +69,13 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .prod{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line-soft);border-radius:22px;box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .22s,box-shadow .22s}
 .prod:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
 .prod.feat{grid-column:span 1;border-color:var(--gold)}
-.cover{position:relative;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;font-size:3.2rem;border-bottom:1px solid var(--line-soft)}
-.cover.c1{background:radial-gradient(120% 120% at 30% 20%, #FFE1EC, var(--taupe-2))}
-.cover.c2{background:radial-gradient(120% 120% at 30% 20%, #FFF0CF, var(--taupe-2))}
-.cover.c3{background:radial-gradient(120% 120% at 30% 20%, var(--paper-2), var(--taupe-2))}
-.cover.c4{background:linear-gradient(150deg,var(--gold),#C79A55);color:#fff}
+.cover{position:relative;aspect-ratio:16/10;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 24px;border-bottom:1px solid var(--line-soft);color:var(--gold-ink)}
+.cover .cv{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(1.5rem,2.4vw,1.9rem);line-height:1.05;font-optical-sizing:none;font-variation-settings:'opsz' 22}
+.cover .cv::after{content:"";display:block;width:44px;height:2px;margin-top:.7rem;background:currentColor;opacity:.5}
+.cover.c1{background:#EAE2D7;color:#302A25}
+.cover.c2{background:#DCC9A8;color:#302A25}
+.cover.c3{background:#F8F5EF}
+.cover.c4{background:#302A25;color:#D9BF8F}
 .cover .tag{position:absolute;top:14px;left:14px;font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.85);color:var(--ink);padding:.4em .75em;border-radius:999px}
 .cover.c4 .tag{background:rgba(255,255,255,.9);color:var(--gold-ink)}
 .cover .tag.soon-tag{left:auto;right:14px;background:var(--ink);color:#fff}
@@ -116,11 +118,11 @@ h1,h2,h3{text-wrap:balance;margin:0}
       <div class="sx-drop"><a href="/costing-suite.html">Resources <span aria-hidden="true">&#9662;</span></a>
         <div class="sx-menu"><span class="sx-menu-head">Cost calculators</span><a href="/costing-suite.html#startup">Start-up costs</a><a href="/costing-suite.html#bom">Bill of materials</a><a href="/costing-suite.html#opex">Monthly operating</a><a href="/costing-suite.html#emp">New employee</a><a href="/costing-suite.html#digital">Going digital</a><a href="/costing-suite.html#leap">Can I go full-time?</a></div></div>
       <a href="/shop.html" aria-current="page">Shop</a>
-      <a class="sx-btn" href="#join">Follow &rarr;</a>
+      <a class="sx-btn" href="#join">Follow along &rarr;</a>
     </nav>
     <button class="sx-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sxMobile"><span></span><span></span><span></span></button>
   </div>
-  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/blog">Blog</a><a href="/costing-suite.html">Resources</a><a href="/shop.html" aria-current="page">Shop</a><a class="sx-mobile-follow" href="#join">Follow &rarr;</a></nav>
+  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/blog">Blog</a><a href="/costing-suite.html">Resources</a><a href="/shop.html" aria-current="page">Shop</a><a class="sx-mobile-follow" href="#join">Follow along &rarr;</a></nav>
 </header>
 <!-- /site:header -->
 
@@ -137,7 +139,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
     <div class="wrap">
       <div class="grid">
         <article class="prod reveal">
-          <div class="cover c3"><span class="tag">Free</span><span class="tag soon-tag">Coming soon</span>📋</div>
+          <div class="cover c3"><span class="tag">Free</span><span class="tag soon-tag">Coming soon</span><span class="cv">Start-Up Cost Checklist</span></div>
           <div class="pbody">
             <h3>The Start-Up Cost Checklist</h3>
             <p>Every cost you'll actually face before day one — so nothing catches you out.</p>
@@ -147,7 +149,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
         </article>
 
         <article class="prod reveal">
-          <div class="cover c1"><span class="tag">Spreadsheets</span><span class="tag soon-tag">Coming soon</span>🧮</div>
+          <div class="cover c1"><span class="tag">Spreadsheets</span><span class="tag soon-tag">Coming soon</span><span class="cv">Costing Toolkit</span></div>
           <div class="pbody">
             <h3>The Small Business Costing Toolkit</h3>
             <p>All six calculators as editable spreadsheets, plus a plain-English guide to using them.</p>
@@ -157,7 +159,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
         </article>
 
         <article class="prod reveal">
-          <div class="cover c2"><span class="tag">Template</span><span class="tag soon-tag">Coming soon</span>✍️</div>
+          <div class="cover c2"><span class="tag">Template</span><span class="tag soon-tag">Coming soon</span><span class="cv">Website Copy &amp; Layout</span></div>
           <div class="pbody">
             <h3>Website Copy &amp; Layout Template</h3>
             <p>The fill-in-the-blanks template to write every word of your site, section by section.</p>
@@ -167,7 +169,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
         </article>
 
         <article class="prod reveal">
-          <div class="cover c3"><span class="tag">Guide</span><span class="tag soon-tag">Coming soon</span>📖</div>
+          <div class="cover c3"><span class="tag">Guide</span><span class="tag soon-tag">Coming soon</span><span class="cv">Going Digital</span></div>
           <div class="pbody">
             <h3>Going Digital: A Small Business Playbook</h3>
             <p>The honest, step-by-step of bringing tech into a real business — straight from the journal.</p>
@@ -177,7 +179,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
         </article>
 
         <article class="prod feat reveal">
-          <div class="cover c4"><span class="tag">Best value</span><span class="tag soon-tag">Coming soon</span>💛</div>
+          <div class="cover c4"><span class="tag">Best value</span><span class="tag soon-tag">Coming soon</span><span class="cv">The Everything Bundle</span></div>
           <div class="pbody">
             <h3>The Everything Bundle</h3>
             <p>The toolkit, the template and the playbook together — the full After Five Founder kit.</p>
@@ -228,7 +230,11 @@ h1,h2,h3{text-wrap:balance;margin:0}
       </div>
       <div>
         <h3 class="sx-foot-head">Explore</h3>
-        <ul class="sx-foot-links"><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/costing-suite.html">Resources</a></li><li><a href="/shop.html">Shop</a></li></ul>
+        <ul class="sx-foot-links"><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/costing-suite.html">Resources</a></li><li><a href="/shop.html">Shop</a></li><li><a href="#join">Follow along</a></li></ul>
+      </div>
+      <div>
+        <h3 class="sx-foot-head">Tools</h3>
+        <ul class="sx-foot-links"><li><a href="/costing-suite.html#startup">Start-up costs</a></li><li><a href="/costing-suite.html#bom">Bill of materials</a></li><li><a href="/costing-suite.html#opex">Monthly operating</a></li><li><a href="/costing-suite.html#emp">New employee</a></li><li><a href="/costing-suite.html#digital">Going digital</a></li><li><a href="/costing-suite.html#leap">Can I go full-time?</a></li></ul>
       </div>
       <div>
         <h3 class="sx-foot-head">Follow</h3>

@@ -42,11 +42,11 @@ export function siteHeader(active = "") {
     <a class="sx-logo" href="/"><img src="/assets/logo-wm.png" alt="After Five Founder" width="560" height="242"></a>
     <nav class="sx-links" aria-label="Main">
       ${links}
-      <a class="sx-btn" href="#join">Follow &rarr;</a>
+      <a class="sx-btn" href="#join">Follow along &rarr;</a>
     </nav>
     <button class="sx-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sxMobile"><span></span><span></span><span></span></button>
   </div>
-  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a>${mobile}<a class="sx-mobile-follow" href="#join">Follow &rarr;</a></nav>
+  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a>${mobile}<a class="sx-mobile-follow" href="#join">Follow along &rarr;</a></nav>
 </header>`;
 }
 
@@ -80,7 +80,8 @@ export function siteFollow(opts = {}) {
 
 export function siteFooter() {
   const socs = SOCIALS.map(([name, href, svg]) => `<a href="${href}" target="_blank" rel="noopener" aria-label="${name}">${svg}</a>`).join("");
-  const explore = NAV.map(([, href, label]) => `<li><a href="${href}">${label}</a></li>`).join("");
+  const explore = NAV.map(([, href, label]) => `<li><a href="${href}">${label}</a></li>`).join("") + `<li><a href="#join">Follow along</a></li>`;
+  const tools = CALCULATORS.map(([id, name]) => `<li><a href="/costing-suite.html#${id}">${name}</a></li>`).join("");
   return `<footer class="sx-foot">
   <div class="sx-wrap">
     <div class="sx-foot-grid">
@@ -91,6 +92,10 @@ export function siteFooter() {
       <div>
         <h3 class="sx-foot-head">Explore</h3>
         <ul class="sx-foot-links">${explore}</ul>
+      </div>
+      <div>
+        <h3 class="sx-foot-head">Tools</h3>
+        <ul class="sx-foot-links">${tools}</ul>
       </div>
       <div>
         <h3 class="sx-foot-head">Follow</h3>

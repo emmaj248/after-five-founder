@@ -267,7 +267,13 @@ async function api(request, env, url) {
   }
   if (p === "/api/latest" && method === "GET") {
     const n = Math.min(12, Math.max(1, parseInt(url.searchParams.get("n") || "6")));
-    const { results } = await env.DB.prepare(`SELECT slug,title,excerpt,tag,read_minutes,published_at FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC LIMIT ?`).bind(n).all();
+    // Optional ?tag= narrows to one topic (used by the homepage "Building in public" block).
+    const tag = (url.searchParams.get("tag") || "").trim().slice(0, 30);
+    const cols = "slug,title,excerpt,tag,cover_url,read_minutes,published_at";
+    const q = tag
+      ? env.DB.prepare(`SELECT ${cols} FROM articles WHERE status='published' AND lower(tag)=lower(?) ORDER BY published_at DESC, id DESC LIMIT ?`).bind(tag, n)
+      : env.DB.prepare(`SELECT ${cols} FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC LIMIT ?`).bind(n);
+    const { results } = await q.all();
     return json({ posts: results || [] }, 200, { "cache-control": "max-age=60" });
   }
   if (p === "/api/subscribe" && method === "POST") {
@@ -409,7 +415,7 @@ function adminHtml() {
         <div class="field"><label for="f_title">Title</label><input id="f_title" placeholder="What's this post called?"></div>
         <div class="field"><label for="f_excerpt">Summary</label><input id="f_excerpt" placeholder="One or two sentences. Shows on the blog and home page cards."></div>
         <div class="row2">
-          <div class="field"><label for="f_tag">Topic</label><input id="f_tag" list="tags" placeholder="Journal"><datalist id="tags"><option>Journal</option><option>AI</option><option>Tools</option><option>Systems</option><option>Strategy</option><option>Mindset</option></datalist></div>
+          <div class="field"><label for="f_tag">Topic</label><input id="f_tag" list="tags" placeholder="Journal"><datalist id="tags"><option>Journal</option><option>AI</option><option>Tools</option><option>Systems</option><option>Strategy</option><option>Mindset</option><option>Building in public</option></datalist></div>
           <div class="field"><label for="f_slug">Web address</label><input id="f_slug" placeholder="Leave blank to use the title"><p class="help" id="slugHint"></p></div>
         </div>
         <div class="split">

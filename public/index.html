@@ -91,28 +91,6 @@ section{position:relative}
 .card.taupe{background:#DCC9A8;color:var(--ink)}
 .card:hover{transform:translateY(-4px)}
 .card{transition:transform .18s}
-/* ---------- JOURNAL ---------- */
-.journal{padding:6rem 0}
-.journal .head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:2.4rem}
-.journal .eyebrow{color:var(--gold-ink)}
-.journal h2{font-size:clamp(2rem,4vw,3.2rem);margin:.7rem 0 0}
-.post{border:1px solid #eadfd2;border-radius:var(--r);padding:1.5rem;background:#fff;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;gap:.7rem}
-.post:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(20,18,16,.08)}
-.post .pt{font-family:'Jost',system-ui,sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-ink)}
-.post h3{font-family:'Jost',system-ui,sans-serif;font-weight:700;font-size:1.3rem;line-height:1.14;margin:0}
-.post .meta{margin-top:auto;font-size:.82rem;color:var(--muted)}
-/* carousel */
-.car-track{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:.4rem .2rem 1.2rem;margin:0 -.2rem;scrollbar-width:none}
-.car-track::-webkit-scrollbar{display:none}
-.car-track .post{scroll-snap-align:start;flex:0 0 calc((100% - 2.4rem) / 3)}
-.journal .head-acts{display:flex;gap:.6rem;align-items:center}
-.car-note{color:var(--muted);padding:2rem}
-.car-arrow{flex:0 0 44px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gold);background:var(--warm);color:var(--gold);font-size:1.4rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .15s,transform .12s}
-.car-arrow:hover{background:var(--gold);color:#fff;transform:translateY(-1px)}
-.car-arrow:disabled{opacity:.3;cursor:default}
-@media(max-width:900px){.car-track .post{flex:0 0 calc((100% - 1.2rem) / 2)}}
-@media(max-width:640px){.car-arrow{display:none}
-.car-track .post{flex:0 0 84%}}
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.cards{grid-template-columns:1fr}}
@@ -200,7 +178,135 @@ section{position:relative}
 .hats .maybe li{position:relative;padding-left:1.5rem;font-size:1.06rem;color:#4a433b;line-height:1.5;max-width:52ch}
 .hats .maybe li::before{content:"";position:absolute;left:0;top:.5em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
 .hats-close{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-size:1.5rem;color:var(--gold-ink);margin-top:1.6rem}
+/* ===== Release 1: shared homepage pieces ===== */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem 2rem;flex-wrap:wrap;margin-bottom:2.4rem}
+.sec-head h2{font-size:clamp(2rem,4vw,3.2rem);margin:.8rem 0 0}
+.sec-head h2 em{color:var(--gold)}
+.sec-head .eyebrow{color:var(--gold-ink)}
+.sec-lead{font-size:1.08rem;color:#4a433b;max-width:50ch;margin:1rem 0 0}
+.link-more{font-weight:600;color:var(--gold-ink);border-bottom:1.5px solid currentColor;padding-bottom:2px;white-space:nowrap}
+.link-more:hover{color:var(--ink)}
+.btn-line{background:transparent;color:var(--ink);border:1.6px solid var(--ink)}
+.btn-line:hover{background:var(--ink);color:#fff}
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
+.hero .hc>*{animation:heroUp .7s ease both}
+.hero .hc>:nth-child(2){animation-delay:.08s}.hero .hc>:nth-child(3){animation-delay:.16s}.hero .hc>:nth-child(4){animation-delay:.24s}.hero .hc>:nth-child(5){animation-delay:.32s}
+@keyframes heroUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+/* ---------- LATEST ---------- */
+.latest{padding:5.5rem 0 5rem;background:var(--warm);border-top:1px solid #EFE6D8}
+.lt-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(1.4rem,3vw,2.6rem);align-items:start}
+.lt-note{color:var(--muted);margin:0;padding:2rem 0}
+.lt-feat{display:flex;flex-direction:column;gap:1rem;color:var(--ink)}
+.lt-media{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:radial-gradient(110% 120% at 85% 10%,#4A3E33 0%,transparent 55%),#2A231E}
+.lt-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.lt-feat:hover .lt-media img{transform:scale(1.03)}
+.lt-tile{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(1.2rem,3vw,2rem);color:#F2ECE1}
+.lt-tile .k{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1;color:#D9BF8F;font-optical-sizing:none;font-variation-settings:'opsz' 22}
+.lt-tile .s{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+.lt-tile .rule{display:block;width:56px;height:2px;background:#B0894E;margin-top:.9rem}
+.lt-kicker{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-ink)}
+.lt-kicker .new{background:var(--ink);color:#fff;padding:.35em .75em;border-radius:100px;letter-spacing:.1em}
+.lt-feat h3{font-family:'Jost',system-ui,sans-serif;font-weight:500;font-size:clamp(1.6rem,2.8vw,2.3rem);line-height:1.12;letter-spacing:-.01em;margin:0;max-width:24ch}
+.lt-feat:hover h3{color:var(--gold-ink)}
+.lt-feat p{margin:0;color:#4a433b;font-size:1.05rem;max-width:56ch}
+.lt-meta{font-size:.84rem;color:var(--muted)}
+.lt-list{list-style:none;margin:0;padding:0;border-top:1px solid #E6DCCD}
+.lt-list li{border-bottom:1px solid #E6DCCD}
+.lt-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem 1.1rem;padding:1.35rem 0;color:var(--ink)}
+.lt-item .n{grid-row:1/4;font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-size:1.7rem;line-height:1;color:var(--gold);min-width:1.4em}
+.lt-item h3{font-family:'Jost',system-ui,sans-serif;font-weight:600;font-size:1.18rem;line-height:1.25;margin:.25rem 0 .2rem}
+.lt-item:hover h3{color:var(--gold-ink)}
+.lt-aside{padding:1.8rem;border-radius:22px;background:var(--cream);border:1px solid #E6DCCD}
+.lt-aside h3{font-family:'Jost',system-ui,sans-serif;font-weight:500;font-size:1.35rem;margin:0}
+.lt-aside p{color:#4a433b;margin:.7rem 0 1.2rem}
+.lt-aside .acts{display:flex;gap:.7rem;flex-wrap:wrap}
+.lt-empty{grid-column:1/-1;max-width:640px}
+@media(max-width:860px){.lt-grid{grid-template-columns:1fr}}
+/* ---------- FOUNDER (intro) ---------- */
+.intro-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.intro-fig{position:sticky;top:96px;margin:0}
+.intro-fig .ph{position:relative}
+.intro-fig .ph::before{content:"";position:absolute;inset:18px -18px -18px 18px;background:var(--gold);border-radius:22px;z-index:0}
+.intro-fig img{position:relative;z-index:1;width:100%;aspect-ratio:6/5;object-fit:cover;border-radius:22px;box-shadow:0 24px 54px rgba(20,18,16,.16)}
+.intro-fig figcaption{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-size:1.05rem;color:var(--gold-ink);margin-top:2rem}
+.intro .more{display:flex;gap:1rem 1.4rem;align-items:center;flex-wrap:wrap;margin-top:1.8rem}
+@media(max-width:860px){.intro-grid{grid-template-columns:1fr}.intro-fig{position:relative;top:0;max-width:440px}}
+/* ---------- TOOLKIT ---------- */
+.toolkit{padding:6rem 0;background:#EAE2D7;overflow:hidden}
+.tk-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.tk-qs{list-style:none;margin:2rem 0 0;padding:0;display:grid;gap:.5rem}
+.tk-qs a{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.85rem 1.1rem;border-radius:14px;background:rgba(255,255,255,.55);border:1px solid rgba(122,92,46,.14);transition:background .15s,transform .15s}
+.tk-qs a:hover{background:#fff;transform:translateX(3px)}
+.tk-qs b{font-weight:600;font-size:1rem}
+.tk-qs span{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);white-space:nowrap}
+.tk-fine{font-size:.86rem;color:var(--muted);margin:1.2rem 0 0;max-width:52ch}
+.calc{background:#fff;border-radius:20px;box-shadow:0 2px 4px rgba(20,18,16,.04),0 34px 70px -28px rgba(48,42,37,.45);border:1px solid #E6DCCD;overflow:hidden}
+.calc-bar{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;border-bottom:1px solid #EFE6D8;background:#FBF9F5}
+.calc-bar i{width:9px;height:9px;border-radius:50%;background:#E0D3BF}
+.calc-bar b{margin-left:.5rem;font-size:.78rem;font-weight:600;color:var(--muted)}
+.calc-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}
+.calc-in{padding:1.4rem;display:grid;gap:.95rem}
+.calc-in label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.calc-f{display:flex;align-items:center;border:1.5px solid #E0D3BF;border-radius:11px;background:#fff;transition:border-color .15s,box-shadow .15s}
+.calc-f:focus-within{border-color:var(--gold-ink);box-shadow:0 0 0 3px rgba(122,92,46,.14)}
+.calc-f i{font-style:normal;color:var(--muted);font-weight:600;padding:0 .2rem 0 .8rem;font-size:.92rem}
+.calc-f i.suf{padding:0 .8rem 0 .2rem}
+.calc-f input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1rem;font-weight:500;padding:.62rem .6rem;color:var(--ink);font-variant-numeric:tabular-nums}
+.calc-f input:focus{outline:none}
+.calc-range{width:100%;accent-color:#7A5C2E;margin:.55rem 0 0}
+.calc-out{padding:1.4rem;background:#302A25;color:#F2ECE1;display:flex;flex-direction:column;gap:1rem}
+.calc-out .k{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CDB78F}
+.calc-out .big{font-size:clamp(2.2rem,4vw,2.9rem);font-weight:500;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#fff;margin-top:.35rem}
+.calc-figs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.calc-figs .v{font-size:1.15rem;font-weight:600;font-variant-numeric:tabular-nums;margin-top:.2rem}
+.calc-stack{display:flex;height:10px;border-radius:100px;overflow:hidden;background:#4A3E33}
+.calc-stack span{display:block;height:100%;transition:width .35s ease}
+.calc-key{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.74rem;color:#E5D9C4}
+.calc-key i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:.35rem;vertical-align:baseline}
+.calc-out .go{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:.4em;padding:.8em 1.2em;border-radius:100px;background:#F2ECE1;color:var(--ink);font-weight:700;font-size:.9rem}
+.calc-out .go:hover{background:#fff}
+.calc-note{font-size:.76rem;color:var(--muted);padding:.75rem 1.4rem;border-top:1px solid #EFE6D8;margin:0}
+@media(max-width:960px){.tk-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.calc-body{grid-template-columns:1fr}.tk-qs a{flex-direction:column;align-items:flex-start;gap:.15rem}}
+/* ---------- BUILDING IN PUBLIC ---------- */
+.building{padding:5.5rem 0;background:var(--warm)}
+.bp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.bp-grid h2{font-size:clamp(2rem,4vw,3.2rem);margin:.8rem 0 0}
+.bp-grid h2 em{color:var(--gold)}
+.bp-grid .eyebrow{color:var(--gold-ink)}
+.bp-card{padding:1.8rem;border-radius:22px;background:#fff;border:1px solid #E6DCCD;box-shadow:0 10px 30px rgba(20,18,16,.05)}
+.bp-card h3{font-family:'Jost',system-ui,sans-serif;font-weight:500;font-size:1.3rem;margin:0}
+.bp-card p{color:#4a433b;margin:.6rem 0 0}
+.bp-list{list-style:none;margin:1.2rem 0 1.4rem;padding:0;display:grid;gap:.6rem}
+.bp-list li{position:relative;padding-left:1.4rem;color:#4a433b}
+.bp-list li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.bp-posts .lt-list{border-top:0}
+@media(max-width:860px){.bp-grid{grid-template-columns:1fr}}
+/* ---------- SHOP TEASER ---------- */
+.shopt{padding:5.5rem 0;background:var(--cream)}
+.shopt-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}
+.shopt-list a{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid #E6DCCD;border-radius:18px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.shopt-list a:hover{transform:translateY(-4px);box-shadow:0 16px 36px -18px rgba(20,18,16,.3)}
+.pc{position:relative;aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem;border-bottom:1px solid #E6DCCD}
+.pc .t{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-size:1.25rem;line-height:1.05;font-optical-sizing:none;font-variation-settings:'opsz' 22}
+.pc::before{content:"After Five";position:absolute;top:.9rem;left:1rem;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+.pc .r{display:block;width:34px;height:2px;background:currentColor;opacity:.5;margin-top:.6rem}
+.pc.p1{background:#F8F5EF;color:#7A5C2E}.pc.p2{background:#EAE2D7;color:#302A25}.pc.p3{background:#DCC9A8;color:#302A25}.pc.p4{background:#F2ECE1;color:#7A5C2E}.pc.p5{background:#302A25;color:#D9BF8F}
+.shopt-b{padding:.9rem 1rem 1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.shopt-b .ty{font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.shopt-b h3{font-family:'Jost',system-ui,sans-serif;font-weight:600;font-size:.98rem;line-height:1.25;margin:0}
+.shopt-b .ft{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:auto;padding-top:.5rem}
+.shopt-b .pr{font-weight:700}
+.soon-pill{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35em .7em;border-radius:100px;background:var(--ink);color:#fff;white-space:nowrap}
+@media(max-width:1000px){.shopt-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.shopt-list{grid-template-columns:repeat(2,minmax(0,1fr))}.shopt-list li:last-child{grid-column:1/-1}.shopt-list li:last-child .pc{aspect-ratio:16/7}.shopt-b .ft{flex-wrap:wrap}}
+.toolkit .eyebrow{color:var(--gold-ink)}
+.toolkit h2{font-size:clamp(2rem,4vw,3.2rem);margin:.8rem 0 0}
+.toolkit h2 em{color:var(--gold-ink)}
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
@@ -214,11 +320,11 @@ section{position:relative}
       <div class="sx-drop"><a href="/costing-suite.html">Resources <span aria-hidden="true">&#9662;</span></a>
         <div class="sx-menu"><span class="sx-menu-head">Cost calculators</span><a href="/costing-suite.html#startup">Start-up costs</a><a href="/costing-suite.html#bom">Bill of materials</a><a href="/costing-suite.html#opex">Monthly operating</a><a href="/costing-suite.html#emp">New employee</a><a href="/costing-suite.html#digital">Going digital</a><a href="/costing-suite.html#leap">Can I go full-time?</a></div></div>
       <a href="/shop.html">Shop</a>
-      <a class="sx-btn" href="#join">Follow &rarr;</a>
+      <a class="sx-btn" href="#join">Follow along &rarr;</a>
     </nav>
     <button class="sx-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sxMobile"><span></span><span></span><span></span></button>
   </div>
-  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/blog">Blog</a><a href="/costing-suite.html">Resources</a><a href="/shop.html">Shop</a><a class="sx-mobile-follow" href="#join">Follow &rarr;</a></nav>
+  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/blog">Blog</a><a href="/costing-suite.html">Resources</a><a href="/shop.html">Shop</a><a class="sx-mobile-follow" href="#join">Follow along &rarr;</a></nav>
 </header>
 <!-- /site:header -->
 
@@ -230,8 +336,8 @@ section{position:relative}
       <p class="sub">AI. Apps. Automation. Better workflows. Big businesses have teams to figure this stuff out. Small businesses usually don’t.</p>
       <p class="markwrap"><span class="mark">After Five is about finding what actually works — without wasting your time or your money.</span></p>
       <div class="cta">
-        <a class="btn btn-dark" href="#join">Follow along</a>
-        <a class="btn btn-line" href="/blog">See what I’m testing &rarr;</a>
+        <a class="btn btn-dark" href="#latest">Explore what I’m discovering &rarr;</a>
+        <a class="btn btn-line" href="#join">Follow along</a>
       </div>
       <div class="feats">
         <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Practical solutions</span></div>
@@ -292,11 +398,27 @@ section{position:relative}
   </div>
 </section>
 
+<!-- LATEST -->
+<section class="latest" id="latest" aria-labelledby="latest-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="mono eyebrow">From the blog</span><h2 class="serif" id="latest-h">The latest from <em>After Five.</em></h2></div>
+      <a class="link-more" href="/blog">All posts &rarr;</a>
+    </div>
+    <div class="lt-grid" id="latestGrid" aria-live="polite"><p class="lt-note">Loading the latest&hellip;</p></div>
+  </div>
+</section>
+
 <!-- INTRO -->
-<section class="intro">
-    <div class="wrap intro-narrow">
+<section class="intro" id="hello" aria-labelledby="hello-h">
+  <div class="wrap intro-grid">
+    <figure class="intro-fig rv">
+      <div class="ph"><img src="/assets/emma-about.jpg" alt="Emma, founder of After Five" width="615" height="512" loading="lazy"></div>
+      <figcaption>The real person behind After Five.</figcaption>
+    </figure>
+    <div class="intro-narrow">
     <span class="mono eyebrow">Hi, I’m Emma</span>
-    <h2 class="serif">Welcome to <em>After Five.</em></h2>
+    <h2 class="serif" id="hello-h">Welcome to <em>After Five.</em></h2>
     <p>Thanks for finding this little slice of the internet. I’m glad you’re here.</p>
     <p>Small businesses are the backbone of the economy, but they don’t always have the time, budget or resources to invest in expensive technology, consultants and complicated systems.</p>
     <p class="turn">The good news? The game is changing.</p>
@@ -306,6 +428,8 @@ section{position:relative}
     <p>No massive tech budget. No changing everything for the sake of it. No pretending every new AI tool is going to revolutionize your business.</p>
     <p class="close">Just practical ways to work smarter, spend better and get more bang for your buck.</p>
     <div class="sign">— Emma</div>
+    <div class="more"><a class="btn btn-line" href="/about">Read my story &rarr;</a></div>
+    </div>
   </div>
 </section>
 
@@ -331,6 +455,52 @@ section{position:relative}
   </div>
 </section>
 
+<!-- TOOLKIT -->
+<section class="toolkit" id="toolkit" aria-labelledby="toolkit-h">
+  <div class="wrap tk-grid">
+    <div class="rv">
+      <span class="mono eyebrow">The After Five Toolkit</span>
+      <h2 class="serif" id="toolkit-h">Better decisions start with <em>better numbers.</em></h2>
+      <p class="sec-lead">Practical tools for the decisions small business owners actually have to make.</p>
+      <ul class="tk-qs">
+        <li><a href="/costing-suite.html#startup"><b>What will it cost to start my business?</b><span>Start-up costs</span></a></li>
+        <li><a href="/costing-suite.html#bom"><b>Am I pricing my products correctly?</b><span>Bill of materials</span></a></li>
+        <li><a href="/costing-suite.html#opex"><b>What does it cost to run my business?</b><span>Monthly operating</span></a></li>
+        <li><a href="/costing-suite.html#emp"><b>Can I afford to hire someone?</b><span>New employee</span></a></li>
+        <li><a href="/costing-suite.html#digital"><b>What will it cost to go digital?</b><span>Going digital</span></a></li>
+        <li><a href="/costing-suite.html#leap"><b>Can I afford to go full-time?</b><span>Can I go full-time?</span></a></li>
+      </ul>
+      <p class="tk-fine">Free, and it all runs in your browser. Each calculator saves as you go and exports to Excel. Results are indicative, not financial advice; the New employee calculator uses New Zealand payroll defaults you can edit.</p>
+    </div>
+    <div class="calc rv" id="miniCalc">
+      <div class="calc-bar"><i></i><i></i><i></i><b>Bill of materials &middot; Am I pricing this right?</b></div>
+      <div class="calc-body">
+        <div class="calc-in">
+          <div><label for="mc-mat">Materials per unit</label><div class="calc-f"><i>$</i><input id="mc-mat" type="number" inputmode="decimal" min="0" step="0.5" value="7.50"></div></div>
+          <div><label for="mc-min">Your time per unit</label><div class="calc-f"><input id="mc-min" type="number" inputmode="numeric" min="0" step="1" value="15"><i class="suf">min</i></div></div>
+          <div><label for="mc-rate">Labour rate / hour</label><div class="calc-f"><i>$</i><input id="mc-rate" type="number" inputmode="decimal" min="0" step="1" value="25"></div></div>
+          <div><label for="mc-oh">Overhead / packaging</label><div class="calc-f"><i>$</i><input id="mc-oh" type="number" inputmode="decimal" min="0" step="0.5" value="1"></div></div>
+          <div><label for="mc-margin">Target margin</label><div class="calc-f"><input id="mc-margin" type="number" inputmode="numeric" min="0" max="94" step="1" value="50"><i class="suf">%</i></div>
+            <input class="calc-range" id="mc-margin-r" type="range" min="0" max="90" step="1" value="50" aria-label="Target margin slider"></div>
+        </div>
+        <div class="calc-out" aria-live="polite">
+          <div><div class="k">Suggested price</div><div class="big" id="mc-price">$29.50</div></div>
+          <div class="calc-figs">
+            <div><div class="k">Cost / unit</div><div class="v" id="mc-unit">$14.75</div></div>
+            <div><div class="k">Profit / unit</div><div class="v" id="mc-profit">$14.75</div></div>
+          </div>
+          <div>
+            <div class="calc-stack" aria-hidden="true"><span id="mc-s1" style="background:#D9BF8F"></span><span id="mc-s2" style="background:#B0894E"></span><span id="mc-s3" style="background:#88796C"></span><span id="mc-s4" style="background:#F2ECE1"></span></div>
+            <div class="calc-key" style="margin-top:.6rem"><span><i style="background:#D9BF8F"></i>Materials</span><span><i style="background:#B0894E"></i>Labour</span><span><i style="background:#88796C"></i>Overhead</span><span><i style="background:#F2ECE1"></i>Profit</span></div>
+          </div>
+          <a class="go" href="/costing-suite.html#bom">Open the full calculator &rarr;</a>
+        </div>
+      </div>
+      <p class="calc-note">A quick preview with example numbers. The full calculator lets you list every material, saves your work and exports it.</p>
+    </div>
+  </div>
+</section>
+
 <!-- PILLARS -->
 <section class="pillars" id="pillars">
   <div class="wrap">
@@ -348,18 +518,44 @@ section{position:relative}
 </section>
 
 
-<!-- JOURNAL -->
-<section class="journal">
-  <div class="wrap">
-    <div class="head">
-      <div><span class="mono eyebrow">From the blog</span><h2 class="serif">The honest version.</h2></div>
-      <div class="head-acts">
-        <button class="car-arrow" id="carPrev" aria-label="Previous posts" onclick="carScroll(-1)" hidden>&#8249;</button>
-        <button class="car-arrow" id="carNext" aria-label="More posts" onclick="carScroll(1)" hidden>&#8250;</button>
-        <a class="btn btn-dark" href="/blog">Read the blog &rarr;</a>
+<!-- BUILDING IN PUBLIC -->
+<section class="building" id="building" aria-labelledby="building-h">
+  <div class="wrap bp-grid">
+    <div class="rv">
+      <span class="mono eyebrow">Building in public</span>
+      <h2 class="serif" id="building-h">Building it <em>in the open.</em></h2>
+      <p class="sec-lead">After Five isn&rsquo;t only about testing other people&rsquo;s tools. I&rsquo;m building real products after hours too, including GobyGO, and sharing the parts most people leave out: what each technology choice costs, what worked and what didn&rsquo;t.</p>
+    </div>
+    <div class="bp-posts rv" id="buildPosts">
+      <div class="bp-card">
+        <h3>The first build log is on its way.</h3>
+        <p>When it lands, this is where you&rsquo;ll find:</p>
+        <ul class="bp-list">
+          <li>What each tool and service actually costs</li>
+          <li>What worked, and what didn&rsquo;t</li>
+          <li>Lessons from building while working full-time</li>
+        </ul>
+        <a class="btn btn-dark" href="#join">Follow along</a>
       </div>
     </div>
-    <div class="car-track" id="carTrack"><div class="car-note">Loading the latest&hellip;</div></div>
+  </div>
+</section>
+
+<!-- SHOP TEASER -->
+<section class="shopt" id="shop" aria-labelledby="shop-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="mono eyebrow">The Shop &middot; Coming soon</span><h2 class="serif" id="shop-h">Tools &amp; templates, <em>ready to use.</em></h2>
+      <p class="sec-lead">Pay once, keep it forever, no subscriptions. Prices in US dollars.</p></div>
+      <a class="link-more" href="/shop.html">Visit the shop &rarr;</a>
+    </div>
+    <ul class="shopt-list rv">
+      <li><a href="/shop.html"><div class="pc p1"><span class="t">Start-Up Cost Checklist</span><span class="r"></span></div><div class="shopt-b"><span class="ty">Checklist</span><h3>The Start-Up Cost Checklist</h3><div class="ft"><span class="pr">Free</span><span class="soon-pill">Coming soon</span></div></div></a></li>
+      <li><a href="/shop.html"><div class="pc p2"><span class="t">Costing Toolkit</span><span class="r"></span></div><div class="shopt-b"><span class="ty">Spreadsheets</span><h3>The Small Business Costing Toolkit</h3><div class="ft"><span class="pr">US$19</span><span class="soon-pill">Coming soon</span></div></div></a></li>
+      <li><a href="/shop.html"><div class="pc p3"><span class="t">Website Copy &amp; Layout</span><span class="r"></span></div><div class="shopt-b"><span class="ty">Template</span><h3>Website Copy &amp; Layout Template</h3><div class="ft"><span class="pr">US$12</span><span class="soon-pill">Coming soon</span></div></div></a></li>
+      <li><a href="/shop.html"><div class="pc p4"><span class="t">Going Digital</span><span class="r"></span></div><div class="shopt-b"><span class="ty">Guide</span><h3>Going Digital: A Small Business Playbook</h3><div class="ft"><span class="pr">US$15</span><span class="soon-pill">Coming soon</span></div></div></a></li>
+      <li><a href="/shop.html"><div class="pc p5"><span class="t">The Everything Bundle</span><span class="r"></span></div><div class="shopt-b"><span class="ty">Best value</span><h3>The Everything Bundle</h3><div class="ft"><span class="pr">US$39</span><span class="soon-pill">Coming soon</span></div></div></a></li>
+    </ul>
   </div>
 </section>
 
@@ -390,7 +586,11 @@ section{position:relative}
       </div>
       <div>
         <h3 class="sx-foot-head">Explore</h3>
-        <ul class="sx-foot-links"><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/costing-suite.html">Resources</a></li><li><a href="/shop.html">Shop</a></li></ul>
+        <ul class="sx-foot-links"><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/costing-suite.html">Resources</a></li><li><a href="/shop.html">Shop</a></li><li><a href="#join">Follow along</a></li></ul>
+      </div>
+      <div>
+        <h3 class="sx-foot-head">Tools</h3>
+        <ul class="sx-foot-links"><li><a href="/costing-suite.html#startup">Start-up costs</a></li><li><a href="/costing-suite.html#bom">Bill of materials</a></li><li><a href="/costing-suite.html#opex">Monthly operating</a></li><li><a href="/costing-suite.html#emp">New employee</a></li><li><a href="/costing-suite.html#digital">Going digital</a></li><li><a href="/costing-suite.html#leap">Can I go full-time?</a></li></ul>
       </div>
       <div>
         <h3 class="sx-foot-head">Follow</h3>
@@ -405,24 +605,55 @@ section{position:relative}
 
 <script>
 (function(){
-  var track=document.getElementById('carTrack');
-  if(!track)return;
-  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-  function fmtDate(iso){if(!iso)return '';var d=new Date(iso+(iso.length<=10?'T00:00:00Z':''));if(isNaN(d))return iso;return d.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});}
-  window.carScroll=function(dir){track.scrollBy({left:dir*Math.round(track.clientWidth*0.85),behavior:'smooth'});};
-  fetch('/api/latest?n=6').then(function(r){return r.json();}).then(function(d){
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function fmtDate(iso){if(!iso)return '';var d=new Date(iso+(iso.length<=10?'T00:00:00Z':''));if(isNaN(d))return esc(iso);return d.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});}
+  function meta(p){return '<span class="lt-meta">'+fmtDate(p.published_at)+' &middot; '+(p.read_minutes||2)+' min read</span>';}
+  function href(p){return '/blog/'+encodeURIComponent(p.slug);}
+  // Only site-hosted covers: the CSP blocks other image hosts.
+  function cover(p){return (p.cover_url&&/^\/[^\/]/.test(p.cover_url))?'<img src="'+esc(p.cover_url)+'" alt="" loading="lazy">':'';}
+  function item(p,i){return '<li><a class="lt-item" href="'+href(p)+'"><span class="n" aria-hidden="true">'+(i<9?'0':'')+(i+1)+'</span><span class="lt-kicker">'+esc(p.tag||'Journal')+'</span><h3>'+esc(p.title)+'</h3>'+meta(p)+'</a></li>';}
+  function feat(p){
+    var img=cover(p);
+    return '<a class="lt-feat" href="'+href(p)+'"><div class="lt-media">'+(img||'<div class="lt-tile" aria-hidden="true"><span class="s">After Five &middot; The honest version</span><span><span class="k">'+esc(p.tag||'Journal')+'</span><span class="rule"></span></span></div>')+'</div>'
+      +'<span class="lt-kicker"><span class="new">Latest</span>'+esc(p.tag||'Journal')+'</span><h3>'+esc(p.title)+'</h3>'+(p.excerpt?'<p>'+esc(p.excerpt)+'</p>':'')+meta(p)+'</a>';
+  }
+  var grid=document.getElementById('latestGrid');
+  var aside='<div class="lt-aside"><h3>More posts are on their way.</h3><p>Follow along to hear when the next one lands. In the meantime, the calculators are ready to use.</p><div class="acts"><a class="btn btn-dark" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div></div>';
+  fetch('/api/latest?n=4').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
     var posts=(d&&d.posts)||[];
-    if(!posts.length){track.closest('section').hidden=true;return;}
-    track.innerHTML=posts.map(function(p){
-      return '<a class="post" href="/blog/'+encodeURIComponent(p.slug)+'">'
-        +'<span class="pt">'+esc(p.tag||'Journal')+'</span>'
-        +'<h3>'+esc(p.title)+'</h3>'
-        +'<p class="ex" style="margin:0;color:#5a534b;font-size:.92rem">'+esc(p.excerpt||'')+'</p>'
-        +'<span class="meta">'+fmtDate(p.published_at)+' &middot; '+(p.read_minutes||2)+' min read</span></a>';
-    }).join('');
-    var more=posts.length>(innerWidth>900?3:innerWidth>640?2:1);
-    document.getElementById('carPrev').hidden=!more;document.getElementById('carNext').hidden=!more;
-  }).catch(function(){track.innerHTML='<div class="car-note">Couldn’t load posts right now.</div>';});
+    if(!posts.length){grid.innerHTML='<div class="lt-aside lt-empty"><h3>The first post is on its way.</h3><p>Follow along to hear when it lands. In the meantime, the calculators are ready to use.</p><div class="acts"><a class="btn btn-dark" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div></div>';return;}
+    var rest=posts.slice(1);
+    grid.innerHTML=feat(posts[0])+(rest.length?'<ol class="lt-list" start="2">'+rest.map(function(p,i){return item(p,i+1);}).join('')+'</ol>':aside);
+  }).catch(function(){grid.innerHTML='<p class="lt-note">Couldn&rsquo;t load posts right now. <a class="link-more" href="/blog">Go to the blog &rarr;</a></p>';});
+
+  var bp=document.getElementById('buildPosts');
+  fetch('/api/latest?n=3&tag='+encodeURIComponent('Building in public')).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    var posts=(d&&d.posts)||[]; if(!posts.length)return;
+    bp.innerHTML='<ol class="lt-list">'+posts.map(item).join('')+'</ol><p style="margin:1.2rem 0 0"><a class="link-more" href="/blog">More on the blog &rarr;</a></p>';
+  }).catch(function(){});
+
+  // Mini Bill of materials. Same maths as the Costing Suite's BOM tab:
+  // unit = materials + minutes/60 x rate + overhead; price = unit / (1 - margin), margin capped at 94.9%.
+  var $=function(id){return document.getElementById(id);};
+  if($('miniCalc')){
+    var money2=function(n){n=Math.round((+n||0)*100)/100;return '$'+n.toLocaleString('en-NZ',{minimumFractionDigits:2,maximumFractionDigits:2});};
+    var num=function(id){var v=parseFloat($(id).value);return isFinite(v)&&v>0?v:0;};
+    var calc=function(){
+      var mat=num('mc-mat'),lab=num('mc-min')/60*num('mc-rate'),oh=num('mc-oh'),unit=mat+lab+oh;
+      var m=Math.min(94.9,num('mc-margin')),price=m>0?unit/(1-m/100):unit,profit=price-unit;
+      $('mc-price').textContent=money2(price);$('mc-unit').textContent=money2(unit);$('mc-profit').textContent=money2(profit);
+      var pct=function(x){return price>0?(x/price*100)+'%':'0%';};
+      $('mc-s1').style.width=pct(mat);$('mc-s2').style.width=pct(lab);$('mc-s3').style.width=pct(oh);$('mc-s4').style.width=pct(profit);
+    };
+    ['mc-mat','mc-min','mc-rate','mc-oh','mc-margin'].forEach(function(id){$(id).addEventListener('input',function(){if(id==='mc-margin')$('mc-margin-r').value=num('mc-margin');calc();});});
+    $('mc-margin-r').addEventListener('input',function(){$('mc-margin').value=this.value;calc();});
+    calc();
+  }
+
+  // Gentle reveal on scroll (skipped when reduced motion is on).
+  var rv=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){rv.forEach(function(e){e.classList.add('in');});}
+  else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});rv.forEach(function(e){io.observe(e);});}
 })();
 </script>
 
