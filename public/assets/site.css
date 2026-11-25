@@ -57,7 +57,7 @@
 
 /* footer */
 .sx-foot{padding:4rem 0 2.5rem;background:var(--sx-cream);color:var(--sx-ink);font-family:var(--sx-sans)}
-.sx-foot-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start}
+.sx-foot-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.8fr) minmax(0,1fr) minmax(0,1.15fr);gap:2rem;align-items:start}
 .sx-brand img{display:block;height:60px;width:auto}
 .sx-tagline{max-width:26ch;margin:1rem 0 0;font-family:var(--sx-serif);font-style:italic;font-size:1.1rem;color:var(--sx-muted)}
 .sx-foot-head{margin:0 0 1rem;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sx-muted)}
@@ -71,3 +71,8 @@
 .sx-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(20,18,16,.14);font-size:.82rem;color:var(--sx-muted)}
 .sx-tm{max-width:76ch;margin:1rem 0 0;font-size:.74rem;line-height:1.45;color:var(--sx-muted)}
 @media(max-width:760px){.sx-foot-grid{grid-template-columns:1fr 1fr}.sx-brand{grid-column:1/-1}}
+
+/* keyboard focus + motion (shared) */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2.5px solid var(--sx-gold-ink);outline-offset:3px;border-radius:6px}
+.sx-follow :where(a,button,input):focus-visible{outline-color:#D9BF8F}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

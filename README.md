@@ -14,11 +14,17 @@ This repo was rebuilt from what was live on 25 October 2026: the deployed Worker
 | `public/assets/site.css`, `site.js` | Shared colours, header, signup and footer styles, the mobile menu and the signup form. Every page loads them |
 | `public/assets/admin.js` | The blog editor's browser code |
 | `wrangler.jsonc` | Cloudflare config: static assets binding `ASSETS`, D1 database `afterfive-journal` as `DB` |
+| `docs/after-five-website-evolution.md` | The website evolution plan and release notes |
+| `migrations/` | D1 schema changes |
 | `archive/` | Earlier artifact versions of pages, kept for reference only. Not deployed |
 
 ## Writing blog posts
 
 Go to [afterfivefounder.com/admin](https://afterfivefounder.com/admin) and sign in with the `ADMIN_PASSWORD` secret. From there you can write a post, see a live preview, save it as a draft, publish it, unpublish it or delete it. Posts are written in plain text with a few shortcuts: `**bold**`, `*italic*`, `## Heading`, `> Quote`, `- List item` and `[link](https://...)`.
+
+Optional blocks for reviews and explainers: start a line with `::: summary`, `::: costs`, `::: for`, `::: skip`, `::: before`, `::: verdict`, `::: sources` or `::: disclosure`, write the content, then close with a line containing just `:::`. The renderer lives in `public/assets/md.js` and is shared by the live site and the editor preview.
+
+The editor's **Label** and **Prices checked on** fields use the columns in `migrations/0001_editorial_fields.sql`. That change was applied to the live database on 24 Nov 2026; don't run it again.
 
 If you've forgotten the password, set a new one with `npx wrangler secret put ADMIN_PASSWORD`, or in the Cloudflare dashboard under Workers & Pages → after-five-founder → Settings → Variables and Secrets.
 
