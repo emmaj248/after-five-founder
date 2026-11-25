@@ -67,6 +67,7 @@
 .sx-foot-links a:hover{color:var(--sx-gold-ink)}
 .sx-socs{display:flex;flex-wrap:wrap;gap:.55rem}
 .sx-socs a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--sx-gold-ink);color:#fff;transition:background .15s,transform .12s}
+.sx-rss{margin:.9rem 0 0;font-size:.85rem;opacity:.85}.sx-rss a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .sx-socs a:hover{background:var(--sx-ink);transform:translateY(-2px)}
 .sx-socs svg{width:18px;height:18px}
 .sx-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(20,18,16,.14);font-size:.82rem;color:var(--sx-muted)}

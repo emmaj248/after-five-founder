@@ -102,6 +102,7 @@ export function siteFooter() {
       <div>
         <h3 class="sx-foot-head">Follow</h3>
         <div class="sx-socs">${socs}</div>
+        <p class="sx-rss"><a href="/feed.xml">RSS feed</a> for new posts</p>
       </div>
     </div>
     <div class="sx-base"><span>&copy; 2026 After Five Founder &middot; Building GobyGO in the open.</span><span>Powered by MinnowByte IT</span></div>

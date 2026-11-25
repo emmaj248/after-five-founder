@@ -202,6 +202,7 @@ function layout({ title, desc, body, active = "", canonical = "", ogType = "webs
   <link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">${canonical ? `<link rel="canonical" href="${escAttr(canonical)}"><meta property="og:url" content="${escAttr(canonical)}">` : ""}${noindex ? '<meta name="robots" content="noindex">' : ""}
   <meta property="og:type" content="${ogType}"><meta property="og:site_name" content="After Five Founder"><meta property="og:title" content="${escAttr(title)}"><meta property="og:description" content="${escAttr(desc || "")}"><meta property="og:image" content="${escAttr(ogImage)}">${ogImage.endsWith("/assets/og.jpg") ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ""}
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escAttr(title)}"><meta name="twitter:description" content="${escAttr(desc || "")}"><meta name="twitter:image" content="${escAttr(ogImage)}">
+  <link rel="alternate" type="application/rss+xml" title="After Five Founder" href="/feed.xml">
   ${FONTS}<style>${CSS}</style>${head}</head>
   <body>${siteHeader(active)}${body}${siteFollow({ source: "blog" })}${siteFooter()}<script src="/assets/site.js" defer><\/script><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd631d4caee3489ca4fb0bec69f6f42e"}'><\/script></body></html>`;
 }
@@ -414,6 +415,34 @@ async function sitemap(env) {
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`, { headers: { "content-type": "application/xml;charset=utf-8", "cache-control": "max-age=3600", ...SEC } });
 }
 __name(sitemap, "sitemap");
+// RSS 2.0 feed of published posts (newest 20), full text included.
+function rfc822(day) {
+  const d = new Date((day || "").length <= 10 ? (day || "") + "T12:00:00Z" : String(day).replace(" ", "T") + (/[Z+]/.test(day) ? "" : "Z"));
+  return isNaN(d) ? new Date().toUTCString() : d.toUTCString();
+}
+__name(rfc822, "rfc822");
+function cdata(s) {
+  return "<![CDATA[" + String(s == null ? "" : s).replace(/]]>/g, "]]]]><![CDATA[>") + "]]>";
+}
+__name(cdata, "cdata");
+async function feed(env) {
+  let posts = [];
+  try { posts = (await publishedPosts(env)).slice(0, 20); } catch (e) {}
+  const items = posts.map((a) => {
+    const link = `${SITE}/blog/${esc(a.slug)}`;
+    return `<item><title>${esc(a.title)}</title><link>${link}</link><guid isPermaLink="true">${link}</guid><pubDate>${rfc822(a.published_at)}</pubDate><category>${esc(a.tag || "Journal")}</category><description>${esc(a.excerpt || "")}</description><content:encoded>${cdata(a.body_html || "")}</content:encoded></item>`;
+  });
+  const last = posts.length ? `<lastBuildDate>${rfc822(posts[0].updated_at || posts[0].published_at)}</lastBuildDate>` : "";
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
+<title>After Five Founder</title><link>${SITE}/blog</link><description>Building a business after hours: tools, systems and honest notes from the build.</description><language>en</language>${last}
+<atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>
+${items.join("\n")}
+</channel></rss>
+`;
+  return new Response(xml, { headers: { "content-type": "application/rss+xml;charset=utf-8", "cache-control": "max-age=900", ...SEC } });
+}
+__name(feed, "feed");
 // Homepage: put the latest posts into the HTML so readers and crawlers see them without JavaScript.
 // Markup matches the browser renderer in public/index.html.
 function homeLatestHtml(posts) {
@@ -583,7 +612,12 @@ async function api(request, env, url) {
   if (!await authed(request, env)) return json({ ok: false, error: "unauthorized" }, 401);
   if (p === "/api/articles") {
     if (method === "GET") {
-      const { results } = await env.DB.prepare(`SELECT id,slug,title,tag,status,published_at,updated_at FROM articles ORDER BY updated_at DESC`).all();
+      let results;
+      try {
+        ({ results } = await env.DB.prepare(`SELECT id,slug,title,tag,status,published_at,updated_at,approved_at,unpublished_at FROM articles ORDER BY updated_at DESC`).all());
+      } catch (e) {
+        ({ results } = await env.DB.prepare(`SELECT id,slug,title,tag,status,published_at,updated_at FROM articles ORDER BY updated_at DESC`).all());
+      }
       return json({ articles: results });
     }
     if (method === "POST") {
@@ -619,6 +653,20 @@ async function saveEditorial(env, id, kind, verified) {
   }
 }
 __name(saveEditorial, "saveEditorial");
+// Publishing is a human step: only the signed-in editor can make a post live, and the
+// first publish records who approved it and when. Columns come from
+// migrations/0002_approval_fields.sql; until it runs, posts still save and publish.
+async function saveApproval(env, id, before, after) {
+  if (before === after) return "";
+  try {
+    if (after === "published") await env.DB.prepare(`UPDATE articles SET approved_by='editor',approved_at=datetime('now'),unpublished_at=NULL WHERE id=?`).bind(id).run();
+    else if (before === "published") await env.DB.prepare(`UPDATE articles SET unpublished_at=datetime('now') WHERE id=?`).bind(id).run();
+    return "";
+  } catch (e) {
+    return /no such column/i.test(String(e && e.message)) ? "Saved, but the approval record needs the database update in migrations/0002_approval_fields.sql first." : "";
+  }
+}
+__name(saveApproval, "saveApproval");
 async function saveArticle(env, b, id) {
   const title = (b.title || "").trim();
   if (!title) return json({ error: "Add a title first." }, 400);
@@ -636,17 +684,17 @@ async function saveArticle(env, b, id) {
   const status = b.status === "published" ? "published" : "draft";
   const read = readMins(md);
   if (id) {
-    const cur = await env.DB.prepare(`SELECT published_at FROM articles WHERE id=?`).bind(id).first();
+    const cur = await env.DB.prepare(`SELECT published_at,status FROM articles WHERE id=?`).bind(id).first();
     if (!cur) return json({ error: "That post no longer exists." }, 404);
     let pub = cur.published_at;
     if (status === "published" && !pub) pub = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
     await env.DB.prepare(`UPDATE articles SET slug=?,title=?,excerpt=?,body_md=?,body_html=?,tag=?,cover_url=?,series_id=NULL,series_order=0,status=?,read_minutes=?,published_at=?,updated_at=datetime('now') WHERE id=?`).bind(slug, title, excerpt, md, html, tag, cover, status, read, pub, id).run();
-    const warn = await saveEditorial(env, id, kind, verified);
+    const warn = [await saveEditorial(env, id, kind, verified), await saveApproval(env, id, cur.status, status)].filter(Boolean).join(" ");
     return json({ ok: true, id, slug, status, warn });
   }
   const pub = status === "published" ? (/* @__PURE__ */ new Date()).toISOString().slice(0, 10) : null;
   const r = await env.DB.prepare(`INSERT INTO articles (slug,title,excerpt,body_md,body_html,tag,cover_url,series_id,series_order,status,read_minutes,published_at) VALUES (?,?,?,?,?,?,?,NULL,0,?,?,?)`).bind(slug, title, excerpt, md, html, tag, cover, status, read, pub).run();
-  const warn = await saveEditorial(env, r.meta.last_row_id, kind, verified);
+  const warn = [await saveEditorial(env, r.meta.last_row_id, kind, verified), await saveApproval(env, r.meta.last_row_id, "new", status)].filter(Boolean).join(" ");
   return json({ ok: true, id: r.meta.last_row_id, slug, status, warn });
 }
 __name(saveArticle, "saveArticle");
@@ -764,6 +812,7 @@ var worker_default = {
       if (p === "/about" || p === "/about/") return aboutPage();
       if (p === "/") return await homePage(request, env);
       if (p === "/sitemap.xml") return await sitemap(env);
+      if (p === "/feed.xml" || p === "/rss.xml" || p === "/feed" || p === "/rss") return await feed(env);
       if (p === "/tools" || p === "/tools/") return toolsIndex();
       let tm;
       if (tm = p.match(/^\/tools\/([a-z0-9-]+)\/?$/)) { const t = toolBySlug(tm[1]); if (t) return toolPage(t); }

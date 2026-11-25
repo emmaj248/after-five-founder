@@ -182,3 +182,30 @@ Tool pages: `/tools/start-up-costs`, `/tools/bill-of-materials`, `/tools/monthly
 Checked locally: every tool page at 375 and 1440px with no horizontal scroll or script errors; Software Stack totals ($30 monthly + $240 yearly + $15 × 2 seats = $80.00/month, $960/year), overlap flag, reload persistence, add/remove rows and CSV export; sitemap lists all tool pages; Release 1 and 2 checks re-run and pass.
 
 Still to do in later work: one shared calculation module for the six costing calculators (kept as-is for now to avoid changing working maths), and verified regional payroll figures.
+
+---
+
+## Release 4: changed files and checks
+
+| File | Change |
+| --- | --- |
+| `worker.js` | `/feed.xml` RSS 2.0 feed (aliases `/rss.xml`, `/feed`, `/rss`): newest 20 published posts with full text, plus a feed link in every Worker page's `<head>`. Publishing records `approved_by` and `approved_at`, and unpublishing records `unpublished_at`. If those columns are missing, posts still save and the editor shows a reminder. |
+| `migrations/0002_approval_fields.sql` (new) | Adds `approved_by`, `approved_at`, `unpublished_at` to `articles`. Additive only. **Needs running once** on the live database. |
+| `public/assets/admin.js` | Drafts are listed first as "Needs review", with a count of live posts and drafts waiting. "Publish" is now "Approve & publish" and asks for confirmation before a post first goes live. The list shows the approved and taken-down dates. |
+| `chrome.js` (synced), `public/assets/site.css` | Footer "Follow" column links to the RSS feed. |
+| `public/index.html` | RSS link in `<head>`. |
+
+**Studio → approval → publish.** The approval gate is the editor itself: only someone signed in to `/admin` can set a post live. Studio and n8n were not touched. For the flow to be complete, whatever Studio writes into `articles` must use `status='draft'`, so it lands in "Needs review". I couldn't see Studio's code from here, so please confirm that it does.
+
+**Not built in this release, and why:**
+- **Search.** There are no published posts yet, so search would have nothing to find. It's worth adding once there are about 20 posts. A plain D1 `LIKE` query over titles, excerpts and tags would do, with no new service needed.
+- **The After Five Brief.** Sign-ups are already being collected in the `subscribers` table. Sending needs an email service to be chosen and approved (cost, sender domain, unsubscribe handling), so nothing sends yet.
+- **Shop delivery.** The products' contents and a payment provider don't exist yet. The shop stays as it is, with no checkout added.
+
+Checked locally against a real SQLite copy of the schema:
+- Draft → Approve & publish records the approver and time.
+- Unpublish records the time.
+- Without the migration, posts still save and publish and the editor shows the reminder.
+- The list API needs sign-in.
+- The feed parses as XML, escapes titles, is valid when empty and includes full text.
+- The footer was checked at 375 and 1280px, and the Release 1–3 checks were re-run and pass.
