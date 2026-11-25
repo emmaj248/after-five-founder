@@ -12,7 +12,7 @@ Files: `baseline-*` is the site before this change, `reference-*` is `03-referen
 |---|---|---|
 | Header and footer logo | `public/assets/logo-wm.png`, `logo-full.png` | Unchanged |
 | Typography | Google Fonts Jost and Bodoni Moda (already loaded) | Added the upright Bodoni Moda weights for headings |
-| Hero illustration | The existing hero composition: invoice spreadsheet, the dozen-app panel, the AI question and the handwritten notes | Recomposed to the reference layout. Brand-coloured app tiles and the AI brand dot replaced with generic line icons; the app names stay as plain text |
+| Hero illustration | `public/assets/emma-hero.jpg` plus the existing invoice spreadsheet, dozen-app panel, AI question and handwritten notes | Emma's photo is the focal point with the panels layered around it, after feedback that the photo-free version felt flat. Brand-coloured app tiles and the AI brand dot replaced with generic line icons; the app names stay as plain text |
 | Stories | `/api/latest` (client) and `homeLatestHtml` in `worker.js` (server) | Now one feature and two smaller stories (was one and three). Empty state unchanged in wording |
 | Founder | `public/assets/emma-about.jpg` and the existing welcome copy | Directly after the stories |
 | Who it's for | `public/assets/emma-apps.jpg` and existing copy | Kept, restyled |
@@ -27,7 +27,7 @@ Files: `baseline-*` is the site before this change, `reference-*` is `03-referen
 |---|---|---|
 | Original logo and fonts; no generated portrait, brand marks or fake articles | PASS | `after-1440-viewport.png` |
 | Header about 80px | PASS | 81px desktop (incl. border), 65px mobile |
-| Hero about 530px, two balanced columns | PASS | 547px at 1440, 555px at 1920, 530px at 1024 |
+| Hero about 530px, two balanced columns | PASS | 560px at 1440 and 1920, 540px at 1024 |
 | First editorial heading and start of stories visible at 1440x900 | PASS | `after-1440-viewport.png` |
 | Bright paper hero, bronze accent on final tagline line, original illustration on the right | PASS | `after-1440-viewport.png` |
 | Content max 1240px, section spacing 48–88px | PASS | `--max` 1240, `--section` clamp(48px, 6vw, 88px) |
@@ -42,7 +42,8 @@ Files: `baseline-*` is the site before this change, `reference-*` is `03-referen
 
 ## Known differences from the reference
 
-- The reference hero has no portrait, so Emma's photo moved from the hero to the founder section, which comes straight after the stories.
+- The reference hero has no portrait. A first pass followed it, but it read as flat, so Emma's hero photo is back as the focal point. The founder section after the stories uses a different photo.
+- Text is heavier than the pack's defaults (Jost at 500, darker grey) after feedback that the type was too thin.
 - The three small "Practical solutions / Real-world tests / Built for small business" badges under the hero buttons were removed to keep the hero near 530px.
 - The "Who is this for?" and "Building in public" sections are not in the reference. They were kept and restyled because they hold existing copy.
 - The shop shows the five real products, not the reference's three.

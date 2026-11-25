@@ -81,35 +81,42 @@ section{position:relative}
 @keyframes heroUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* hero illustration: the invoice spreadsheet, the app pile and the AI question */
-.stage{position:relative;height:440px;isolation:isolate}
-.stage::before{content:"";position:absolute;inset:8% 0 4% 6%;background:radial-gradient(ellipse at center,rgba(223,194,165,.43),transparent 70%);z-index:-1}
-.panel{position:absolute;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.stage{position:relative;height:480px;isolation:isolate}
+.stage::before{content:"";position:absolute;inset:4% -8% -6% 18%;background:radial-gradient(ellipse at 60% 50%,rgba(214,176,138,.45),transparent 68%);z-index:-2}
+/* Emma: the real founder photo is the anchor of the composition */
+.portrait{position:absolute;top:40px;right:3%;width:46%;height:400px;margin:0;z-index:1}
+.portrait::before{content:"";position:absolute;inset:20px -16px -16px 20px;border-radius:16px;background:var(--bronze);z-index:-1}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:64% 16%;border-radius:16px;box-shadow:0 26px 56px rgba(48,40,33,.24)}
+.panel{position:absolute;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 20px 44px rgba(48,40,33,.16)}
 .panel-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;font:600 14px/1.25 var(--sans);color:var(--ink)}
-.panel-title i{width:8px;height:8px;border-radius:50%;background:var(--stone)}
-.p-sheet{top:46px;left:0;width:66%;padding:16px 16px 10px;transform:rotate(-3deg);z-index:1}
+.panel-title i{width:8px;height:8px;border-radius:50%;background:var(--bronze)}
+.p-sheet{top:74px;left:0;width:58%;padding:14px 14px 10px;transform:rotate(-3deg);z-index:3}
 .sheet{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
-.sheet th{text-align:left;font-weight:500;color:var(--muted);padding:7px 6px;border-bottom:1px solid var(--line)}
-.sheet td{padding:7px 6px;border-bottom:1px solid #f0e9df;color:var(--ink)}
+.sheet th{text-align:left;font-weight:500;color:var(--muted);padding:6px 5px;border-bottom:1px solid var(--line)}
+.sheet td{padding:6px 5px;border-bottom:1px solid #f0e9df;color:var(--ink)}
 .sheet .n{text-align:right}
-.sheet .over{color:var(--bronze);font-weight:600}
+.sheet .over{color:#a3412b;font-weight:600}
 .sheet-tabs{display:flex;gap:2px;margin-top:8px;font-size:11px;color:var(--muted)}
 .sheet-tabs span{padding:3px 9px;border-radius:4px}
 .sheet-tabs .on{background:var(--cream);color:var(--bronze-dark);font-weight:600}
-.p-apps{top:118px;right:0;width:46%;padding:14px;transform:rotate(3.5deg);z-index:2}
-.apps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px 4px}
-.app{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
-.app svg{width:32px;height:32px;padding:7px;border-radius:8px;background:var(--cream);color:var(--bronze-dark)}
-.app small{font-size:9.5px;line-height:1.1;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.p-ai{bottom:0;left:9%;width:52%;padding:14px 16px;transform:rotate(-1.5deg);z-index:3}
-.p-ai small{display:block;margin-bottom:6px;font:700 10px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-dark)}
-.p-ai p{font-size:14.5px;line-height:1.4;color:var(--ink)}
-.p-ai .ask{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:7px 8px 7px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;color:#8a7f74}
-.p-ai .ask b{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--bronze-dark);color:#fff;font-weight:400}
-.note{position:absolute;z-index:4;font:600 22px/1.05 var(--hand);color:var(--bronze-dark);pointer-events:none}
-.note-1{top:4px;right:0;transform:rotate(2deg);text-align:right}
-.note-2{top:2px;left:4%;transform:rotate(-4deg)}
-.note-3{bottom:20px;right:0;max-width:210px;transform:rotate(-4deg);text-align:right}
-.note-4{bottom:24px;right:0;transform:rotate(3deg);text-align:right;color:var(--ink)}
+.sheet .due{display:none}
+.p-apps{bottom:14px;left:6%;width:42%;padding:13px;transform:rotate(2.5deg);z-index:4}
+.apps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 4px}
+.app{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.app svg{width:32px;height:32px;padding:7px;border-radius:9px;background:var(--cream);color:var(--bronze-dark)}
+.app:nth-child(3n+2) svg{background:var(--bronze-dark);color:#fff}
+.app:nth-child(3n) svg{background:#e8d3bd;color:var(--ink)}
+.app small{display:none;font-size:9px;line-height:1.1;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.p-ai{bottom:0;right:0;width:48%;padding:13px 14px;transform:rotate(2deg);z-index:5;background:var(--ink);border-color:var(--ink);color:#fff}
+.p-ai small{display:block;margin-bottom:6px;font:700 10px/1.25 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#e3c7a6}
+.p-ai p{font-size:14.5px;line-height:1.4;color:#fff}
+.p-ai .ask{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:6px 6px 6px 11px;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:12px;color:#cfc2b4}
+.p-ai .ask b{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--bronze);color:#fff;font-weight:400}
+.note{position:absolute;z-index:6;font:600 23px/1.05 var(--hand);color:var(--bronze-dark);pointer-events:none}
+.note-1{top:0;right:0;transform:rotate(3deg);text-align:right;color:var(--ink)}
+.note-1 svg{display:block;width:120px;height:10px;margin:2px 0 0 auto;color:var(--bronze)}
+.note-2{top:24px;left:2%;transform:rotate(-4deg)}
+.note-3{top:278px;left:-2%;transform:rotate(-6deg);padding:1px 6px;background:var(--paper);border-radius:4px;z-index:6}
 
 /* ---------- LATEST ---------- */
 .lt-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:38px;align-items:start}
@@ -264,9 +271,11 @@ section{position:relative}
   .shopt-list{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(min-width:901px) and (max-width:1180px){
-  .p-ai{left:2%;width:62%}
-  .note-3{max-width:150px;font-size:19px}
-  .app small{font-size:8.5px}
+  .stage{height:460px}
+  .p-sheet{width:66%}
+  .p-apps{width:52%;left:0}
+  .p-ai{width:54%}
+  .note-3{top:262px;font-size:20px}
 }
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:24px;min-height:0;padding-block:40px}
@@ -285,23 +294,20 @@ section{position:relative}
   body{font-size:16px}
   .sec-head{flex-direction:column;align-items:flex-start;gap:10px}
   .hero .cta .btn{flex:1 1 auto}
-  .stage{height:350px}
-  .p-sheet{top:36px;left:0;width:86%;padding:12px 12px 8px}
-  .sheet{font-size:11px}.sheet th,.sheet td{padding:5px 4px}
-  .sheet .due,.sheet-tabs{display:none}
-  .p-apps{top:150px;width:62%;padding:10px}
-  .apps-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px 3px}
-  .app svg{width:28px;height:28px;padding:6px;border-radius:7px}
-  .app small{display:none}
-  .app:nth-child(n+9){display:none}
-  .p-ai{left:4%;width:80%;padding:11px 12px}
+  .stage{height:400px}
+  .portrait{top:34px;right:0;width:50%;height:300px}
+  .portrait::before{inset:14px -10px -10px 14px}
+  .p-sheet{top:70px;left:0;width:68%;padding:10px 10px 6px}
+  .sheet{font-size:11px}.sheet th,.sheet td{padding:5px 3px}
+  .sheet-tabs{display:none}
+  .p-apps{display:none}
+  .p-ai{left:6%;right:auto;width:84%;padding:11px 12px}
   .p-ai p{font-size:13.5px}
   .p-ai .ask{display:none}
   .note{font-size:19px}
-  .note-2{display:none}
-  .note-3{bottom:auto;top:0;right:0;max-width:170px}
-  .note-1{display:none}
-  .note-4{display:none}
+  .note-1{top:0}
+  .note-2{top:16px;left:0}
+  .note-3{display:none}
   .founder-grid{grid-template-columns:1fr}
   .hats-fig{max-width:240px}
   .founder-fig{position:relative;top:0;max-width:220px}
@@ -354,9 +360,10 @@ section{position:relative}
         <a class="btn btn-line" href="#join">Follow along</a>
       </div>
     </div>
-    <div class="stage" role="img" aria-label="Sketch of small business tech overload: an invoice spreadsheet, a dozen apps and a question for AI, with handwritten notes">
+    <div class="stage">
+      <figure class="portrait"><img src="/assets/emma-hero.jpg" alt="Emma, founder of After Five" width="900" height="1001" fetchpriority="high"></figure>
       <div class="note note-2" aria-hidden="true">Spreadsheets for everything?</div>
-      <div class="note note-1" aria-hidden="true">There has to be<br>a better way.</div>
+      <div class="note note-1" aria-hidden="true">Founder behind<br>After Five<svg viewBox="0 0 150 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 8 C 44 2 104 2 146 6"/></svg></div>
       <div class="panel p-sheet" aria-hidden="true">
         <div class="panel-title"><i></i>Invoices &amp; customer payments</div>
         <table class="sheet">
@@ -364,7 +371,6 @@ section{position:relative}
           <tr><td>Acme Co</td><td>Open</td><td class="due">9/12</td><td class="n">$4,200</td></tr>
           <tr><td>Brightline</td><td class="over">Overdue</td><td class="due">8/28</td><td class="n">$1,150</td></tr>
           <tr><td>Carter Ltd</td><td>Pending</td><td class="due">9/15</td><td class="n">$3,900</td></tr>
-          <tr><td>Delta Group</td><td>Open</td><td class="due">9/20</td><td class="n">$7,250</td></tr>
         </table>
         <div class="sheet-tabs"><span class="on">Invoices</span><span>Quotes</span><span>Customers</span></div>
       </div>
