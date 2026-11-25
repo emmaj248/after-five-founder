@@ -11,7 +11,7 @@ Files: `baseline-*` is the site before this change, `reference-*` is `03-referen
 | Target area | Source used | Notes |
 |---|---|---|
 | Header and footer logo | `public/assets/logo-wm.png`, `logo-full.png` | Unchanged |
-| Typography | Google Fonts Jost and Bodoni Moda (already loaded) | Added the upright Bodoni Moda weights for headings |
+| Typography | Google Fonts Jost (body) and Playfair Display (headings) | Playfair Display replaced Bodoni Moda after feedback that its hairline strokes were hard to read |
 | Hero illustration | `public/assets/emma-hero.jpg` plus the existing invoice spreadsheet, dozen-app panel, AI question and handwritten notes | Emma's photo is the focal point with the panels layered around it, after feedback that the photo-free version felt flat. Brand-coloured app tiles and the AI brand dot replaced with generic line icons; the app names stay as plain text |
 | Stories | `/api/latest` (client) and `homeLatestHtml` in `worker.js` (server) | Now one feature and two smaller stories (was one and three). Empty state unchanged in wording |
 | Founder | `public/assets/emma-about.jpg` and the existing welcome copy | Directly after the stories |
