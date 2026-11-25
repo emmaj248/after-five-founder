@@ -27,6 +27,10 @@ Optional blocks for reviews and explainers: start a line with `::: summary`, `::
 
 The editor's **Label** and **Prices checked on** fields use the columns in `migrations/0001_editorial_fields.sql`. That change was applied to the live database on 24 Nov 2026; don't run it again.
 
+**Publishing is a human step.** Anything that isn't live shows as "Needs review" at the top of the editor's list. Only someone signed in to `/admin` can make a post live, by pressing **Approve & publish** and confirming. Studio, n8n or any other tool that writes to the `articles` table should only ever save `status='draft'`. The editor records when each post was approved and when it was taken down, in the columns from `migrations/0002_approval_fields.sql`. Run that file once on the live database (the command is at the top of the file). Until you do, posts still save and publish, and the editor shows a reminder.
+
+**RSS:** published posts are at `/feed.xml` (also `/rss.xml`, `/feed` and `/rss`), newest 20, with the full text. Pages link to it in their `<head>`, and the footer links to it.
+
 If you've forgotten the password, set a new one with `npx wrangler secret put ADMIN_PASSWORD`, or in the Cloudflare dashboard under Workers & Pages → after-five-founder → Settings → Variables and Secrets.
 
 ## Changing the header or footer

@@ -51,14 +51,19 @@
   function loadList() {
     api("/api/articles").then(function (d) {
       posts = d.articles || [];
-      $("count").textContent = posts.length ? posts.length + (posts.length === 1 ? " post" : " posts") : "";
+      // Drafts first: anything not live is waiting for your review before it can go out.
+      posts.sort(function (a, b) { return (a.status === "published") - (b.status === "published"); });
+      var live = posts.filter(function (a) { return a.status === "published"; }).length, waiting = posts.length - live;
+      $("count").textContent = posts.length ? live + " live · " + waiting + (waiting === 1 ? " draft" : " drafts") + " waiting for review" : "";
       $("list").innerHTML = posts.map(function (a) {
-        var when = a.status === "published" ? "Published " + fmtDate(a.published_at) : "Draft · edited " + fmtDate(a.updated_at);
+        var when = a.status === "published"
+          ? "Published " + fmtDate(a.published_at) + (a.approved_at ? " · approved " + fmtDate(a.approved_at) : "")
+          : (a.unpublished_at ? "Taken off the blog " + fmtDate(a.unpublished_at) : "Draft") + " · edited " + fmtDate(a.updated_at);
         return '<div class="li"><div class="li-main"><button class="li-title" data-edit="' + a.id + '">' + esc(a.title) + "</button>" +
           '<div class="muted">' + esc(a.tag || "Journal") + " · " + when + "</div></div>" +
-          '<div class="acts"><span class="st ' + a.status + '">' + (a.status === "published" ? "Live" : "Draft") + "</span>" +
+          '<div class="acts"><span class="st ' + a.status + '">' + (a.status === "published" ? "Live" : "Needs review") + "</span>" +
           (a.status === "published" ? '<a class="link" href="/blog/' + encodeURIComponent(a.slug) + '" target="_blank" rel="noopener">View</a>' : "") +
-          '<button class="link" data-edit="' + a.id + '">Edit</button></div></div>';
+          '<button class="link" data-edit="' + a.id + '">' + (a.status === "published" ? "Edit" : "Review") + "</button></div></div>";
       }).join("") || '<p class="muted empty-list">No posts yet. Click “New post” to write your first one.</p>';
     });
   }
@@ -78,10 +83,11 @@
     dirty = false;
   }
   function setStatus(status) {
+    // status: "" (new), "draft" or "published"
     var live = status === "published";
     $("ed-state").textContent = !status ? "New post" : live ? "Live on the blog" : "Draft (not on the blog)";
     $("ed-state").className = "st " + (live ? "published" : "draft");
-    $("btnPublish").textContent = live ? "Update post" : "Publish";
+    $("btnPublish").textContent = live ? "Update post" : "Approve & publish";
     $("btnDraft").textContent = live ? "Unpublish" : "Save draft";
     $("btnDelete").hidden = !$("f_id").value;
     var view = $("btnView");
@@ -146,7 +152,12 @@
   $("btnLogin").addEventListener("click", login);
   $("btnNew").addEventListener("click", function () { openEditor({ tag: "Journal" }); });
   $("btnBack").addEventListener("click", closeEditor);
-  $("btnPublish").addEventListener("click", function () { save("published"); });
+  // Publishing is the approval step: confirm before a post goes live for the first time.
+  $("btnPublish").addEventListener("click", function () {
+    var live = $("ed-state").className.indexOf("published") > -1;
+    if (!live && !confirm("Approve and publish this post? It goes live on the blog, the homepage and the RSS feed straight away.")) return;
+    save("published");
+  });
   $("btnDraft").addEventListener("click", function () { save("draft"); });
   $("btnDelete").addEventListener("click", del);
   $("btnLogout").addEventListener("click", function () { fetch("/api/logout").then(function () { location.reload(); }); });
