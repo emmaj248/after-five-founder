@@ -148,7 +148,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 @media(max-width:860px){.t-body{grid-template-columns:1fr}.t-side{position:static}.t-two{grid-template-columns:1fr}}
 /* software stack calculator */
 .st{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:1.4rem;align-items:start;padding-bottom:3rem}
-.st-panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.2rem}
+.st-panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.2rem;container-type:inline-size;min-width:0}
 .st-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1.65fr) minmax(0,.85fr) minmax(0,.9fr) minmax(0,.55fr) 36px;gap:.6rem;align-items:end;padding:.7rem 0;border-bottom:1px solid #F0E8DC}
 .st-f span:first-child{display:block;font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
 .st-row:not(:first-child) .st-f>span:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -168,8 +168,8 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .st-empty{font-size:.9rem;color:#BFB2A0;margin:0}
 .st-ov{background:#F2ECE1;color:var(--ink);border-radius:14px;padding:.9rem 1rem;font-size:.9rem}.st-ov p{margin:.35rem 0 0}.st-ov-h{margin:0!important;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
 .st-priv{font-size:.8rem;color:#BFB2A0;margin:0}
-@media(max-width:960px){.st{grid-template-columns:1fr}.st-out{position:static}}
-@media(max-width:700px){.st-row{grid-template-columns:1fr 1fr;padding:1rem 0;position:relative}.st-name,.st-group{grid-column:1/-1}.st-row .st-f>span:first-child{position:static!important;width:auto!important;height:auto!important;clip:auto!important}.st-del{position:absolute;top:.6rem;right:0}.st-name{padding-right:40px}}
+@media(max-width:1120px){.st{grid-template-columns:1fr}.st-out{position:static}}
+@container (max-width:620px){.st-row{grid-template-columns:1fr 1fr;padding:1rem 0;position:relative}.st-name,.st-group{grid-column:1/-1}.st-row .st-f>span:first-child{position:static!important;width:auto!important;height:auto!important;clip:auto!important}.st-del{position:absolute;top:.6rem;right:0}.st-name{padding-right:40px}}
 `;
 function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

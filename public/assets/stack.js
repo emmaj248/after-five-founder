@@ -21,7 +21,7 @@
   function rowHtml(r, i) {
     var opts = '<option value="">Choose…</option>' + GROUPS.map(function (g) { return "<option" + (g === r.group ? " selected" : "") + ">" + esc(g) + "</option>"; }).join("");
     return '<div class="st-row" data-id="' + r.id + '">' +
-      '<label class="st-f st-name"><span>Tool</span><input data-k="name" value="' + esc(r.name) + '" placeholder="e.g. your accounting app" autocomplete="off"></label>' +
+      '<label class="st-f st-name"><span>Tool</span><input data-k="name" value="' + esc(r.name) + '" placeholder="App name" autocomplete="off"></label>' +
       '<label class="st-f st-group"><span>What it’s for</span><select data-k="group">' + opts + "</select></label>" +
       '<label class="st-f st-price"><span>Price</span><span class="st-in"><i>$</i><input data-k="price" type="number" inputmode="decimal" min="0" step="0.01" value="' + esc(r.price) + '" placeholder="0.00"></span></label>' +
       '<label class="st-f st-bill"><span>Billed</span><select data-k="billing"><option value="monthly"' + (r.billing !== "yearly" ? " selected" : "") + '>Monthly</option><option value="yearly"' + (r.billing === "yearly" ? " selected" : "") + ">Yearly</option></select></label>" +
