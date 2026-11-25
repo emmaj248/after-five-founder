@@ -5,14 +5,14 @@ var __name = (target, value) => __defProp(target, "name", { value, configurable:
 import { siteHeader, siteFollow, siteFooter } from "./chrome.js";
 import "./public/assets/md.js";
 import { TOOLS, REGIONS, toolBySlug } from "./tools.js";
-var FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,500;1,6..96,600;1,6..96,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/site.css">`;
+var FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300..800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,500;1,6..96,600;1,6..96,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/site.css">`;
 var CSS = `
-:root{--gold:#B0894E;--gold-ink:#7A5C2E;--muted:#6B625A;--ink:#1A1512;--warm:#FAF8F4;--blush:#EDE6D9;--cream:#F2ECE1;--line:#EADFD2;--r:22px}
+:root{--gold:#B0894E;--gold-ink:#7A5C2E;--muted:#554B42;--ink:#1A1512;--warm:#FAF8F4;--blush:#EDE6D9;--cream:#F2ECE1;--line:#EADFD2;--r:22px}
 *{box-sizing:border-box}html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
-body{background:var(--warm);color:var(--ink);font-family:'Jost',system-ui,sans-serif;font-size:1.0rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--warm);color:var(--ink);font-family:'Jost',system-ui,sans-serif;font-weight:500;font-size:1.0rem;line-height:1.6;-webkit-font-smoothing:auto;-moz-osx-font-smoothing:auto}
 img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .wrap{width:var(--sx-wrap);margin-inline:auto}
-.serif{font-family:'Jost',system-ui,sans-serif;font-weight:400;line-height:1.08;letter-spacing:-.01em}
+.serif{font-family:'Jost',system-ui,sans-serif;font-weight:500;line-height:1.08;letter-spacing:-.01em}
 .serif em{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-optical-sizing:none;font-variation-settings:'opsz' 22}
 .mono{font-family:'Jost',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;font-weight:700}
 .btn{font-family:'Jost',system-ui,sans-serif;display:inline-flex;align-items:center;gap:.5em;font-weight:600;border-radius:100px;padding:.7em 1.3em;font-size:.92rem;cursor:pointer;border:2px solid transparent;transition:transform .12s}
