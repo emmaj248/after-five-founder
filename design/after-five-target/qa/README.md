@@ -47,4 +47,4 @@ Files: `baseline-*` is the site before this change, `reference-*` is `03-referen
 - The three small "Practical solutions / Real-world tests / Built for small business" badges under the hero buttons were removed to keep the hero near 530px.
 - The "Who is this for?" and "Building in public" sections are not in the reference. They were kept and restyled because they hold existing copy.
 - The shop shows the five real products, not the reference's three.
-- The footer is now warm charcoal with gold-light accents. The logo sits on an ivory plate so the original artwork is unchanged.
+- The footer is a light ivory editorial footer with a gold-light top rule, plain-text social links and a two-column toolkit list. The logo file is used as is (it is already transparent).
