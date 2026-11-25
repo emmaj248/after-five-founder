@@ -17,6 +17,7 @@ This repo was rebuilt from what was live on 25 October 2026: the deployed Worker
 | `wrangler.jsonc` | Cloudflare config: static assets binding `ASSETS`, D1 database `afterfive-journal` as `DB` |
 | `docs/after-five-website-evolution.md` | The website evolution plan and release notes |
 | `migrations/` | D1 schema changes |
+| `design/after-five-target/` | The homepage design pack (tokens, reference layout, QA rules) and the QA screenshots for the restyle. Not deployed |
 | `archive/` | Earlier artifact versions of pages, kept for reference only. Not deployed |
 
 ## Writing blog posts

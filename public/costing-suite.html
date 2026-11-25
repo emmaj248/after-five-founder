@@ -48,7 +48,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .intro .lead{color:var(--ink-soft);font-size:clamp(1.05rem,1.8vw,1.2rem);max-width:56ch;margin:1.2rem 0 0}
 
 /* tabs */
-.tabs-wrap{position:sticky;top:68px;z-index:40;background:color-mix(in srgb,var(--cream) 92%,transparent);backdrop-filter:blur(10px)}
+.tabs-wrap{position:sticky;top:80px;z-index:40;background:color-mix(in srgb,var(--cream) 92%,transparent);backdrop-filter:blur(10px)}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:16px 0 14px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:.55em;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;font-family:var(--sans);font-weight:700;font-size:.9rem;color:var(--ink-soft);padding:.7em 1.15em;cursor:pointer;white-space:nowrap;transition:border-color .18s,color .18s,background .18s}
@@ -116,6 +116,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .addrow:hover{background:color-mix(in srgb,var(--gold) 5%,var(--paper))}
 
 /* phones: stack each row so the amount is always visible */
+@media (max-width:760px){.tabs-wrap{top:64px}}
 @media (max-width:640px){
   .grid-scroll{overflow:visible}
   .grid{min-width:0}

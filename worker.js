@@ -448,7 +448,7 @@ __name(feed, "feed");
 function homeLatestHtml(posts) {
   const meta = (p) => `<span class="lt-meta">${fmtDate(p.published_at).replace(/^(\w+) (\d+), (\d+)$/, (m, mo, d, y) => mo.slice(0, 3) + " " + d + ", " + y)} &middot; ${p.read_minutes || 2} min read</span>`;
   const item = (p, i) => `<li><a class="lt-item" href="/blog/${esc(p.slug)}"><span class="n" aria-hidden="true">${i < 9 ? "0" : ""}${i + 1}</span><span class="lt-kicker">${esc(p.tag || "Journal")}</span><h3>${esc(p.title)}</h3>${meta(p)}</a></li>`;
-  const acts = `<div class="acts"><a class="btn btn-dark" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div>`;
+  const acts = `<div class="acts"><a class="btn" href="#join">Follow along</a><a class="btn btn-line" href="#toolkit">Try the calculators</a></div>`;
   if (!posts.length) return `<div class="lt-aside lt-empty"><h3>The first post is on its way.</h3><p>Follow along to hear when it lands. In the meantime, the calculators are ready to use.</p>${acts}</div>`;
   const p = posts[0], img = localImg(p.cover_url);
   const feat = `<a class="lt-feat" href="/blog/${esc(p.slug)}"><div class="lt-media">${img ? `<img src="${escAttr(img)}" alt="" loading="lazy">` : `<div class="lt-tile" aria-hidden="true"><span class="s">After Five &middot; The honest version</span><span><span class="k">${esc(p.tag || "Journal")}</span><span class="rule"></span></span></div>`}</div><span class="lt-kicker"><span class="new">Latest</span>${esc(p.tag || "Journal")}</span><h3>${esc(p.title)}</h3>${p.excerpt ? `<p>${esc(p.excerpt)}</p>` : ""}${meta(p)}</a>`;
@@ -463,7 +463,7 @@ async function homePage(request, env) {
   const marker = '<div class="lt-grid" id="latestGrid" aria-live="polite"><p class="lt-note">Loading the latest&hellip;</p></div>';
   let out = html;
   try {
-    const { results } = await env.DB.prepare(`SELECT slug,title,excerpt,tag,cover_url,read_minutes,published_at FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC LIMIT 4`).all();
+    const { results } = await env.DB.prepare(`SELECT slug,title,excerpt,tag,cover_url,read_minutes,published_at FROM articles WHERE status='published' ORDER BY published_at DESC, id DESC LIMIT 3`).all();
     out = html.replace(marker, `<div class="lt-grid" id="latestGrid" aria-live="polite" data-ssr="1">${homeLatestHtml(results || [])}</div>`);
   } catch (e) {}
   const h = new Headers(asset.headers);
