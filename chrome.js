@@ -19,11 +19,13 @@ const CALCULATORS = [
   ["digital", "Going digital"],
   ["leap", "Can I go full-time?"]
 ];
+// Tools that live on their own page rather than in the Costing Suite.
+const EXTRA_TOOLS = [["/tools/software-stack", "Software stack"]];
 
 const NAV = [
   ["about", "/about", "About"],
   ["blog", "/blog", "Blog"],
-  ["resources", "/costing-suite.html", "Resources"],
+  ["resources", "/tools", "Tools"],
   ["shop", "/shop.html", "Shop"]
 ];
 
@@ -32,9 +34,9 @@ export function siteHeader(active = "") {
   const cur = (key) => (key === active ? ' aria-current="page"' : "");
   const links = NAV.map(([key, href, label]) => {
     if (key !== "resources") return `<a href="${href}"${cur(key)}>${label}</a>`;
-    const items = CALCULATORS.map(([id, name]) => `<a href="/costing-suite.html#${id}">${name}</a>`).join("");
+    const items = CALCULATORS.map(([id, name]) => `<a href="/costing-suite.html#${id}">${name}</a>`).join("") + EXTRA_TOOLS.map(([h, name]) => `<a href="${h}">${name}</a>`).join("");
     return `<div class="sx-drop"><a href="${href}"${cur(key)}>${label} <span aria-hidden="true">&#9662;</span></a>
-        <div class="sx-menu"><span class="sx-menu-head">Cost calculators</span>${items}</div></div>`;
+        <div class="sx-menu"><span class="sx-menu-head">Calculators</span>${items}<a class="sx-menu-all" href="/tools">All tools &amp; how they work &rarr;</a></div></div>`;
   }).join("\n      ");
   const mobile = NAV.map(([key, href, label]) => `<a href="${href}"${cur(key)}>${label}</a>`).join("");
   return `<header class="sx-nav">
@@ -81,7 +83,7 @@ export function siteFollow(opts = {}) {
 export function siteFooter() {
   const socs = SOCIALS.map(([name, href, svg]) => `<a href="${href}" target="_blank" rel="noopener" aria-label="${name}">${svg}</a>`).join("");
   const explore = NAV.map(([, href, label]) => `<li><a href="${href}">${label}</a></li>`).join("") + `<li><a href="#join">Follow along</a></li>`;
-  const tools = CALCULATORS.map(([id, name]) => `<li><a href="/costing-suite.html#${id}">${name}</a></li>`).join("");
+  const tools = CALCULATORS.map(([id, name]) => `<li><a href="/costing-suite.html#${id}">${name}</a></li>`).join("") + EXTRA_TOOLS.map(([h, name]) => `<li><a href="${h}">${name}</a></li>`).join("") + `<li><a href="/tools">All tools &rarr;</a></li>`;
   return `<footer class="sx-foot">
   <div class="sx-wrap">
     <div class="sx-foot-grid">

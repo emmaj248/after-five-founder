@@ -197,6 +197,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .intro h1,.pane-intro h2,.hero h1,.block .head h2,.case-study h2,.cta h2{font-weight:400}
 .intro h1 em,.pane-intro h2 em,.hero h1 em,.block .head h2 em,.case-study h2 em,.cta h2 em{font-weight:600;font-optical-sizing:none;font-variation-settings:'opsz' 22}
 
+.how-link{display:inline-block;margin-top:.6rem;font-size:.88rem;font-weight:600;color:var(--gold-ink);border-bottom:1.5px solid currentColor}
 .region-note{max-width:70ch;margin:1rem 0 0;font-size:.9rem;color:var(--ink-soft)}
 </style>
 
@@ -207,14 +208,14 @@ h1,h2,h3{text-wrap:balance;margin:0}
     <nav class="sx-links" aria-label="Main">
       <a href="/about">About</a>
       <a href="/blog">Blog</a>
-      <div class="sx-drop"><a href="/costing-suite.html" aria-current="page">Resources <span aria-hidden="true">&#9662;</span></a>
-        <div class="sx-menu"><span class="sx-menu-head">Cost calculators</span><a href="/costing-suite.html#startup">Start-up costs</a><a href="/costing-suite.html#bom">Bill of materials</a><a href="/costing-suite.html#opex">Monthly operating</a><a href="/costing-suite.html#emp">New employee</a><a href="/costing-suite.html#digital">Going digital</a><a href="/costing-suite.html#leap">Can I go full-time?</a></div></div>
+      <div class="sx-drop"><a href="/tools" aria-current="page">Tools <span aria-hidden="true">&#9662;</span></a>
+        <div class="sx-menu"><span class="sx-menu-head">Calculators</span><a href="/costing-suite.html#startup">Start-up costs</a><a href="/costing-suite.html#bom">Bill of materials</a><a href="/costing-suite.html#opex">Monthly operating</a><a href="/costing-suite.html#emp">New employee</a><a href="/costing-suite.html#digital">Going digital</a><a href="/costing-suite.html#leap">Can I go full-time?</a><a href="/tools/software-stack">Software stack</a><a class="sx-menu-all" href="/tools">All tools &amp; how they work &rarr;</a></div></div>
       <a href="/shop.html">Shop</a>
       <a class="sx-btn" href="#join">Follow along &rarr;</a>
     </nav>
     <button class="sx-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sxMobile"><span></span><span></span><span></span></button>
   </div>
-  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/blog">Blog</a><a href="/costing-suite.html" aria-current="page">Resources</a><a href="/shop.html">Shop</a><a class="sx-mobile-follow" href="#join">Follow along &rarr;</a></nav>
+  <nav class="sx-mobile" id="sxMobile" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/blog">Blog</a><a href="/tools" aria-current="page">Tools</a><a href="/shop.html">Shop</a><a class="sx-mobile-follow" href="#join">Follow along &rarr;</a></nav>
 </header>
 <!-- /site:header -->
 
@@ -223,7 +224,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
     <p class="eyebrow">Costing Suite</p>
     <h1>Know your numbers <em>before you commit.</em></h1>
     <p class="lead">Costing is the most overlooked part of business planning — so here are six honest calculators to get it right — from your first start-up costs to the big question: can you afford to go full-time? Work through the one you need; each totals live, saves in your browser, and exports to Excel.</p>
-    <p class="region-note">Works in any currency: amounts show with a $ sign and exports are labelled NZD. The New employee calculator starts with New Zealand payroll defaults (KiwiSaver, ACC, holiday pay) that you can edit. Results are indicative, not financial, tax or payroll advice.</p>
+    <p class="region-note">Works in any currency: amounts show with a $ sign and exports are labelled NZD. The New employee calculator starts with New Zealand payroll defaults (KiwiSaver, ACC, holiday pay) that you can edit. Results are indicative, not financial, tax or payroll advice. <a href="/tools" style="color:var(--gold-ink);font-weight:600">See how each calculator works &rarr;</a></p>
   </div>
 </section>
 
@@ -244,7 +245,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== START-UP ===== -->
   <section class="pane active" data-pane="startup">
-    <div class="pane-intro"><h2>What it costs to <em>open the doors.</em></h2><p>Every one-off cost to launch — then add a contingency buffer, because something always comes up.</p></div>
+    <div class="pane-intro"><h2>What it costs to <em>open the doors.</em></h2><p>Every one-off cost to launch — then add a contingency buffer, because something always comes up.</p><a class="how-link" href="/tools/start-up-costs#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel g-cat">
@@ -277,7 +278,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== BILL OF MATERIALS ===== -->
   <section class="pane" data-pane="bom">
-    <div class="pane-intro"><h2>What one unit <em>really costs to make.</em></h2><p>Add your materials, your time, and overhead — then set a margin to find the price that actually makes money.</p></div>
+    <div class="pane-intro"><h2>What one unit <em>really costs to make.</em></h2><p>Add your materials, your time, and overhead — then set a margin to find the price that actually makes money.</p><a class="how-link" href="/tools/bill-of-materials#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel g-bom">
@@ -318,7 +319,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== MONTHLY OPERATING ===== -->
   <section class="pane" data-pane="opex">
-    <div class="pane-intro"><h2>What it costs to <em>keep the lights on.</em></h2><p>Your recurring monthly running costs — the number that tells you how much you must earn every month just to stand still.</p></div>
+    <div class="pane-intro"><h2>What it costs to <em>keep the lights on.</em></h2><p>Your recurring monthly running costs — the number that tells you how much you must earn every month just to stand still.</p><a class="how-link" href="/tools/monthly-operating-costs#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel g-catyear">
@@ -350,7 +351,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== NEW EMPLOYEE ===== -->
   <section class="pane" data-pane="emp">
-    <div class="pane-intro"><h2>The <em>true cost</em> of a new hire.</h2><p>A wage is never the whole story. Add the on-costs — KiwiSaver, ACC, holiday pay — to see what an employee really costs you.</p></div>
+    <div class="pane-intro"><h2>The <em>true cost</em> of a new hire.</h2><p>A wage is never the whole story. Add the on-costs — KiwiSaver, ACC, holiday pay — to see what an employee really costs you.</p><a class="how-link" href="/tools/new-employee-cost#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel">
@@ -393,7 +394,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== GOING DIGITAL ===== -->
   <section class="pane" data-pane="digital">
-    <div class="pane-intro"><h2>What <em>going digital</em> costs.</h2><p>Website, email, payments, the tools — as recurring and one-off lines, so the subscriptions never surprise you.</p></div>
+    <div class="pane-intro"><h2>What <em>going digital</em> costs.</h2><p>Website, email, payments, the tools — as recurring and one-off lines, so the subscriptions never surprise you.</p><a class="how-link" href="/tools/going-digital-costs#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel g-type">
@@ -424,7 +425,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== THE LEAP ===== -->
   <section class="pane" data-pane="leap">
-    <div class="pane-intro"><h2>Can you afford to <em>make the leap?</em></h2><p>Put the pay and benefits you'd give up — and what the business costs to run — side by side with the one number that matters: what you'd have to sell to cover it all.</p></div>
+    <div class="pane-intro"><h2>Can you afford to <em>make the leap?</em></h2><p>Put the pay and benefits you'd give up — and what the business costs to run — side by side with the one number that matters: what you'd have to sell to cover it all.</p><a class="how-link" href="/tools/can-i-go-full-time#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel">
@@ -498,11 +499,11 @@ h1,h2,h3{text-wrap:balance;margin:0}
       </div>
       <div>
         <h3 class="sx-foot-head">Explore</h3>
-        <ul class="sx-foot-links"><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/costing-suite.html">Resources</a></li><li><a href="/shop.html">Shop</a></li><li><a href="#join">Follow along</a></li></ul>
+        <ul class="sx-foot-links"><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/tools">Tools</a></li><li><a href="/shop.html">Shop</a></li><li><a href="#join">Follow along</a></li></ul>
       </div>
       <div>
         <h3 class="sx-foot-head">Tools</h3>
-        <ul class="sx-foot-links"><li><a href="/costing-suite.html#startup">Start-up costs</a></li><li><a href="/costing-suite.html#bom">Bill of materials</a></li><li><a href="/costing-suite.html#opex">Monthly operating</a></li><li><a href="/costing-suite.html#emp">New employee</a></li><li><a href="/costing-suite.html#digital">Going digital</a></li><li><a href="/costing-suite.html#leap">Can I go full-time?</a></li></ul>
+        <ul class="sx-foot-links"><li><a href="/costing-suite.html#startup">Start-up costs</a></li><li><a href="/costing-suite.html#bom">Bill of materials</a></li><li><a href="/costing-suite.html#opex">Monthly operating</a></li><li><a href="/costing-suite.html#emp">New employee</a></li><li><a href="/costing-suite.html#digital">Going digital</a></li><li><a href="/costing-suite.html#leap">Can I go full-time?</a></li><li><a href="/tools/software-stack">Software stack</a></li><li><a href="/tools">All tools &rarr;</a></li></ul>
       </div>
       <div>
         <h3 class="sx-foot-head">Follow</h3>

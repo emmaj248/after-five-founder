@@ -25,6 +25,7 @@
 .sx-menu-head{padding:.4em .9em .55em;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sx-muted)}
 .sx-menu a{padding:.55em .9em;border-radius:9px;white-space:nowrap;font-size:.9rem}
 .sx-menu a:hover{background:var(--sx-cream);color:var(--sx-gold-ink)}
+.sx-menu .sx-menu-all{margin-top:.3rem;border-top:1px solid var(--sx-line);border-radius:0 0 9px 9px;font-weight:600;color:var(--sx-gold-ink)}
 .sx-btn{display:inline-flex;align-items:center;gap:.4em;padding:.6em 1.2em;border-radius:100px;background:var(--sx-ink);color:#fff!important;font-weight:600;transition:transform .12s}
 .sx-btn:hover{transform:translateY(-1px)}
 .sx-toggle{display:none;flex-direction:column;gap:5px;padding:8px;margin-right:-8px;background:none;border:0;cursor:pointer}

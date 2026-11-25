@@ -10,7 +10,8 @@ This repo was rebuilt from what was live on 25 October 2026: the deployed Worker
 | --- | --- |
 | `worker.js` | The Worker. It renders the blog, About and the `/admin` blog editor, handles `/api/*` (subscribe, login, articles), and serves everything else from `public/` |
 | `chrome.js` | The shared header, email signup strip and footer. The Worker uses it directly; `scripts/sync-chrome.mjs` copies it into the static pages |
-| `public/` | Static pages and images: home, Costing Suite, Shop, `robots.txt`, `assets/` |
+| `public/` | Static pages and images: home, Costing Suite, Shop, `robots.txt`, `assets/` (including `stack.js`, the Software Stack Calculator) |
+| `tools.js` | The tool list behind `/tools` and each `/tools/<name>` page: how each calculator works, its assumptions and regional settings |
 | `public/assets/site.css`, `site.js` | Shared colours, header, signup and footer styles, the mobile menu and the signup form. Every page loads them |
 | `public/assets/admin.js` | The blog editor's browser code |
 | `wrangler.jsonc` | Cloudflare config: static assets binding `ASSETS`, D1 database `afterfive-journal` as `DB` |
