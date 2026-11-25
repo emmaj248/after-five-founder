@@ -65,7 +65,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
 .calc-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(28px,4vw,44px);align-items:start}
 .calc-grid > div{min-width:0}
-@media (max-width:900px){.calc-grid{grid-template-columns:minmax(0,1fr)}.summary-wrap{position:static!important;margin-top:6px}}
+@media (max-width:900px){.calc-grid{grid-template-columns:minmax(0,1fr)}.summary-wrap{position:static!important;margin-top:0;order:-1}}
 
 .panel{background:var(--paper);border:1px solid var(--line-soft);border-radius:22px;box-shadow:var(--shadow-sm);padding:clamp(20px,3vw,30px)}
 .panel + .panel{margin-top:20px}
