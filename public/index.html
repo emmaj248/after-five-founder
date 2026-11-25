@@ -68,55 +68,150 @@ section{position:relative}
 .js .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
 .js .rv.in{opacity:1;transform:none}
 
-/* ---------- HERO ---------- */
-.hero{background:linear-gradient(115deg,var(--paper) 48%,#f7efe4 100%);overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px;align-items:center;min-height:530px;padding-block:40px}
-.hero h1{font:500 var(--h1)/1.04 var(--serif);letter-spacing:-.035em;color:var(--ink)}
-.hero h1 .accent{display:inline-block;margin-top:.06em;font-style:italic;font-size:.8em;letter-spacing:-.03em;color:var(--bronze)}
-.hero .sub{max-width:480px;margin-top:22px;font-size:1.06rem;color:var(--muted)}
-.hero .mark{max-width:480px;margin-top:12px;padding-left:14px;border-left:2px solid var(--bronze);font-weight:500;color:var(--ink)}
-.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+/* ---------- HERO ----------
+   A founder's working notebook: bright ivory copy side, golden-hour light behind the
+   illustrations, layered product cards and handwritten notes that point at them. */
+.hero{--ivory:#FFFCF8;--champagne:#F3DEC2;--stone2:#E9D1B5;--rich-bronze:#BB8C5B;--espresso:#302A25;
+  position:relative;overflow:hidden;isolation:isolate;background:var(--ivory)}
+/* golden-hour backdrop, concentrated behind the right-hand illustrations */
+.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-bg i{position:absolute;display:block}
+.hero-bg .glow{top:-25%;right:-14%;width:72%;height:160%;background:radial-gradient(closest-side,#F3DEC2,rgba(243,222,194,.75) 45%,rgba(255,252,248,0) 100%)}
+.hero-bg .blob{top:10%;right:3%;width:46%;height:88%;border-radius:58% 42% 46% 54%/48% 56% 44% 52%;background:linear-gradient(150deg,#E9D1B5 0%,rgba(222,186,145,.75) 38%,rgba(243,222,194,.35) 70%,rgba(243,222,194,0));transform:rotate(-8deg)}
+.hero-bg .sun{top:-18%;right:18%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,240,214,.95),rgba(255,236,205,0) 70%)}
+.hero-bg .warm{bottom:-30%;right:-6%;width:46%;height:70%;border-radius:50%;background:radial-gradient(closest-side,rgba(187,140,91,.32),rgba(187,140,91,0))}
+.hero-bg .beam{top:-30%;right:10%;width:22%;height:170%;background:linear-gradient(90deg,rgba(255,248,236,0),rgba(255,248,236,.85) 50%,rgba(255,248,236,0));transform:rotate(30deg);filter:blur(8px)}
+.hero-bg .ring{top:6%;right:-6%;width:540px;height:540px;border:1px solid rgba(187,140,91,.35);border-radius:50%}
+.hero-bg .ring2{top:22%;right:6%;width:300px;height:300px;border:1px dashed rgba(187,140,91,.25);border-radius:50%}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:40px;align-items:center;padding-block:30px 34px}
+.hero h1{font:500 clamp(40px,4.6vw,68px)/1.04 var(--serif);letter-spacing:-.035em;color:var(--ink)}
+.hero h1 .accent{display:inline-block;margin-top:.08em;font-style:italic;font-weight:600;font-size:.86em;letter-spacing:-.025em;color:#93582f;background:linear-gradient(transparent 76%,rgba(243,222,194,.95) 76%,rgba(243,222,194,.95) 93%,transparent 93%)}
+.hero .sub{max-width:470px;margin-top:20px;font-size:1.05rem;color:var(--muted)}
+.hero .mark{max-width:470px;margin-top:12px;padding-left:14px;border-left:2px solid var(--rich-bronze);font-weight:500;color:var(--ink)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .hero-copy>*{animation:heroUp .6s ease both}
 .hero-copy>:nth-child(2){animation-delay:.06s}.hero-copy>:nth-child(3){animation-delay:.12s}.hero-copy>:nth-child(4){animation-delay:.18s}.hero-copy>:nth-child(5){animation-delay:.24s}
 @keyframes heroUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* hero illustration: the invoice spreadsheet, the app pile and the AI question */
-.stage{position:relative;height:480px;isolation:isolate}
-.stage::before{content:"";position:absolute;inset:4% -8% -6% 18%;background:radial-gradient(ellipse at 60% 50%,rgba(214,176,138,.45),transparent 68%);z-index:-2}
-/* Emma: the real founder photo is the anchor of the composition */
-.portrait{position:absolute;top:40px;right:3%;width:46%;height:400px;margin:0;z-index:1}
-.portrait::before{content:"";position:absolute;inset:20px -16px -16px 20px;border-radius:16px;background:var(--bronze);z-index:-1}
-.portrait img{width:100%;height:100%;object-fit:cover;object-position:64% 16%;border-radius:16px;box-shadow:0 26px 56px rgba(48,40,33,.24)}
-.panel{position:absolute;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 20px 44px rgba(48,40,33,.16)}
-.panel-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;font:600 14px/1.25 var(--sans);color:var(--ink)}
-.panel-title i{width:8px;height:8px;border-radius:50%;background:var(--bronze)}
-.p-sheet{top:74px;left:0;width:58%;padding:14px 14px 10px;transform:rotate(-3deg);z-index:3}
-.sheet{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+/* stage */
+.stage{position:relative;height:470px}
+.portrait{position:absolute;top:34px;right:2%;width:38%;height:330px;margin:0;z-index:1;transform:rotate(1.5deg)}
+.portrait::before{content:"";position:absolute;inset:16px -14px -14px 16px;border-radius:14px;background:linear-gradient(160deg,var(--rich-bronze),#9a6a3e);z-index:-1}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:64% 14%;border-radius:14px;box-shadow:0 2px 4px rgba(48,40,33,.08),0 28px 50px -12px rgba(48,40,33,.35)}
+.panel{position:absolute;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(48,40,33,.08),0 10px 18px -6px rgba(48,40,33,.14),0 34px 60px -18px rgba(48,40,33,.32)}
+/* 1. invoices: the largest card, espresso header */
+.p-sheet{top:56px;left:0;width:61%;z-index:3;transform:rotate(-2.5deg);overflow:hidden}
+.p-sheet .bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--espresso);color:#fff;font:600 13.5px/1.2 var(--sans)}
+.p-sheet .bar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}
+.p-sheet .bar i:first-child{background:var(--rich-bronze)}
+.p-sheet .bar b{margin-left:6px;font-weight:600}
+.sheet{width:calc(100% - 20px);margin:6px 10px 4px;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
 .sheet th{text-align:left;font-weight:500;color:var(--muted);padding:6px 5px;border-bottom:1px solid var(--line)}
-.sheet td{padding:6px 5px;border-bottom:1px solid #f0e9df;color:var(--ink)}
+.sheet td{padding:7px 5px;border-bottom:1px solid #f0e9df;color:var(--ink)}
 .sheet .n{text-align:right}
+.sheet tr.od td{transition:background-color .5s ease}
+.sheet .st{position:relative;white-space:nowrap}
 .sheet .over{color:#a3412b;font-weight:600}
-.sheet-tabs{display:flex;gap:2px;margin-top:8px;font-size:11px;color:var(--muted)}
+.sheet .circ{position:absolute;left:-9px;top:-5px;width:calc(100% + 16px);height:calc(100% + 10px);overflow:visible;color:var(--bronze-dark)}
+.sheet-tabs{display:flex;gap:2px;padding:4px 10px 10px;font-size:11px;color:var(--muted)}
 .sheet-tabs span{padding:3px 9px;border-radius:4px}
-.sheet-tabs .on{background:var(--cream);color:var(--bronze-dark);font-weight:600}
-.sheet .due{display:none}
-.p-apps{bottom:14px;left:6%;width:42%;padding:13px;transform:rotate(2.5deg);z-index:4}
-.apps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 4px}
+.sheet-tabs .on{background:var(--champagne);color:var(--bronze-dark);font-weight:600}
+/* 2. subscriptions: medium card, warm neutral icons */
+.p-apps{bottom:8px;left:11%;width:39%;padding:12px 13px 13px;z-index:4;transform:rotate(3deg);background:#fffdf9}
+.apps-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:9px}
+.apps-head b{position:relative;font:600 13.5px/1.2 var(--sans);color:var(--ink)}
+.apps-head .uline{position:absolute;left:-2px;bottom:-7px;width:calc(100% + 4px);height:9px;overflow:visible;color:var(--rich-bronze)}
+.apps-head .count{flex:none;padding:3px 8px;border-radius:999px;background:var(--champagne);color:var(--bronze-dark);font:700 11px/1.2 var(--sans);font-variant-numeric:tabular-nums;transition:background-color .4s,color .4s,transform .4s}
+.apps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px 4px}
 .app{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
-.app svg{width:32px;height:32px;padding:7px;border-radius:9px;background:var(--cream);color:var(--bronze-dark)}
-.app:nth-child(3n+2) svg{background:var(--bronze-dark);color:#fff}
-.app:nth-child(3n) svg{background:#e8d3bd;color:var(--ink)}
-.app small{display:none;font-size:9px;line-height:1.1;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.p-ai{bottom:0;right:0;width:48%;padding:13px 14px;transform:rotate(2deg);z-index:5;background:var(--ink);border-color:var(--ink);color:#fff}
-.p-ai small{display:block;margin-bottom:6px;font:700 10px/1.25 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#e3c7a6}
-.p-ai p{font-size:14.5px;line-height:1.4;color:#fff}
-.p-ai .ask{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:6px 6px 6px 11px;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:12px;color:#cfc2b4}
-.p-ai .ask b{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--bronze);color:#fff;font-weight:400}
-.note{position:absolute;z-index:6;font:600 23px/1.05 var(--hand);color:var(--bronze-dark);pointer-events:none}
-.note-1{top:0;right:0;transform:rotate(3deg);text-align:right;color:var(--ink)}
-.note-1 svg{display:block;width:120px;height:10px;margin:2px 0 0 auto;color:var(--bronze)}
-.note-2{top:24px;left:2%;transform:rotate(-4deg)}
-.note-3{top:278px;left:-2%;transform:rotate(-6deg);padding:1px 6px;background:var(--paper);border-radius:4px;z-index:6}
+.app svg{width:30px;height:30px;padding:7px;border-radius:8px;background:#f6ede1;color:#8a6240;box-shadow:inset 0 0 0 1px rgba(187,140,91,.18)}
+.app:nth-child(4n+2) svg,.app:nth-child(4n+3) svg{background:#efe1cf}
+.app small{font-size:8.5px;line-height:1.1;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+/* 3. AI question: espresso, light type, bronze accents */
+.p-ai{bottom:22px;right:0;width:50%;padding:14px 15px;z-index:5;transform:rotate(-1.5deg);background:var(--espresso);color:#fff;box-shadow:0 1px 2px rgba(48,40,33,.2),0 34px 60px -16px rgba(48,40,33,.55)}
+.p-ai small{display:flex;align-items:center;gap:7px;margin-bottom:7px;font:700 10px/1.25 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#e9c79c}
+.p-ai small svg{flex:none;width:14px;height:14px;color:var(--rich-bronze)}
+.p-ai p{font-size:15px;line-height:1.4;color:#fff}
+.p-ai .ask{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:6px 6px 6px 11px;border:1px solid rgba(233,209,181,.25);border-radius:8px;font-size:12px;color:#cdbfae}
+.p-ai .ask b{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--rich-bronze);color:var(--espresso);font-weight:700}
+/* handwritten notes with arrows, circles and underlines */
+.note{position:absolute;z-index:6;font:600 22px/1.05 var(--hand);color:var(--bronze-dark);pointer-events:none}
+.note svg{position:absolute;overflow:visible;color:var(--rich-bronze)}
+.note-sheet{top:6px;left:3%;transform:rotate(-4deg)}
+.note-sheet svg{left:30px;top:22px;width:40px;height:42px}
+.note-founder{top:-4px;right:0;text-align:right;transform:rotate(3deg);color:var(--ink)}
+.note-founder svg{position:static;display:block;width:118px;height:10px;margin:3px 0 0 auto}
+.note-apps{top:296px;left:-6%;max-width:118px;transform:rotate(-6deg)}
+.note-apps svg{left:84px;top:58px;width:38px;height:40px;transform:rotate(-58deg)}
+/* hand-drawn strokes: drawn in by the sequence below */
+.draw path{stroke-dasharray:1;stroke-dashoffset:0}
+
+/* sequence: overdue invoice, its note, the app count, then the AI question */
+@media(prefers-reduced-motion:no-preference){
+  .js .stage .panel,.js .stage .portrait{animation:cardIn .7s cubic-bezier(.2,.7,.2,1) both}
+  .js .stage .portrait{animation-delay:.05s}
+  .js .stage .p-sheet{animation-delay:.15s}
+  .js .stage .p-apps{animation-delay:.3s}
+  .js .stage .p-ai{animation:aiIn .7s cubic-bezier(.2,.7,.2,1) 2.5s both}
+  .js .stage .sheet tr.od td{animation:odGlow 1.6s ease 1s both}
+  .js .stage .draw path{stroke-dashoffset:1;animation:drawIn .7s ease forwards}
+  .js .stage .circ path{animation-delay:1.1s}
+  .js .stage .note-sheet{animation:noteIn .5s ease .9s both}
+  .js .stage .note-sheet path{animation-delay:1.25s}
+  .js .stage .note-apps{animation:noteIn .5s ease 1.7s both}
+  .js .stage .note-apps path{animation-delay:1.9s}
+  .js .stage .uline path{animation-delay:2s}
+  .js .stage .apps-head .count{animation:countPop .8s ease 2.05s both}
+  .js .stage .note-founder{animation:noteIn .5s ease .5s both}
+  .js .stage .note-founder path{animation-delay:.7s}
+}
+@keyframes cardIn{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+@keyframes aiIn{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes noteIn{from{opacity:0}to{opacity:1}}
+@keyframes drawIn{to{stroke-dashoffset:0}}
+@keyframes odGlow{0%{background-color:transparent}35%{background-color:rgba(243,222,194,.95)}100%{background-color:rgba(243,222,194,.55)}}
+@keyframes countPop{0%{transform:scale(1)}40%{transform:scale(1.18);background:var(--rich-bronze);color:#fff}100%{transform:scale(1);background:var(--bronze-dark);color:#fff}}
+.sheet tr.od td{background-color:rgba(243,222,194,.55)}
+.apps-head .count{background:var(--bronze-dark);color:#fff}
+
+@media(min-width:901px) and (max-width:1180px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+  .stage{height:450px}
+  .portrait{width:42%;height:300px}
+  .p-sheet{width:70%}
+  .p-apps{width:50%;left:6%}
+  .app small{display:none}
+  .p-ai{width:56%}
+  .note-apps{display:none}
+  .apps-head b{font-size:12.5px}
+}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:20px;padding-block:32px 36px}
+  .stage{width:100%;max-width:580px;margin-inline:auto}
+  .hero-bg .glow{top:30%;right:-30%;width:120%;height:90%}
+  .hero-bg .blob{top:58%;right:-4%;width:86%;height:42%;opacity:.6}
+  .hero-bg .beam,.hero-bg .ring2,.hero-bg .sun{display:none}
+  .hero-bg .ring{top:62%;right:-40%}
+}
+@media(max-width:640px){
+  .hero .cta .btn{flex:1 1 auto}
+  .stage{height:410px}
+  .portrait{top:36px;right:0;width:46%;height:270px}
+  .portrait::before{inset:12px -9px -9px 12px}
+  .p-sheet{top:64px;width:72%}
+  .p-sheet .bar{padding:8px 10px;font-size:12px}
+  .sheet{font-size:11px;width:calc(100% - 12px);margin:4px 6px}
+  .sheet th,.sheet td{padding:5px 3px}
+  .sheet-tabs,.sheet .due{display:none}
+  .p-apps,.note-apps{display:none}
+  .p-ai{left:5%;right:auto;bottom:6px;width:86%;padding:12px 13px}
+  .p-ai p{font-size:14px}
+  .p-ai .ask{display:none}
+  .note{font-size:19px}
+  .note-sheet{top:12px;left:0}
+  .note-sheet svg{left:22px;top:20px;width:32px;height:36px}
+  .note-founder{top:-2px}
+}
 
 /* ---------- LATEST ---------- */
 .lt-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:38px;align-items:start}
@@ -270,16 +365,7 @@ section{position:relative}
   .tk-intro{grid-column:1/-1;max-width:640px}
   .shopt-list{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-@media(min-width:901px) and (max-width:1180px){
-  .stage{height:460px}
-  .p-sheet{width:66%}
-  .p-apps{width:52%;left:0}
-  .p-ai{width:54%}
-  .note-3{top:262px;font-size:20px}
-}
 @media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr;gap:24px;min-height:0;padding-block:40px}
-  .stage{width:100%;max-width:560px;margin-inline:auto}
   .lt-grid,.bp-grid,.hats-grid{grid-template-columns:1fr}
   .lt-feat{padding-right:0;border-right:0}
   .founder-grid{grid-template-columns:220px minmax(0,1fr)}
@@ -293,21 +379,6 @@ section{position:relative}
 @media(max-width:640px){
   body{font-size:16px}
   .sec-head{flex-direction:column;align-items:flex-start;gap:10px}
-  .hero .cta .btn{flex:1 1 auto}
-  .stage{height:400px}
-  .portrait{top:34px;right:0;width:50%;height:300px}
-  .portrait::before{inset:14px -10px -10px 14px}
-  .p-sheet{top:70px;left:0;width:68%;padding:10px 10px 6px}
-  .sheet{font-size:11px}.sheet th,.sheet td{padding:5px 3px}
-  .sheet-tabs{display:none}
-  .p-apps{display:none}
-  .p-ai{left:6%;right:auto;width:84%;padding:11px 12px}
-  .p-ai p{font-size:13.5px}
-  .p-ai .ask{display:none}
-  .note{font-size:19px}
-  .note-1{top:0}
-  .note-2{top:16px;left:0}
-  .note-3{display:none}
   .founder-grid{grid-template-columns:1fr}
   .hats-fig{max-width:240px}
   .founder-fig{position:relative;top:0;max-width:220px}
@@ -349,6 +420,7 @@ section{position:relative}
 <main id="main">
 <!-- HERO -->
 <section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"><i class="glow"></i><i class="sun"></i><i class="warm"></i><i class="beam"></i><i class="blob"></i><i class="ring"></i><i class="ring2"></i></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Helpful, not hypey.</span>
@@ -362,20 +434,20 @@ section{position:relative}
     </div>
     <div class="stage">
       <figure class="portrait"><img src="/assets/emma-hero.jpg" alt="Emma, founder of After Five" width="900" height="1001" fetchpriority="high"></figure>
-      <div class="note note-2" aria-hidden="true">Spreadsheets for everything?</div>
-      <div class="note note-1" aria-hidden="true">Founder behind<br>After Five<svg viewBox="0 0 150 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 8 C 44 2 104 2 146 6"/></svg></div>
+      <div class="note note-founder" aria-hidden="true">Founder behind<br>After Five<svg class="draw" viewBox="0 0 150 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path pathLength="1" d="M4 8 C 44 2 104 2 146 6"/></svg></div>
       <div class="panel p-sheet" aria-hidden="true">
-        <div class="panel-title"><i></i>Invoices &amp; customer payments</div>
+        <div class="bar"><i></i><i></i><i></i><b>Invoices &amp; customer payments</b></div>
         <table class="sheet">
           <tr><th>Customer</th><th>Status</th><th class="due">Due</th><th class="n">Amount</th></tr>
           <tr><td>Acme Co</td><td>Open</td><td class="due">9/12</td><td class="n">$4,200</td></tr>
-          <tr><td>Brightline</td><td class="over">Overdue</td><td class="due">8/28</td><td class="n">$1,150</td></tr>
+          <tr class="od"><td>Brightline</td><td class="st"><span class="over">Overdue</span><svg class="circ draw" viewBox="0 0 100 40" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"><path pathLength="1" vector-effect="non-scaling-stroke" d="M58 4 C 30 1 4 8 4 21 C 4 34 34 38 60 37 C 86 36 97 28 96 18 C 95 8 76 3 50 5"/></svg></td><td class="due">8/28</td><td class="n">$1,150</td></tr>
           <tr><td>Carter Ltd</td><td>Pending</td><td class="due">9/15</td><td class="n">$3,900</td></tr>
         </table>
         <div class="sheet-tabs"><span class="on">Invoices</span><span>Quotes</span><span>Customers</span></div>
       </div>
+      <div class="note note-sheet" aria-hidden="true">Spreadsheets for everything?<svg class="draw" viewBox="0 0 44 54" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M7 5 C 2 24 10 41 27 47"/><path pathLength="1" d="M27 47 L 16 47 M27 47 L 26 36"/></svg></div>
       <div class="panel p-apps" aria-hidden="true">
-        <div class="panel-title">One business. A dozen apps.</div>
+        <div class="apps-head"><b>One business. A dozen apps.<svg class="uline draw" viewBox="0 0 150 10" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M3 6 C 40 2 100 3 147 5"/></svg></b><span class="count">12</span></div>
         <div class="apps-grid">
           <div class="app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><small>QuickBooks</small></div>
           <div class="app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg><small>ChatGPT</small></div>
@@ -391,9 +463,9 @@ section{position:relative}
           <div class="app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><small>Calendar</small></div>
         </div>
       </div>
-      <div class="note note-3" aria-hidden="true">Wait… I’m paying for all of these?</div>
+      <div class="note note-apps" aria-hidden="true">Wait… I’m paying for all of these?<svg class="draw" viewBox="0 0 44 54" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M7 5 C 2 24 10 41 27 47"/><path pathLength="1" d="M27 47 L 16 47 M27 47 L 26 36"/></svg></div>
       <div class="panel p-ai" aria-hidden="true">
-        <small>Okay, but what can AI actually do?</small>
+        <small><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>Okay, but what can AI actually do?</small>
         <p>How can I automate this without buying another app?</p>
         <div class="ask"><span>Ask anything…</span><b>&rarr;</b></div>
       </div>
