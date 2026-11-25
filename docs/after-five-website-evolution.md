@@ -177,7 +177,7 @@ Tool pages: `/tools/start-up-costs`, `/tools/bill-of-materials`, `/tools/monthly
 
 **Regional settings:** `REGIONS` in `tools.js` lists NZ as available and US, AU and UK as not yet. Nothing for those three is published until the figures are checked against official sources.
 
-**Calculator audit: please check.** The New employee calculator's default employer KiwiSaver rate is 3%. My understanding is that the employer minimum rose to 3.5% from 1 April 2026 (announced in Budget 2025), but I haven't verified that against Inland Revenue, so the default is unchanged. Also, holiday pay is added as 8% on top of 52 weeks of wages, which suits pay-as-you-go holiday pay but may double-count if leave is taken as paid time off within those 52 weeks. Both are flagged rather than changed.
+**Calculator audit: resolved (25 Nov 2026).** You chose to remove KiwiSaver from the New employee calculator, and to replace the fixed 8% holiday pay with leave lines you enter yourself: a type, notes and a yearly amount. ACC stays as an editable rate. Saved work in the old format loads without the KiwiSaver and holiday % fields, and starts with an empty leave list.
 
 Checked locally: every tool page at 375 and 1440px with no horizontal scroll or script errors; Software Stack totals ($30 monthly + $240 yearly + $15 × 2 seats = $80.00/month, $960/year), overlap flag, reload persistence, add/remove rows and CSV export; sitemap lists all tool pages; Release 1 and 2 checks re-run and pass.
 
