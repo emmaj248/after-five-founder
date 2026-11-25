@@ -8,7 +8,7 @@
 // figures are checked against an official source; never fill them in from memory.
 
 export const REGIONS = {
-  NZ: { name: "New Zealand", status: "available", note: "KiwiSaver employer 3%, ACC levy 0.67%, holiday pay 8%. Defaults you can edit; check them against Inland Revenue, ACC and Employment New Zealand before relying on them." },
+  NZ: { name: "New Zealand", status: "available", note: "ACC levy 0.67% as an editable default. Leave costs are entered by you, line by line. Check the ACC rate with ACC and your leave obligations with Employment New Zealand before relying on them." },
   US: { name: "United States", status: "planned" },
   AU: { name: "Australia", status: "planned" },
   UK: { name: "United Kingdom", status: "planned" }
@@ -63,12 +63,12 @@ export const TOOLS = [
     name: "New employee",
     question: "Can I afford to hire someone?",
     title: "True cost of an employee calculator",
-    description: "A wage is never the whole story. Add the employer on-costs, setup and extras to see what a hire really costs per year and per hour.",
+    description: "A wage is never the whole story. Add ACC, the leave you pay for, setup and extras to see what a hire really costs per year and per hour.",
     helps: "Deciding whether you can afford a hire, and what they cost all-in compared with their wage.",
-    needs: ["Hourly rate and hours per week, or an annual salary", "Employer on-cost rates (pre-filled with New Zealand defaults)", "One-off setup: equipment, onboarding", "Other annual costs: software seats, phone, training"],
-    how: ["Gross wage = hourly rate × hours per week × 52, or the salary you enter.", "On-costs = gross wage × (employer KiwiSaver % + ACC/levies % + holiday/leave %).", "True annual cost = gross wage + on-costs + other annual costs.", "First year = true annual cost + one-off setup.", "Effective hourly cost = true annual cost ÷ (hours per week × 52)."],
-    includes: ["The on-cost percentages you enter, applied to the gross wage", "Setup and other annual costs you enter"],
-    excludes: ["Employer payroll taxes outside New Zealand", "Sick leave, public holidays and overtime beyond what you put into the leave %", "Recruitment fees, redundancy and any tax effects"],
+    needs: ["Hourly rate and hours per week, or an annual salary", "The ACC levy rate (pre-filled with a New Zealand default)", "Each type of leave you will pay for, as a yearly amount: annual leave, public holidays, sick leave, cover while they're away", "One-off setup: equipment, onboarding", "Other annual costs: software seats, phone, training"],
+    how: ["Gross wage = hourly rate × hours per week × 52, or the salary you enter.", "ACC = gross wage × ACC/levies %.", "Leave = the sum of the leave lines you add.", "True annual cost = gross wage + ACC + leave + other annual costs.", "First year = true annual cost + one-off setup.", "Effective hourly cost = true annual cost ÷ (hours per week × 52)."],
+    includes: ["The ACC percentage you enter, applied to the gross wage", "Every leave line you add", "Setup and other annual costs you enter"],
+    excludes: ["Employer payroll taxes outside New Zealand", "Employer retirement contributions such as KiwiSaver (add them under Other annual if you want them counted)", "Any leave you don't add as a line, and overtime", "Recruitment fees, redundancy and any tax effects"],
     limits: "Built around New Zealand employment. It isn't payroll or tax advice, and the default rates can change. Check them with Inland Revenue, ACC, Employment New Zealand or your accountant.",
     regional: true
   },

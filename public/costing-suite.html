@@ -156,6 +156,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .seg{display:inline-flex;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
 .seg button{border:0;background:transparent;font-family:var(--sans);font-weight:700;font-size:.86rem;color:var(--ink-soft);padding:.5em 1em;border-radius:999px;cursor:pointer;transition:background .15s,color .15s}
 .seg button[aria-pressed="true"]{background:var(--gold-ink);color:#fff}
+.leave-help{margin:-.2rem 0 .8rem;font-size:.86rem;color:var(--ink-soft);line-height:1.5}
 .subhead{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin:1.6rem 0 .8rem;padding-top:1.2rem;border-top:1px dashed var(--line)}
 
 /* summary */
@@ -224,7 +225,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
     <p class="eyebrow">Costing Suite</p>
     <h1>Know your numbers <em>before you commit.</em></h1>
     <p class="lead">Costing is the most overlooked part of business planning — so here are six honest calculators to get it right — from your first start-up costs to the big question: can you afford to go full-time? Work through the one you need; each totals live, saves in your browser, and exports to Excel.</p>
-    <p class="region-note">Works in any currency: amounts show with a $ sign and exports are labelled NZD. The New employee calculator starts with New Zealand payroll defaults (KiwiSaver, ACC, holiday pay) that you can edit. Results are indicative, not financial, tax or payroll advice. <a href="/tools" style="color:var(--gold-ink);font-weight:600">See how each calculator works &rarr;</a></p>
+    <p class="region-note">Works in any currency: amounts show with a $ sign and exports are labelled NZD. The New employee calculator starts with a New Zealand ACC levy rate you can edit, and you add your own leave costs. Results are indicative, not financial, tax or payroll advice. <a href="/tools" style="color:var(--gold-ink);font-weight:600">See how each calculator works &rarr;</a></p>
   </div>
 </section>
 
@@ -351,7 +352,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   <!-- ===== NEW EMPLOYEE ===== -->
   <section class="pane" data-pane="emp">
-    <div class="pane-intro"><h2>The <em>true cost</em> of a new hire.</h2><p>A wage is never the whole story. Add the on-costs — KiwiSaver, ACC, holiday pay — to see what an employee really costs you.</p><a class="how-link" href="/tools/new-employee-cost#how">How this is calculated &rarr;</a></div>
+    <div class="pane-intro"><h2>The <em>true cost</em> of a new hire.</h2><p>A wage is never the whole story. Add ACC, the leave you pay for and the extras to see what an employee really costs you.</p><a class="how-link" href="/tools/new-employee-cost#how">How this is calculated &rarr;</a></div>
     <div class="calc-grid">
       <div>
         <div class="panel">
@@ -363,12 +364,18 @@ h1,h2,h3{text-wrap:balance;margin:0}
             <div class="field" id="emp-salary-f" style="display:none"><label>Annual salary</label><div class="inp"><i>$</i><input id="emp-salary" type="number" min="0" step="500" value="55000"></div></div>
             <div class="field"><label>Hours / week</label><div class="inp"><input id="emp-hours" type="number" min="1" max="80" step="1" value="40"></div></div>
           </div>
-          <div class="subhead">Employer on-costs <span style="text-transform:none;letter-spacing:0;font-weight:500">(NZ defaults — edit for your situation)</span></div>
+          <div class="subhead">Employer levies <span style="text-transform:none;letter-spacing:0;font-weight:500">(NZ default — edit for your situation)</span></div>
           <div class="fields">
-            <div class="field"><label>KiwiSaver <span class="sub">employer</span></label><div class="inp suffix"><input id="emp-ks" type="number" min="0" step="0.5" value="3"><i>%</i></div></div>
             <div class="field"><label>ACC / levies</label><div class="inp suffix"><input id="emp-acc" type="number" min="0" step="0.01" value="0.67"><i>%</i></div></div>
-            <div class="field"><label>Holiday / leave loading</label><div class="inp suffix"><input id="emp-hol" type="number" min="0" step="1" value="8"><i>%</i></div></div>
           </div>
+          <div class="subhead">Leave costs <span style="text-transform:none;letter-spacing:0;font-weight:500">(per year)</span></div>
+          <p class="leave-help">Add each type of leave you&rsquo;ll pay for, as a yearly dollar amount. If paid leave already sits inside the 52 weeks of wages above, only add the extra it costs you, like cover while they&rsquo;re away or holiday pay paid out on top.</p>
+          <div class="quick" data-quick="leave"><span class="qlabel">Add:</span></div>
+          <div class="grid-scroll"><div class="grid g-cat">
+            <div class="ghead"><div>Leave type</div><div>Notes</div><div class="num">Per year</div><div></div></div>
+            <div data-rows="leave"></div>
+            <button type="button" class="addrow" data-add="leave">＋ Add leave</button>
+          </div></div>
           <div class="subhead">Other costs</div>
           <div class="fields">
             <div class="field"><label>One-off setup <span class="sub">equipment, onboarding</span></label><div class="inp"><i>$</i><input id="emp-setup" type="number" min="0" step="50" value="1000"></div></div>
@@ -386,7 +393,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
         </div>
         <div class="brk" id="emp-brk"></div>
         <div class="insight" id="emp-insight" hidden></div>
-        <p class="disclaimer">Indicative only — not payroll or tax advice. NZ defaults; check current KiwiSaver, ACC and Holidays Act rates, or your accountant, for real figures.</p>
+        <p class="disclaimer">Indicative only — not payroll or tax advice. The ACC rate is a NZ default; check it, and your leave costs under the Holidays Act, with ACC, Employment New Zealand or your accountant.</p>
         <button type="button" class="reset" data-reset="emp">Reset</button>
       </div></div>
     </div>
@@ -543,10 +550,12 @@ h1,h2,h3{text-wrap:balance;margin:0}
       {id:3,cat:'Software',desc:'Software & subscriptions',mo:120},
       {id:4,cat:'Utilities',desc:'Power, internet & phone',mo:300}
     ]},
-    emp:{basis:'hourly', hourly:26, salary:55000, hours:40, ks:3, acc:0.67, hol:8, setup:1000, other:600},
+    emp:{basis:'hourly', hourly:26, salary:55000, hours:40, acc:0.67, setup:1000, other:600, lnid:1, leave:[]},
     leap:{pay:4500, ben:500, costs:2000, start:8000, runway:12, spread:false, buf:20, margin:60, avg:0}
   };}
   var S=load()||defaults();
+  // Older saved work had KiwiSaver and a fixed holiday %: drop those and start an empty leave list.
+  if(!S.emp.leave){ S.emp.leave=[]; S.emp.lnid=1; } delete S.emp.ks; delete S.emp.hol;
   function load(){ try{var s=localStorage.getItem(LSKEY);if(!s)return null;var o=JSON.parse(s);if(!o||!o.startup)return null;return o;}catch(e){return null;} }
   function save(){ try{localStorage.setItem(LSKEY,JSON.stringify(S));}catch(e){} }
   function money(n){ n=Math.round(+n||0); return '$'+n.toLocaleString('en-NZ'); }
@@ -648,14 +657,33 @@ h1,h2,h3{text-wrap:balance;margin:0}
   }
 
   // ---- Employee ----
+  var LEAVE_TYPES=['Annual leave','Public holidays','Sick leave','Bereavement leave','Family violence leave','Parental leave','Alternative holidays','Cover while away','Other leave'];
+  function leaveTotal(){ return S.emp.leave.reduce(function(a,r){return a+(+r.amt||0);},0); }
+  function buildLeave(){
+    var rowsEl=el('leave','data-rows'); rowsEl.innerHTML='';
+    if(!S.emp.leave.length){ rowsEl.innerHTML='<div class="empty-row">No leave costs yet. Add one below or tap a type above.</div>'; return; }
+    S.emp.leave.forEach(function(r){
+      var row=document.createElement('div'); row.className='grow';
+      row.innerHTML='<div class="cell sel">'+catSelect(LEAVE_TYPES,r.type).replace('aria-label="Category"','aria-label="Leave type"')+'</div>'+
+        '<div class="cell"><input type="text" placeholder="e.g. 4 weeks, or cover cost" value="'+esc(r.desc)+'" aria-label="Notes"></div>'+
+        '<div class="cell num dollar"><input type="number" min="0" step="1" value="'+(r.amt||'')+'" placeholder="0" inputmode="decimal" aria-label="Amount per year"></div>'+
+        '<div class="cell act"><button type="button" class="rm" aria-label="Remove">×</button></div>';
+      row.querySelector('select').addEventListener('change',function(e){ r.type=e.target.value; recomputeEmp(); });
+      row.querySelector('input[type=text]').addEventListener('input',function(e){ r.desc=e.target.value; recomputeEmp(); });
+      row.querySelector('.dollar input').addEventListener('input',function(e){ r.amt=num(e.target.value); recomputeEmp(); });
+      row.querySelector('.rm').addEventListener('click',function(){ S.emp.leave=S.emp.leave.filter(function(x){return x.id!==r.id;}); buildLeave(); recomputeEmp(); });
+      rowsEl.appendChild(row);
+    });
+  }
+  function addLeave(type){ S.emp.leave.push({id:S.emp.lnid++,type:type||LEAVE_TYPES[0],desc:'',amt:0}); buildLeave(); recomputeEmp(); var a=el('leave','data-rows').querySelectorAll('.dollar input'); if(a.length) a[a.length-1].focus(); }
   function recomputeEmp(){
     var e=S.emp;
-    e.hours=num($('#emp-hours').value); e.ks=num($('#emp-ks').value); e.acc=num($('#emp-acc').value); e.hol=num($('#emp-hol').value); e.setup=num($('#emp-setup').value); e.other=num($('#emp-other').value);
+    e.hours=num($('#emp-hours').value); e.acc=num($('#emp-acc').value); e.setup=num($('#emp-setup').value); e.other=num($('#emp-other').value);
     var weeks=52, hrsYear=e.hours*weeks;
     var gross;
     if(e.basis==='hourly'){ e.hourly=num($('#emp-hourly').value); gross=e.hourly*hrsYear; }
     else { e.salary=num($('#emp-salary').value); gross=e.salary; }
-    var onPct=e.ks+e.acc+e.hol, onAmt=gross*onPct/100;
+    var leaveTot=leaveTotal(), onAmt=gross*e.acc/100+leaveTot;
     var trueAnnual=gross+onAmt+e.other;
     var firstYear=trueAnnual+e.setup;
     var eff=hrsYear>0?trueAnnual/hrsYear:0;
@@ -665,9 +693,8 @@ h1,h2,h3{text-wrap:balance;margin:0}
     $('#emp-load').textContent=Math.round(load)+'%';
     $('#emp-brk').innerHTML=
       '<div class="brk-row"><span class="lbl">Gross wage</span><span class="amt">'+money(gross)+'</span></div>'+
-      '<div class="brk-row"><span class="lbl">KiwiSaver ('+ (e.ks||0) +'%)</span><span class="amt">'+money(gross*e.ks/100)+'</span></div>'+
       '<div class="brk-row"><span class="lbl">ACC / levies ('+ (e.acc||0) +'%)</span><span class="amt">'+money(gross*e.acc/100)+'</span></div>'+
-      '<div class="brk-row"><span class="lbl">Holiday / leave ('+ (e.hol||0) +'%)</span><span class="amt">'+money(gross*e.hol/100)+'</span></div>'+
+      e.leave.filter(function(r){return (+r.amt||0)>0;}).map(function(r){return '<div class="brk-row"><span class="lbl">'+esc(r.type)+(r.desc?' · '+esc(r.desc):'')+'</span><span class="amt">'+money(+r.amt||0)+'</span></div>';}).join('')+
       '<div class="brk-row"><span class="lbl">Other annual</span><span class="amt">'+money(e.other)+'</span></div>'+
       '<div class="brk-row"><span class="lbl">One-off setup</span><span class="amt">'+money(e.setup)+'</span></div>';
     var ins=$('#emp-insight');
@@ -749,6 +776,8 @@ h1,h2,h3{text-wrap:balance;margin:0}
     list.forEach(function(item){ var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent='＋ '+item[1];
       b.addEventListener('click',function(){ var st=S[tab]; var o={id:st.nid++,cat:item[0],desc:item[1]}; o[amtKey]=item[2]; st.rows.push(o); buildLineGrid(tab); recompute(tab); }); q.appendChild(b); }); }
   mountQuick('startup',STARTUP_QUICK); mountQuick('opex',OPEX_QUICK);
+  el('leave','data-add').addEventListener('click',function(){ addLeave(); });
+  (function(){ var q=el('leave','data-quick'); ['Annual leave','Public holidays','Sick leave','Cover while away'].forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent='＋ '+t; b.addEventListener('click',function(){ addLeave(t); }); q.appendChild(b); }); })();
   el('digital','data-add').addEventListener('click',function(){ S.digital.rows.push({id:S.digital.nid++,type:'recurring',desc:'',rate:0}); buildDigital(); recomputeDigital(); var inputs=el('digital','data-rows').querySelectorAll('input[type=text]'); if(inputs.length) inputs[inputs.length-1].focus(); });
   (function(){ var q=el('digital','data-quick'); DIGITAL_QUICK.forEach(function(it){ var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent='＋ '+it[1]; b.addEventListener('click',function(){ S.digital.rows.push({id:S.digital.nid++,type:it[0],desc:it[1],rate:it[2]}); buildDigital(); recomputeDigital(); }); q.appendChild(b); }); })();
 
@@ -756,7 +785,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 
   // BOM + employee field bindings
   ['bom-min','bom-rate','bom-oh','bom-margin'].forEach(function(id){ $('#'+id).addEventListener('input',function(){ S.bom.min=num($('#bom-min').value); S.bom.rate=num($('#bom-rate').value); S.bom.oh=num($('#bom-oh').value); S.bom.margin=num($('#bom-margin').value); recomputeBom(); }); });
-  ['emp-hourly','emp-salary','emp-hours','emp-ks','emp-acc','emp-hol','emp-setup','emp-other'].forEach(function(id){ $('#'+id).addEventListener('input',recomputeEmp); });
+  ['emp-hourly','emp-salary','emp-hours','emp-acc','emp-setup','emp-other'].forEach(function(id){ $('#'+id).addEventListener('input',recomputeEmp); });
   ['lp-pay','lp-ben','lp-costs','lp-start','lp-runway','lp-buf','lp-margin','lp-avg'].forEach(function(id){ $('#'+id).addEventListener('input',recomputeLeap); });
   $('#lp-spread').addEventListener('change',recomputeLeap);
   $('#lp-useopex').addEventListener('click',function(){ var t=S.opex.rows.reduce(function(a,r){return a+(+r.mo||0);},0); $('#lp-costs').value=Math.round(t); recomputeLeap(); });
@@ -766,7 +795,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
     document.querySelectorAll('#emp-basis button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
     $('#emp-hourly-f').style.display=S.emp.basis==='hourly'?'':'none'; $('#emp-salary-f').style.display=S.emp.basis==='salary'?'':'none'; recomputeEmp(); }); });
 
-  function applyEmpFields(){ var e=S.emp; $('#emp-hourly').value=e.hourly; $('#emp-salary').value=e.salary; $('#emp-hours').value=e.hours; $('#emp-ks').value=e.ks; $('#emp-acc').value=e.acc; $('#emp-hol').value=e.hol; $('#emp-setup').value=e.setup; $('#emp-other').value=e.other;
+  function applyEmpFields(){ var e=S.emp; $('#emp-hourly').value=e.hourly; $('#emp-salary').value=e.salary; $('#emp-hours').value=e.hours; $('#emp-acc').value=e.acc; $('#emp-setup').value=e.setup; $('#emp-other').value=e.other;
     document.querySelectorAll('#emp-basis button').forEach(function(x){x.setAttribute('aria-pressed',x.getAttribute('data-basis')===e.basis?'true':'false');});
     $('#emp-hourly-f').style.display=e.basis==='hourly'?'':'none'; $('#emp-salary-f').style.display=e.basis==='salary'?'':'none'; }
   function applyBomFields(){ $('#bom-min').value=S.bom.min; $('#bom-rate').value=S.bom.rate; $('#bom-oh').value=S.bom.oh; $('#bom-margin').value=S.bom.margin; }
@@ -775,7 +804,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
     if(tab==='startup'){ $('#su-bufpct').value=S.startup.bufpct; buildLineGrid('startup'); recomputeStartup(); }
     else if(tab==='opex'){ buildLineGrid('opex'); recomputeOpex(); }
     else if(tab==='bom'){ applyBomFields(); buildBom(); recomputeBom(); }
-    else if(tab==='emp'){ applyEmpFields(); recomputeEmp(); }
+    else if(tab==='emp'){ applyEmpFields(); buildLeave(); recomputeEmp(); }
     else if(tab==='digital'){ buildDigital(); recomputeDigital(); }
     else if(tab==='leap'){ applyLeapFields(); recomputeLeap(); }
   }
@@ -805,8 +834,8 @@ h1,h2,h3{text-wrap:balance;margin:0}
       S.bom.rows.forEach(function(r){L.push([r.desc,+r.qty||0,+r.unit||0,(+r.qty||0)*(+r.unit||0)]);});
       var mat=S.bom.rows.reduce(function(a,r){return a+(+r.qty||0)*(+r.unit||0);},0), labour=num($('#bom-min').value)/60*num($('#bom-rate').value), oh=num($('#bom-oh').value), unit=mat+labour+oh, m=Math.min(94.9,num($('#bom-margin').value)), price=m>0?unit/(1-m/100):unit;
       L.push([]); L.push(['Materials total','','',mat]); L.push(['Labour ('+num($('#bom-min').value)+' min @ $'+num($('#bom-rate').value)+'/hr)','','',labour]); L.push(['Overhead / packaging','','',oh]); L.push(['Cost per unit','','',unit]); L.push(['Target margin','',m+'%','']); L.push(['Suggested price','','',price]); L.push(['Profit per unit','','',price-unit]); }
-    else { name='employee-cost'; var e=S.emp, weeks=52, hrsYear=e.hours*weeks, gross=e.basis==='hourly'?e.hourly*hrsYear:e.salary, onAmt=gross*(e.ks+e.acc+e.hol)/100, trueAnnual=gross+onAmt+e.other, firstYear=trueAnnual+e.setup, eff=hrsYear>0?trueAnnual/hrsYear:0;
-      L=[['Item','Value (NZD)'],['Pay basis',e.basis==='hourly'?'Hourly $'+e.hourly:'Salary'],['Hours per week',e.hours],['Gross annual wage',gross],['KiwiSaver ('+e.ks+'%)',gross*e.ks/100],['ACC / levies ('+e.acc+'%)',gross*e.acc/100],['Holiday / leave ('+e.hol+'%)',gross*e.hol/100],['Other annual',e.other],['True annual cost',trueAnnual],['One-off setup',e.setup],['First-year total',firstYear],['Effective hourly cost',Math.round(eff*100)/100],['On-cost loading',Math.round((gross>0?(trueAnnual-gross)/gross*100:0))+'%']]; }
+    else { name='employee-cost'; var e=S.emp, weeks=52, hrsYear=e.hours*weeks, gross=e.basis==='hourly'?e.hourly*hrsYear:e.salary, onAmt=gross*e.acc/100+leaveTotal(), trueAnnual=gross+onAmt+e.other, firstYear=trueAnnual+e.setup, eff=hrsYear>0?trueAnnual/hrsYear:0;
+      L=[['Item','Value (NZD)'],['Pay basis',e.basis==='hourly'?'Hourly $'+e.hourly:'Salary'],['Hours per week',e.hours],['Gross annual wage',gross],['ACC / levies ('+e.acc+'%)',gross*e.acc/100]].concat(e.leave.map(function(r){return ['Leave: '+r.type+(r.desc?' ('+r.desc+')':''),+r.amt||0];})).concat([['Other annual',e.other],['True annual cost',trueAnnual],['One-off setup',e.setup],['First-year total',firstYear],['Effective hourly cost',Math.round(eff*100)/100],['On-cost loading',Math.round((gross>0?(trueAnnual-gross)/gross*100:0))+'%']]); }
     if(tab==='digital'){ name='going-digital'; L=[['Type','Description','Rate (NZD)','Per year (NZD)']];
       S.digital.rows.forEach(function(r){ L.push([r.type==='recurring'?'Recurring':'One-off', r.desc, +r.rate||0, annualD(r)]); });
       var drec=S.digital.rows.filter(function(r){return r.type==='recurring';}).reduce(function(a,r){return a+(+r.rate||0);},0), done=S.digital.rows.filter(function(r){return r.type==='oneoff';}).reduce(function(a,r){return a+(+r.rate||0);},0);
