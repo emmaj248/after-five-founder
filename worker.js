@@ -4,6 +4,7 @@ var __name = (target, value) => __defProp(target, "name", { value, configurable:
 // worker.js
 import { siteHeader, siteFollow, siteFooter } from "./chrome.js";
 import "./public/assets/md.js";
+import { TOOLS, REGIONS, toolBySlug } from "./tools.js";
 var FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,500;1,6..96,600;1,6..96,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/site.css">`;
 var CSS = `
 :root{--gold:#B0894E;--gold-ink:#7A5C2E;--muted:#6B625A;--ink:#1A1512;--warm:#FAF8F4;--blush:#EDE6D9;--cream:#F2ECE1;--line:#EADFD2;--r:22px}
@@ -108,6 +109,67 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .labels dl{display:grid;grid-template-columns:max-content 1fr;gap:.7rem 1.2rem;margin:1.2rem 0 0}
 .labels dt{margin:0}.labels dd{margin:0;color:#4a433b}
 @media(max-width:560px){.labels dl{grid-template-columns:1fr}.labels dd{margin-bottom:.6rem}}
+/* release 3: tools */
+.t-hero{padding:4rem 0 2.6rem}
+.t-hero .eyebrow{color:var(--gold-ink)}
+.t-hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem);margin:.8rem 0 0;max-width:22ch}
+.t-hero h1 em{color:var(--gold-ink)}
+.t-hero p{color:#4a433b;font-size:1.15rem;max-width:54ch;margin:1rem 0 0}
+.t-hero .acts{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+.btn-line{background:transparent;color:var(--ink);border:1.6px solid var(--ink)}.btn-line:hover{background:var(--ink);color:#fff}
+.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1rem;padding-bottom:4rem}
+.t-card{display:flex;flex-direction:column;gap:.55rem;padding:1.5rem;border-radius:var(--r);background:#fff;border:1px solid var(--line);transition:transform .15s,box-shadow .15s}
+.t-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(20,18,16,.08)}
+.t-card h2{font-family:'Jost',system-ui,sans-serif;font-size:1.25rem;font-weight:600;line-height:1.2;margin:0}
+.t-card p{margin:0;color:#5a534b;font-size:.94rem}
+.t-card .go{margin-top:auto;padding-top:.6rem;font-weight:700;font-size:.85rem;color:var(--gold-ink)}
+.t-card.new{background:var(--ink);color:#F2ECE1;border-color:var(--ink)}.t-card.new p{color:#E5D9C4}.t-card.new .go,.t-card.new .tag{color:#D9BF8F}
+.t-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:clamp(2rem,5vw,4rem);align-items:start;padding:2.6rem 0 4rem;border-top:1px solid var(--line)}
+.t-body h2{font-family:'Jost',system-ui,sans-serif;font-size:1.4rem;font-weight:600;margin:2.2rem 0 .7rem}
+.t-body h2:first-child{margin-top:0}
+.t-body p,.t-body li{color:#2b2620;font-size:1.04rem}
+.t-body ul,.t-body ol{padding-left:1.25rem;margin:.4rem 0}.t-body li{margin:.4rem 0}
+.t-two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.t-two>div{padding:1.1rem 1.3rem;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.t-two h3{margin:0 0 .3rem;font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-ink)}
+.t-two ul{margin:0;font-size:.96rem}
+.t-limit{margin-top:1.6rem;padding:1.1rem 1.3rem;border-radius:16px;background:var(--cream);color:#2b2620}
+.t-limit b{display:block;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:.3rem}
+.t-side{position:sticky;top:96px;display:flex;flex-direction:column;gap:1rem}
+.t-side .box{padding:1.3rem;border-radius:var(--r);background:#EAE2D7}
+.t-side .box h3{margin:0 0 .6rem;font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-ink)}
+.t-side .box a{display:block;padding:.45rem 0;border-bottom:1px solid rgba(122,92,46,.18);font-weight:600;font-size:.95rem}
+.t-side .box a:last-child{border-bottom:0}.t-side .box a:hover{color:var(--gold-ink)}
+.regions{width:100%;border-collapse:collapse;margin-top:.8rem;font-size:.95rem}
+.regions th,.regions td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+.regions th{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rg{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35em .75em;border-radius:100px;background:var(--blush);color:var(--gold-ink);white-space:nowrap}
+.rg.on{background:var(--gold-ink);color:#fff}
+@media(max-width:860px){.t-body{grid-template-columns:1fr}.t-side{position:static}.t-two{grid-template-columns:1fr}}
+/* software stack calculator */
+.st{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:1.4rem;align-items:start;padding-bottom:3rem}
+.st-panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.2rem;container-type:inline-size;min-width:0}
+.st-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1.65fr) minmax(0,.85fr) minmax(0,.9fr) minmax(0,.55fr) 36px;gap:.6rem;align-items:end;padding:.7rem 0;border-bottom:1px solid #F0E8DC}
+.st-f span:first-child{display:block;font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.st-row:not(:first-child) .st-f>span:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.st-f input,.st-f select{width:100%;font:inherit;font-size:.95rem;color:var(--ink);border:1.5px solid #E0D3BF;border-radius:10px;padding:.55rem .6rem;background:#fff;min-height:42px}
+.st-f input:focus,.st-f select:focus{outline:none;border-color:var(--gold-ink);box-shadow:0 0 0 3px rgba(122,92,46,.14)}
+.st-in{position:relative;display:block}.st-in i{position:absolute;left:.6rem;top:50%;transform:translateY(-50%);font-style:normal;color:var(--muted);font-size:.9rem}.st-in input{padding-left:1.4rem}
+.st-del{width:36px;height:42px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:1.4rem;cursor:pointer}.st-del:hover{background:var(--cream);color:#A3123F}
+.st-acts{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:1rem}
+.st-acts .link{background:none;border:0;font:inherit;font-weight:700;font-size:.88rem;color:var(--gold-ink);cursor:pointer;padding:.4rem}
+.st-note{font-size:.85rem;color:var(--muted);min-height:1.2em;margin:.6rem 0 0}
+.st-out{position:sticky;top:96px;background:#302A25;color:#F2ECE1;border-radius:20px;padding:1.4rem;display:flex;flex-direction:column;gap:1rem}
+.st-out .k{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CDB78F}
+.st-out .big{font-size:clamp(2.2rem,4vw,2.8rem);font-weight:500;line-height:1;letter-spacing:-.02em;color:#fff;margin-top:.35rem;font-variant-numeric:tabular-nums}
+.st-figs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.st-figs .v{font-size:1.15rem;font-weight:600;margin-top:.2rem;font-variant-numeric:tabular-nums}
+.st-g{margin-top:.7rem}.st-g-top{display:flex;justify-content:space-between;gap:.6rem;font-size:.88rem}.st-g-top small{color:#BFB2A0;font-size:.75rem;margin-left:.2rem}
+.st-bar{height:6px;border-radius:100px;background:#4A3E33;margin-top:.35rem;overflow:hidden}.st-bar span{display:block;height:100%;background:#D9BF8F;transition:width .3s}
+.st-empty{font-size:.9rem;color:#BFB2A0;margin:0}
+.st-ov{background:#F2ECE1;color:var(--ink);border-radius:14px;padding:.9rem 1rem;font-size:.9rem}.st-ov p{margin:.35rem 0 0}.st-ov-h{margin:0!important;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
+.st-priv{font-size:.8rem;color:#BFB2A0;margin:0}
+@media(max-width:1120px){.st{grid-template-columns:1fr}.st-out{position:static}}
+@container (max-width:620px){.st-row{grid-template-columns:1fr 1fr;padding:1rem 0;position:relative}.st-name,.st-group{grid-column:1/-1}.st-row .st-f>span:first-child{position:static!important;width:auto!important;height:auto!important;clip:auto!important}.st-del{position:absolute;top:.6rem;right:0}.st-name{padding-right:40px}}
 `;
 function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -219,11 +281,13 @@ async function journalIndex(env, url) {
   return htmlResp(layout({ title, desc: "What I'm learning about small business technology, practical AI, software costs and better workflows \u2014 written by Emma, the founder of After Five.", body, active: "blog", canonical, head: ld }));
 }
 __name(journalIndex, "journalIndex");
-var TOOL_LINKS = [
-  ["startup", "What will it cost to start?", "Start-up costs"],
-  ["opex", "What does it cost to run?", "Monthly operating"],
-  ["digital", "What will going digital cost?", "Going digital"]
-];
+// Calculators suggested under an article: the software-stack tool first, then two picked by topic.
+var TOOL_BY_TOPIC = { ai: ["going-digital-costs", "monthly-operating-costs"], tools: ["going-digital-costs", "monthly-operating-costs"], systems: ["monthly-operating-costs", "new-employee-cost"], strategy: ["can-i-go-full-time", "start-up-costs"], "building in public": ["start-up-costs", "can-i-go-full-time"] };
+function articleTools(tag) {
+  const pick = TOOL_BY_TOPIC[String(tag || "").toLowerCase()] || ["start-up-costs", "monthly-operating-costs"];
+  return ["software-stack"].concat(pick).map(toolBySlug).filter(Boolean);
+}
+__name(articleTools, "articleTools");
 async function articlePage(env, slug) {
   const a = await env.DB.prepare(`SELECT * FROM articles WHERE slug=? AND status='published'`).bind(slug).first();
   if (!a) return htmlResp(layout({ title: "Not found \u2014 After Five Founder", body: `<div class="empty" style="padding:5rem 0"><h1 class="serif">Post not found</h1><p><a class="btn btn-dark" href="/blog">&larr; Back to the blog</a></p></div>`, active: "blog", noindex: true }), 404);
@@ -255,7 +319,7 @@ async function articlePage(env, slug) {
     </div></article>
     <section class="more-wrap"><div class="wrap">
       ${related.length ? `<h2 class="serif">Keep <em>reading.</em></h2><div class="posts" style="padding-bottom:0">${related.map(postCard).join("")}</div>` : ""}
-      <div class="tools-strip">${TOOL_LINKS.map(([id, q, n]) => `<a href="/costing-suite.html#${id}">${q}<span>${n} calculator &rarr;</span></a>`).join("")}</div>
+      <div class="tools-strip">${articleTools(a.tag).map((t) => `<a href="/tools/${t.slug}">${esc(t.question)}<span>${esc(t.name)} calculator &rarr;</span></a>`).join("")}</div>
     </div></section>
     <script>document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var t=b.textContent;(navigator.clipboard?navigator.clipboard.writeText(b.getAttribute("data-copy")):Promise.reject()).then(function(){b.textContent="Copied";},function(){b.textContent="Copy failed";}).finally(function(){setTimeout(function(){b.textContent=t;},1800);});});});<\/script>`;
   const ld = jsonLd({
@@ -268,10 +332,84 @@ async function articlePage(env, slug) {
   return htmlResp(layout({ title: a.title + " \u2014 After Five Founder", desc: a.excerpt, body, active: "blog", canonical: url, ogType: "article", ogImage: cover ? SITE + cover : DEFAULT_OG, head: meta + ld }));
 }
 __name(articlePage, "articlePage");
+function toolHref(t) {
+  return "/tools/" + t.slug;
+}
+__name(toolHref, "toolHref");
+function toolAppHref(t) {
+  return t.tab ? "/costing-suite.html#" + t.tab : "/tools/" + t.slug + "#calculator";
+}
+__name(toolAppHref, "toolAppHref");
+function toolsIndex() {
+  const cards = TOOLS.map((t) => `<a class="t-card${t.standalone ? " new" : ""}" href="${toolHref(t)}"><span class="tag">${t.standalone ? "New &middot; " : ""}${esc(t.name)}</span><h2>${esc(t.question)}</h2><p>${esc(t.description)}</p><span class="go">How it works &amp; open it &rarr;</span></a>`).join("");
+  const body = `<header class="t-hero"><div class="wrap">
+      <span class="mono eyebrow">The After Five Toolkit</span>
+      <h1 class="serif">Better decisions start with <em>better numbers.</em></h1>
+      <p>Practical tools for the decisions small business owners actually have to make. Free, and they all run in your browser: nothing you type is sent anywhere.</p>
+    </div></header>
+    <div class="wrap"><div class="t-grid">${cards}</div></div>`;
+  const ld = jsonLd({ "@context": "https://schema.org", "@type": "CollectionPage", name: "The After Five Toolkit", url: SITE + "/tools", hasPart: TOOLS.map((t) => ({ "@type": "WebPage", name: t.title, url: SITE + toolHref(t) })) });
+  return htmlResp(layout({ title: "Free small business calculators — After Five Founder", desc: "Free calculators for start-up costs, product pricing, running costs, hiring, going digital, going full-time and your software subscriptions.", body, active: "resources", canonical: SITE + "/tools", head: ld }));
+}
+__name(toolsIndex, "toolsIndex");
+function regionTable() {
+  const rows = Object.entries(REGIONS).map(([k, r]) => `<tr><td>${esc(r.name)}</td><td><span class="rg${r.status === "available" ? " on" : ""}">${r.status === "available" ? "Available" : "Not yet"}</span></td><td>${r.status === "available" ? esc(r.note) : "Coming once the figures are checked against official sources. Until then, you can type your own rates into the calculator."}</td></tr>`).join("");
+  return `<h2>Which countries it works for</h2><table class="regions"><thead><tr><th>Region</th><th>Status</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+__name(regionTable, "regionTable");
+function toolPage(t) {
+  const li = (a) => a.map((x) => `<li>${esc(x)}</li>`).join("");
+  const others = TOOLS.filter((x) => x.slug !== t.slug);
+  const app = t.standalone ? stackCalculatorHtml() : "";
+  const body = `<header class="t-hero"><div class="wrap">
+      <a class="back" href="/tools" style="display:block;width:max-content;margin-bottom:1.2rem;color:var(--gold-ink);font-weight:700;font-size:.9rem">&larr; All tools</a>
+      <span class="mono eyebrow">${esc(t.title)}</span>
+      <h1 class="serif">${esc(t.question)}</h1>
+      <p>${esc(t.description)}</p>
+      ${t.standalone ? "" : `<div class="acts"><a class="btn btn-dark" href="${toolAppHref(t)}">Open the calculator &rarr;</a><a class="btn btn-line" href="#how">How it works</a></div>`}
+    </div></header>
+    ${app}
+    <div class="wrap t-body" id="how">
+      <div>
+        <h2>What it helps you decide</h2><p>${esc(t.helps)}</p>
+        <h2>What you&rsquo;ll need</h2><ul>${li(t.needs)}</ul>
+        <h2>How it&rsquo;s calculated</h2><ol>${li(t.how)}</ol>
+        <div class="t-two"><div><h3>Included</h3><ul>${li(t.includes)}</ul></div><div><h3>Not included</h3><ul>${li(t.excludes)}</ul></div></div>
+        <div class="t-limit"><b>Good to know</b>${esc(t.limits)}</div>
+        ${t.regional ? regionTable() : ""}
+        <p style="margin-top:2rem;font-size:.9rem;color:var(--muted)">Indicative figures for planning, not financial, tax or legal advice.${t.standalone ? "" : " Your entries save in this browser only, and you can export them to Excel."}</p>
+        ${t.standalone ? "" : `<p style="margin-top:1.4rem"><a class="btn btn-dark" href="${toolAppHref(t)}">Open the calculator &rarr;</a></p>`}
+      </div>
+      <aside class="t-side"><div class="box"><h3>Other tools</h3>${others.map((x) => `<a href="${toolHref(x)}">${esc(x.question)}</a>`).join("")}</div></aside>
+    </div>`;
+  const ld = jsonLd([
+    { "@context": "https://schema.org", "@type": "WebApplication", name: t.title, url: SITE + toolHref(t), description: t.description, applicationCategory: "BusinessApplication", operatingSystem: "Any (runs in your browser)", isAccessibleForFree: true, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, publisher: PUBLISHER },
+    { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Tools", item: SITE + "/tools" }, { "@type": "ListItem", position: 2, name: t.name, item: SITE + toolHref(t) }] }
+  ]);
+  return htmlResp(layout({ title: t.title + " — After Five Founder", desc: t.description, body: body + (t.standalone ? '<script src="/assets/stack.js" defer></script>' : ""), active: "resources", canonical: SITE + toolHref(t), head: ld }));
+}
+__name(toolPage, "toolPage");
+function stackCalculatorHtml() {
+  return `<section class="wrap" id="calculator" aria-label="Software stack calculator"><div class="st" id="stackCalc">
+      <div class="st-panel">
+        <div id="stRows"></div>
+        <div class="st-acts"><button type="button" class="btn btn-dark" id="stAdd">+ Add a tool</button><button type="button" class="btn btn-line" id="stExport">Export to Excel</button><button type="button" class="link" id="stClear">Clear all</button></div>
+        <p class="st-note" id="stNote" role="status"></p>
+      </div>
+      <aside class="st-out" aria-live="polite">
+        <div><div class="k">You spend each month</div><div class="big" id="stMonthly">$0.00</div></div>
+        <div class="st-figs"><div><div class="k">Per year</div><div class="v" id="stAnnual">$0</div></div><div><div class="k">Tools</div><div class="v" id="stCount">0</div></div></div>
+        <div><div class="k">By what it&rsquo;s for</div><div id="stGroups"></div></div>
+        <div class="st-ov" id="stOverlap" hidden></div>
+        <p class="st-priv">Saved in this browser only. Nothing you type is sent anywhere.</p>
+      </aside>
+    </div></section>`;
+}
+__name(stackCalculatorHtml, "stackCalculatorHtml");
 async function sitemap(env) {
   let posts = [];
   try { posts = await publishedPosts(env); } catch (e) {}
-  const stat = ["/", "/about", "/blog", "/costing-suite.html", "/shop.html"];
+  const stat = ["/", "/about", "/blog", "/tools", "/costing-suite.html", "/shop.html"].concat(TOOLS.map((t) => "/tools/" + t.slug));
   const urls = stat.map((p) => `<url><loc>${SITE}${p}</loc></url>`).concat(posts.map((a) => `<url><loc>${SITE}/blog/${esc(a.slug)}</loc>${(a.updated_at || a.published_at) ? `<lastmod>${esc((a.updated_at || a.published_at).slice(0, 10))}</lastmod>` : ""}</url>`));
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`, { headers: { "content-type": "application/xml;charset=utf-8", "cache-control": "max-age=3600", ...SEC } });
 }
@@ -626,6 +764,9 @@ var worker_default = {
       if (p === "/about" || p === "/about/") return aboutPage();
       if (p === "/") return await homePage(request, env);
       if (p === "/sitemap.xml") return await sitemap(env);
+      if (p === "/tools" || p === "/tools/") return toolsIndex();
+      let tm;
+      if (tm = p.match(/^\/tools\/([a-z0-9-]+)\/?$/)) { const t = toolBySlug(tm[1]); if (t) return toolPage(t); }
       if (p === "/journal" || p === "/journal/" || p === "/journal.html") return await journalIndex(env, url);
       let m;
       if (m = p.match(/^\/journal\/([a-z0-9-]+)\/?$/)) return await articlePage(env, m[1]);

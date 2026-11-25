@@ -1,6 +1,6 @@
 # After Five Founder: website evolution plan
 
-Status: Releases 1 and 2 implemented on branch `claude/project-thread-gfvxf0` (not deployed). Releases 3 and 4 are proposals.
+Status: Releases 1 and 2 are live (merged 25 Nov 2026). Release 3 is in review. Release 4 is a proposal.
 
 Guiding rule: **Human first. Technology second.** About 70% preservation, 30% evolution.
 
@@ -159,3 +159,26 @@ Labels are never set automatically. Existing posts stay unlabelled until you cho
 Checked locally with the mock D1 and labelled test posts: blog index, topic filter, article (every block), About and editor at 375 and 1440px with no horizontal scroll or script errors; JSON-LD, canonical and sitemap output; 404 is `noindex`; old `/journal` and `/post-…html` routes still work; homepage renders posts server-side and doesn't refetch; Release 1 checks (calculators, export, signup, menu) re-run and still pass.
 
 Moved to later: RSS and search (Release 4), per-post generated OG images (needs an image pipeline; posts with a cover image already use it), category landing pages (the topic filter covers this until each topic has several posts).
+
+---
+
+## Release 3: changed files and checks
+
+| File | Change |
+| --- | --- |
+| `tools.js` (new) | One list of every tool: question, what it helps decide, what you need, how it's calculated, included/excluded, limits, and the regional settings table. Formulas are described exactly as the Costing Suite code works today. |
+| `worker.js` | `/tools` index and `/tools/<slug>` pages for all seven tools, with `WebApplication` and breadcrumb structured data; tools added to the sitemap; article pages suggest the Software Stack calculator plus two calculators picked by topic. |
+| `public/assets/stack.js` (new) | Software Stack Calculator: tools, what each is for, price, monthly/yearly billing, seats; monthly and annual totals; totals by function; overlap flags; saves in the browser; CSV export. No server calls. |
+| `chrome.js` (synced) | Header "Resources" is now "Tools" and goes to `/tools`; the dropdown and footer include Software stack and "All tools". |
+| `public/costing-suite.html` | A "How this is calculated" link on each calculator and a link to `/tools`. No calculator code changed. |
+| `public/index.html` | Toolkit gains the software question and a "How each one works" link. |
+
+Tool pages: `/tools/start-up-costs`, `/tools/bill-of-materials`, `/tools/monthly-operating-costs`, `/tools/new-employee-cost`, `/tools/going-digital-costs`, `/tools/can-i-go-full-time`, `/tools/software-stack`. The six costing calculators still run at `/costing-suite.html#…`, so existing links and saved work are untouched.
+
+**Regional settings:** `REGIONS` in `tools.js` lists NZ as available and US, AU and UK as not yet. Nothing for those three is published until the figures are checked against official sources.
+
+**Calculator audit: please check.** The New employee calculator's default employer KiwiSaver rate is 3%. My understanding is that the employer minimum rose to 3.5% from 1 April 2026 (announced in Budget 2025), but I haven't verified that against Inland Revenue, so the default is unchanged. Also, holiday pay is added as 8% on top of 52 weeks of wages, which suits pay-as-you-go holiday pay but may double-count if leave is taken as paid time off within those 52 weeks. Both are flagged rather than changed.
+
+Checked locally: every tool page at 375 and 1440px with no horizontal scroll or script errors; Software Stack totals ($30 monthly + $240 yearly + $15 × 2 seats = $80.00/month, $960/year), overlap flag, reload persistence, add/remove rows and CSV export; sitemap lists all tool pages; Release 1 and 2 checks re-run and pass.
+
+Still to do in later work: one shared calculation module for the six costing calculators (kept as-is for now to avoid changing working maths), and verified regional payroll figures.
