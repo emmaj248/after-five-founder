@@ -31,5 +31,7 @@
     ]
   }
   // Custom domains (afterfivefounder.com) are managed in the Cloudflare dashboard.
-  // Secrets (set with `npx wrangler secret put`, never committed): ADMIN_PASSWORD, SESSION_SECRET
+  // Secrets (set with `npx wrangler secret put` or the dashboard, never committed):
+  // ACCESS_TEAM_DOMAIN, ACCESS_AUD, ADMIN_EMAILS for email sign-in to /admin (see README),
+  // or ADMIN_PASSWORD, SESSION_SECRET for the password fallback.
 }

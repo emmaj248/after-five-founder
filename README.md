@@ -21,7 +21,7 @@ This repo was rebuilt from what was live on 25 October 2026: the deployed Worker
 
 ## Writing blog posts
 
-Go to [afterfivefounder.com/admin](https://afterfivefounder.com/admin) and sign in with the `ADMIN_PASSWORD` secret. From there you can write a post, see a live preview, save it as a draft, publish it, unpublish it or delete it. Posts are written in plain text with a few shortcuts: `**bold**`, `*italic*`, `## Heading`, `> Quote`, `- List item` and `[link](https://...)`.
+Go to [afterfivefounder.com/admin](https://afterfivefounder.com/admin) and sign in (see [Signing in to the editor](#signing-in-to-the-editor)). From there you can write a post, see a live preview, save it as a draft, publish it, unpublish it or delete it. Posts are written in plain text with a few shortcuts: `**bold**`, `*italic*`, `## Heading`, `> Quote`, `- List item` and `[link](https://...)`.
 
 Optional blocks for reviews and explainers: start a line with `::: summary`, `::: costs`, `::: for`, `::: skip`, `::: before`, `::: verdict`, `::: sources` or `::: disclosure`, write the content, then close with a line containing just `:::`. The renderer lives in `public/assets/md.js` and is shared by the live site and the editor preview.
 
@@ -31,7 +31,29 @@ The editor's **Label** and **Prices checked on** fields use the columns in `migr
 
 **RSS:** published posts are at `/feed.xml` (also `/rss.xml`, `/feed` and `/rss`), newest 20, with the full text. Pages link to it in their `<head>`, and the footer links to it.
 
-If you've forgotten the password, set a new one with `npx wrangler secret put ADMIN_PASSWORD`, or in the Cloudflare dashboard under Workers & Pages → after-five-founder → Settings → Variables and Secrets.
+## Signing in to the editor
+
+The editor has two sign-in modes. The Worker picks one from its settings.
+
+**Email code (Cloudflare Access).** When `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` are set on the Worker, Cloudflare asks for your email at `/admin` and sends you a one-time code. The Worker checks Cloudflare's signed token on every editor request (signature, application, expiry and, if `ADMIN_EMAILS` is set, the address). The password form is switched off and **Sign out** ends the Access session.
+
+Setting it up, once, in the Cloudflare dashboard:
+
+1. **Zero Trust team.** Open Zero Trust from the dashboard sidebar. The first time, pick a team name (for example `afterfive`, giving `afterfive.cloudflareaccess.com`) and the **Free** plan. It may ask for a card; the free plan isn't charged.
+2. **Login method.** Zero Trust → Settings → Authentication → Login methods. Check **One-time PIN** is listed. Add it if not.
+3. **Access application.** Zero Trust → Access → Applications → Add an application → **Self-hosted**. Name it `Blog editor`. Add two public hostnames: `afterfivefounder.com` with path `admin`, and `afterfivefounder.com` with path `api/articles` (this also covers `/api/articles/123`). Pick a session length you're happy with, such as 1 week. Under login methods tick only One-time PIN, and turn on instant auth.
+4. **Policy.** Add a policy named `Just me`: action **Allow**, include **Emails** → your email address. Save the application.
+5. **Audience tag.** Open the application again and copy its **Application Audience (AUD) Tag**.
+6. **Worker settings.** Workers & Pages → after-five-founder → Settings → Variables and Secrets → Add. Choose type **Secret** for each so deploys don't remove them:
+   - `ACCESS_TEAM_DOMAIN`: your team name, such as `afterfive`
+   - `ACCESS_AUD`: the tag from step 5
+   - `ADMIN_EMAILS` (optional, recommended): your email address. A second lock in the Worker in case the Access policy is ever widened
+7. **Check it.** In a private window go to `/admin`. You should get Cloudflare's email prompt, then the editor with your address beside **Sign out**.
+8. **Tidy up.** Once that works, delete the `ADMIN_PASSWORD` and `SESSION_SECRET` secrets. They're no longer used.
+
+Do steps 1 to 5 before step 6: once step 6 is saved the Worker only accepts Access sign-ins.
+
+**Password (the fallback).** Without those settings, the editor uses the `ADMIN_PASSWORD` secret. To set a new one: `npx wrangler secret put ADMIN_PASSWORD`, or the dashboard under Workers & Pages → after-five-founder → Settings → Variables and Secrets. Preview URLs have neither, so nobody can sign in there.
 
 ## Changing the header or footer
 
@@ -40,7 +62,7 @@ Edit `chrome.js`, then run `node scripts/sync-chrome.mjs` to copy the change int
 ## What's not in this repo
 
 - **Blog posts and subscribers.** These live in the `afterfive-journal` D1 database, not in files.
-- **Secrets.** `ADMIN_PASSWORD` and `SESSION_SECRET` are set on the Worker in Cloudflare. To set them again: `npx wrangler secret put ADMIN_PASSWORD`.
+- **Secrets.** Set on the Worker in Cloudflare, never committed: `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` and `ADMIN_EMAILS` for email sign-in, or `ADMIN_PASSWORD` and `SESSION_SECRET` for the password fallback.
 - **Custom domains.** These are managed in the Cloudflare dashboard.
 
 ## Deploy
