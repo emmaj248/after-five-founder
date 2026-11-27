@@ -81,7 +81,8 @@ export function siteFollow(opts = {}) {
 }
 
 export function siteFooter() {
-  const socs = SOCIALS.map(([name, href, svg]) => `<a href="${href}" target="_blank" rel="noopener" aria-label="${name}">${svg}</a>`).join("");
+  // Plain-text platform names, no brand icons.
+  const socs = SOCIALS.map(([name, href]) => `<li><a href="${href}" target="_blank" rel="noopener">${name}</a></li>`).join("") + `<li><a href="/feed.xml">RSS feed</a></li>`;
   const explore = NAV.map(([, href, label]) => `<li><a href="${href}">${label}</a></li>`).join("") + `<li><a href="#join">Follow along</a></li>`;
   const tools = CALCULATORS.map(([id, name]) => `<li><a href="/costing-suite.html#${id}">${name}</a></li>`).join("") + EXTRA_TOOLS.map(([h, name]) => `<li><a href="${h}">${name}</a></li>`).join("") + `<li><a href="/tools">All tools &rarr;</a></li>`;
   return `<footer class="sx-foot">
@@ -91,22 +92,23 @@ export function siteFooter() {
         <a href="/"><img src="/assets/logo-full.png" alt="After Five Founder" width="720" height="238"></a>
         <p class="sx-tagline">Beyond the hype. Real businesses, real results.</p>
       </div>
-      <div>
+      <nav class="sx-foot-col" aria-label="Explore">
         <h3 class="sx-foot-head">Explore</h3>
         <ul class="sx-foot-links">${explore}</ul>
-      </div>
-      <div>
-        <h3 class="sx-foot-head">Tools</h3>
+      </nav>
+      <nav class="sx-foot-col sx-foot-tools" aria-label="Toolkit">
+        <h3 class="sx-foot-head">Toolkit</h3>
         <ul class="sx-foot-links">${tools}</ul>
-      </div>
-      <div>
+      </nav>
+      <div class="sx-foot-col">
         <h3 class="sx-foot-head">Follow</h3>
-        <div class="sx-socs">${socs}</div>
-        <p class="sx-rss"><a href="/feed.xml">RSS feed</a> for new posts</p>
+        <ul class="sx-foot-links sx-socs">${socs}</ul>
       </div>
     </div>
-    <div class="sx-base"><span>&copy; 2026 After Five Founder &middot; Building GobyGO in the open.</span><span>Powered by MinnowByte IT</span></div>
-    <p class="sx-tm">All product names, logos and trademarks are the property of their respective owners. After Five is not affiliated with, endorsed by, or sponsored by them; names are shown only to illustrate the tools small businesses use.</p>
+    <div class="sx-base">
+      <div class="sx-base-row"><span>&copy; 2026 After Five Founder &middot; Building GobyGO in the open.</span><span>Powered by MinnowByte IT</span></div>
+      <p class="sx-tm">All product names, logos and trademarks are the property of their respective owners. After Five is not affiliated with, endorsed by, or sponsored by them; names are shown only to illustrate the tools small businesses use.</p>
+    </div>
   </div>
 </footer>`;
 }
