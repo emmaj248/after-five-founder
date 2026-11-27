@@ -1,6 +1,8 @@
-// Blog editor at /admin. Talks to the Worker's /api/login and /api/articles.
+// Blog editor at /admin. Talks to the Worker's /api/articles (and /api/login when password sign-in is on).
 (function () {
   var $ = function (id) { return document.getElementById(id); };
+  // "access": Cloudflare Access handles sign-in (email code), so there's no password form.
+  var ACCESS = document.querySelector("main.admin").getAttribute("data-auth") === "access";
   var posts = [];
   var dirty = false;
 
@@ -30,6 +32,9 @@
     return fetch(path, opts).then(function (r) {
       return r.json().catch(function () { return { ok: false, error: "Something went wrong (" + r.status + ")." }; })
         .then(function (d) { d.httpStatus = r.status; return d; });
+    }, function () {
+      // With Access, an expired sign-in turns API calls into a redirect the browser blocks.
+      return { ok: false, httpStatus: ACCESS ? 401 : 0, error: "Couldn’t reach the site. Check your connection and try again." };
     });
   }
 
@@ -122,7 +127,7 @@
     if (!body.title.trim()) { flash("Add a title first.", false); $("f_title").focus(); return; }
     api("/api/articles" + (id ? "/" + id : ""), { method: id ? "PUT" : "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) })
       .then(function (d) {
-        if (d.httpStatus === 401) { flash("You’ve been signed out. Sign in again, then save.", false); return; }
+        if (d.httpStatus === 401) { flash(ACCESS ? "Your sign-in has expired. Copy your post somewhere safe, then reload the page to get a new email code." : "You’ve been signed out. Sign in again, then save.", false); return; }
         if (!d.ok) { flash(d.error || "Save failed.", false); return; }
         $("f_id").value = d.id;
         $("f_slug").value = d.slug;
@@ -148,8 +153,10 @@
   }
 
   // wire up
-  $("pw").addEventListener("keydown", function (e) { if (e.key === "Enter") login(); });
-  $("btnLogin").addEventListener("click", login);
+  if (!ACCESS) {
+    $("pw").addEventListener("keydown", function (e) { if (e.key === "Enter") login(); });
+    $("btnLogin").addEventListener("click", login);
+  }
   $("btnNew").addEventListener("click", function () { openEditor({ tag: "Journal" }); });
   $("btnBack").addEventListener("click", closeEditor);
   // Publishing is the approval step: confirm before a post goes live for the first time.
@@ -160,7 +167,10 @@
   });
   $("btnDraft").addEventListener("click", function () { save("draft"); });
   $("btnDelete").addEventListener("click", del);
-  $("btnLogout").addEventListener("click", function () { fetch("/api/logout").then(function () { location.reload(); }); });
+  $("btnLogout").addEventListener("click", function () {
+    if (ACCESS) { location.href = "/cdn-cgi/access/logout"; return; }
+    fetch("/api/logout").then(function () { location.reload(); });
+  });
   $("list").addEventListener("click", function (e) { var b = e.target.closest("[data-edit]"); if (b) edit(b.getAttribute("data-edit")); });
   ["f_title", "f_slug", "f_tag", "f_excerpt", "f_body", "f_kind", "f_verified", "f_cover"].forEach(function (id) {
     $(id).addEventListener("input", function () { dirty = true; renderPreview(); });

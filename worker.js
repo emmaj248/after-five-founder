@@ -548,7 +548,74 @@ function cookie(req, name) {
   return m ? decodeURIComponent(m[1]) : null;
 }
 __name(cookie, "cookie");
+// Cloudflare Access: the blog editor signs in with a one-time code emailed by Cloudflare.
+// It turns on once ACCESS_TEAM_DOMAIN and ACCESS_AUD are set on the Worker. From then on the
+// password sign-in is switched off, and every editor request must carry a valid Access token
+// (signed by your Zero Trust team, for this Access application, and not expired).
+// ADMIN_EMAILS (optional, comma separated) narrows it further to just those addresses.
+function accessOn(env) {
+  return !!(env.ACCESS_TEAM_DOMAIN && env.ACCESS_AUD);
+}
+__name(accessOn, "accessOn");
+// Accepts "yourteam", "yourteam.cloudflareaccess.com" or "https://yourteam.cloudflareaccess.com".
+function accessOrigin(env) {
+  let d = String(env.ACCESS_TEAM_DOMAIN).trim().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  if (!d.includes(".")) d += ".cloudflareaccess.com";
+  return "https://" + d.toLowerCase();
+}
+__name(accessOrigin, "accessOrigin");
+function b64urlBytes(s) {
+  s = s.replace(/-/g, "+").replace(/_/g, "/");
+  return Uint8Array.from(atob(s + "===".slice((s.length + 3) % 4)), (c) => c.charCodeAt(0));
+}
+__name(b64urlBytes, "b64urlBytes");
+// Public keys for checking Access tokens, cached for an hour. Fetched again early if Cloudflare rotates them.
+var accessKeys = null;
+async function accessKey(env, kid) {
+  const origin = accessOrigin(env);
+  const age = accessKeys && accessKeys.origin === origin ? Date.now() - accessKeys.at : Infinity;
+  if (age > 36e5 || (!accessKeys.keys.has(kid) && age > 6e4)) {
+    const r = await fetch(origin + "/cdn-cgi/access/certs");
+    if (!r.ok) return null;
+    const keys = /* @__PURE__ */ new Map();
+    for (const k of (await r.json()).keys || []) {
+      if (k.kty !== "RSA" || !k.kid) continue;
+      keys.set(k.kid, await crypto.subtle.importKey("jwk", { kty: "RSA", n: k.n, e: k.e, alg: "RS256", ext: true }, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]));
+    }
+    accessKeys = { origin, at: Date.now(), keys };
+  }
+  return accessKeys.keys.get(kid) || null;
+}
+__name(accessKey, "accessKey");
+// Returns the signed-in email if the request carries a valid Access token, otherwise null.
+async function accessEmail(req, env) {
+  const tok = req.headers.get("Cf-Access-Jwt-Assertion") || cookie(req, "CF_Authorization");
+  const parts = (tok || "").split(".");
+  if (parts.length !== 3) return null;
+  try {
+    const dec = (s) => JSON.parse(new TextDecoder().decode(b64urlBytes(s)));
+    const head = dec(parts[0]), claims = dec(parts[1]);
+    if (head.alg !== "RS256") return null;
+    const key = await accessKey(env, head.kid);
+    if (!key) return null;
+    if (!await crypto.subtle.verify("RSASSA-PKCS1-v1_5", key, b64urlBytes(parts[2]), new TextEncoder().encode(parts[0] + "." + parts[1]))) return null;
+    const now = Date.now() / 1e3;
+    const aud = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
+    if (!aud.includes(String(env.ACCESS_AUD).trim())) return null;
+    if (claims.iss !== accessOrigin(env)) return null;
+    if (!claims.exp || claims.exp < now || (claims.nbf && claims.nbf > now + 60)) return null;
+    const email = String(claims.email || "").toLowerCase();
+    if (!email) return null;
+    const allow = String(env.ADMIN_EMAILS || "").toLowerCase().split(/[\s,]+/).filter(Boolean);
+    if (allow.length && !allow.includes(email)) return null;
+    return email;
+  } catch (e) {
+    return null;
+  }
+}
+__name(accessEmail, "accessEmail");
 async function authed(req, env) {
+  if (accessOn(env)) return !!await accessEmail(req, env);
   return await validToken(env, cookie(req, "aff_session"));
 }
 __name(authed, "authed");
@@ -576,6 +643,7 @@ async function api(request, env, url) {
   const p = url.pathname, method = request.method;
   const secure = url.protocol === "https:" ? " Secure;" : "";
   if (p === "/api/login" && method === "POST") {
+    if (accessOn(env)) return json({ ok: false, error: "The editor now signs in with an email code. Reload the page to get one." }, 410);
     if (!await rateOk(env, "login:" + clientIp(request), 8, 300)) return json({ ok: false, error: "Too many attempts. Try again in a few minutes." }, 429);
     const { password } = await request.json().catch(() => ({}));
     if (!env.ADMIN_PASSWORD || password !== env.ADMIN_PASSWORD) return json({ ok: false, error: "Wrong password" }, 401);
@@ -698,7 +766,8 @@ async function saveArticle(env, b, id) {
   return json({ ok: true, id: r.meta.last_row_id, slug, status, warn });
 }
 __name(saveArticle, "saveArticle");
-function adminHtml() {
+// access: Cloudflare Access is on. email: who is signed in (Access only).
+function adminHtml({ access = false, email = "" } = {}) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Blog editor — After Five Founder</title>
   <link rel="icon" href="/assets/favicon.png">${FONTS}<style>${CSS}
   body{background:var(--cream)}
@@ -740,14 +809,15 @@ function adminHtml() {
   .muted{color:var(--muted);font-size:.86rem}.empty-list{padding:2rem;text-align:center;background:#fff;border-radius:14px}
   .cheats{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font-size:.8rem;color:var(--muted);margin:.4rem 0 0}.cheats code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:.05em .4em}
   </style></head><body>
-  <main class="admin">
-    <section id="login" class="login">
+  <main class="admin"${access ? ' data-auth="access"' : ""}>
+    <section id="login" class="login"${email ? " hidden" : ""}>
       <img src="/assets/logo-wm.png" alt="After Five Founder">
-      <h1 class="serif">Blog editor</h1>
+      <h1 class="serif">Blog editor</h1>${access ? `
+      <p class="muted">You\u2019re not signed in. Open <a class="link" href="https://afterfivefounder.com/admin">afterfivefounder.com/admin</a> and Cloudflare will email you a sign-in code.</p>` : `
       <p class="muted">Sign in to write and publish posts.</p>
       <div class="msg" id="loginErr" role="alert"></div>
       <div class="field" style="text-align:left"><label for="pw">Password</label><input type="password" id="pw" autocomplete="current-password"></div>
-      <button class="btn btn-dark" id="btnLogin" style="width:100%;justify-content:center">Sign in</button>
+      <button class="btn btn-dark" id="btnLogin" style="width:100%;justify-content:center">Sign in</button>`}
     </section>
 
     <div id="app" hidden>
@@ -757,7 +827,7 @@ function adminHtml() {
           <div><h1 class="serif">Your <em>posts</em></h1><span class="muted" id="count"></span></div>
           <div class="right">
             <a class="link" href="/blog" target="_blank" rel="noopener">View the blog</a>
-            <button class="link" id="btnLogout">Sign out</button>
+            ${email ? `<span class="muted">${esc(email)}</span>` : ""}<button class="link" id="btnLogout">Sign out</button>
             <button class="btn btn-dark" id="btnNew">+ New post</button>
           </div>
         </div>
@@ -798,7 +868,8 @@ function adminHtml() {
 }
 __name(adminHtml, "adminHtml");
 async function adminPage(request, env) {
-  return htmlResp(adminHtml());
+  if (!accessOn(env)) return htmlResp(adminHtml());
+  return htmlResp(adminHtml({ access: true, email: await accessEmail(request, env) || "" }));
 }
 __name(adminPage, "adminPage");
 var worker_default = {
